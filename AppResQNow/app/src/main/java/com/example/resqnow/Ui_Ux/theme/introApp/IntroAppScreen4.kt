@@ -18,12 +18,13 @@ import androidx.compose.ui.res.painterResource
 
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.resqnow.Components.Bắt_đầu_color
 
 import com.example.resqnow.R
 
 @Composable
-fun IntroScreen4() {
+fun IntroScreen4(navController: NavController) {
     Box(modifier = Modifier.fillMaxSize()){
         Image(painter = painterResource(R.drawable.image_intro4),contentDescription = "tay cầm phone"
             , modifier = Modifier
@@ -33,7 +34,7 @@ fun IntroScreen4() {
 
         Image(painter = painterResource(R.drawable.text_intro4),contentDescription = "chữ "
             ,modifier = Modifier
-                .padding(start = 10.dp, top =600.dp)
+                .padding(start = 10.dp, top = 600.dp)
                 .size(width = 370.dp, height = 70.dp)
         )
 
@@ -56,7 +57,7 @@ fun IntroScreen4() {
 
         }
         Button(
-            onClick = { /* TODO: Điều hướng màn hình */ },
+            onClick = { navController.navigate("OutroAppScreen1") },
             shape = CircleShape,
             colors = ButtonDefaults.buttonColors(Bắt_đầu_color),
             modifier = Modifier
@@ -74,8 +75,8 @@ fun IntroScreen4() {
     }
 
 }
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun PreviewIntroScreen4() {
-    IntroScreen4()
-}
+//@Preview(showBackground = true, showSystemUi = true)
+//@Composable
+//fun PreviewIntroScreen4() {
+//    IntroScreen4()
+//}

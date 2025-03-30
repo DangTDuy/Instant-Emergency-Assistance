@@ -24,13 +24,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.resqnow.Components.Bắt_đầu_color
 import com.example.resqnow.Components.Intro_color
 import com.example.resqnow.R
 
 @Composable
-fun IntroScreen2(){
+fun IntroScreen2(navController: NavController){
     Box(modifier = Modifier.fillMaxSize().background(color = Intro_color)) {
+
         Image(
             painter = painterResource(R.drawable.logo),
             contentDescription = "Logo",
@@ -54,7 +56,7 @@ fun IntroScreen2(){
         )
         Column(modifier = Modifier.fillMaxSize()) {
             Button(
-                onClick = { /*TODO*/ }, shape = RoundedCornerShape(14.dp), colors =ButtonDefaults.buttonColors(Color.White),
+                onClick = { navController.navigate("IntroAppScreen3") }, shape = RoundedCornerShape(14.dp), colors =ButtonDefaults.buttonColors(Color.White),
                 modifier = Modifier
 
                     .padding(top = 700.dp)

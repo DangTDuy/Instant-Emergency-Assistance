@@ -1,4 +1,4 @@
-package com.example.resqnow.Ui_Ux.theme.common
+package com.example.resqnow.Ui_Ux.theme.outroApp
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
@@ -6,45 +6,42 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.Image
-import com.example.resqnow.R
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
-import com.example.resqnow.Components.Intro_color
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
+import com.example.resqnow.Components.Intro_color
+import com.example.resqnow.R
 import com.example.resqnow.Ui_Ux.theme.Navigation.Screen
+import com.example.resqnow.Ui_Ux.theme.common.IntroScreen1
+import com.example.resqnow.Ui_Ux.theme.introApp.IntroScreen4
 import kotlinx.coroutines.delay
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
-import androidx.compose.animation.slideInHorizontally
-import androidx.compose.animation.slideOutHorizontally
-
-
-// Intro bắt đầu ứng dụng
-
 
 @Composable
-fun IntroScreen1 (navController: NavController){
+fun OutroScreen1(navController: NavController) {
     var isVisible by remember { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
-
-        isVisible = true // Ẩn xe trước khi chuyển màn hình
-        delay(200) // Đợi hiệu ứng hoàn tất
-        delay(500)
-        navController.navigate(Screen.ScreenIntro2.route)
+        isVisible = true
+        delay(500) // Chờ animation chạy xong
+        isVisible = false // Ẩn xe cứu thương trước khi chuyển màn hình
+        delay(200)
+        navController.navigate(Screen.ScreenOutro2.route) {
+            popUpTo(Screen.ScreenOutro1.route) { inclusive = true }
+        }
     }
     Box(modifier = Modifier.fillMaxSize().background(color = Intro_color)) {
         Image(painter = painterResource(R.drawable.intro1_1),contentDescription = "Đường kẽ ngang"
@@ -72,9 +69,8 @@ fun IntroScreen1 (navController: NavController){
     }
 }
 
-
 //@Preview(showBackground = true, showSystemUi = true)
 //@Composable
-//fun GreetingPreview() {
-//    IntroScreen()
+//fun PreviewIntroScreen4() {
+//    OutroScreen()
 //}
