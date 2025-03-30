@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "458962482020",
+    "project_id": "resqnow-d83fa",
+    "storage_bucket": "resqnow-d83fa.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:458962482020:android:0ceddef4b68b739a958071",
+        "android_client_info": {
+          "package_name": "com.example.resqnow"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyASYOh0hn-NfRGsfx3wjhwVL70EHLEUy1k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
