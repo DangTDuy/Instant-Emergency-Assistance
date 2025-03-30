@@ -7,6 +7,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.resqnow.Ui_Ux.theme.ResQnowTheme
+import com.example.resqnow.Ui_Ux.theme.introApp.IntroScreen
+import com.example.resqnow.Ui_Ux.theme.introApp.IntroScreen2
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -14,8 +16,8 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             ResQnowTheme {
-
-                }
+                IntroScreen2()
+            }
             }
         }
     }
@@ -28,6 +30,8 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun GreetingPreview() {
     ResQnowTheme {
+
+            IntroScreen2()
 
     }
 }
