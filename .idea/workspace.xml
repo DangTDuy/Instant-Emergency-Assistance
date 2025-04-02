@@ -4,38 +4,8 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a9c7bac4-4480-4133-a359-9f21783c39bf" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/AndroidProjectSystem.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/deploymentTargetSelector.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deploymentTargetSelector.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AppResQNow/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/AppResQNow/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AppResQNow/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/AppResQNow/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AppResQNow/app/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/AppResQNow/app/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AppResQNow/app/google-services.json" beforeDir="false" afterPath="$PROJECT_DIR$/AppResQNow/app/google-services.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AppResQNow/app/proguard-rules.pro" beforeDir="false" afterPath="$PROJECT_DIR$/AppResQNow/app/proguard-rules.pro" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AppResQNow/app/src/androidTest/java/com/example/resqnow/ExampleInstrumentedTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/AppResQNow/app/src/androidTest/java/com/example/resqnow/ExampleInstrumentedTest.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AppResQNow/app/src/main/java/com/example/resqnow/Ui_Ux/theme/Color.kt" beforeDir="false" afterPath="$PROJECT_DIR$/AppResQNow/app/src/main/java/com/example/resqnow/Ui_Ux/theme/Color.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AppResQNow/app/src/main/java/com/example/resqnow/Ui_Ux/theme/Navigation/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/AppResQNow/app/src/main/java/com/example/resqnow/Ui_Ux/theme/Navigation/MainActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AppResQNow/app/src/main/java/com/example/resqnow/Ui_Ux/theme/Theme.kt" beforeDir="false" afterPath="$PROJECT_DIR$/AppResQNow/app/src/main/java/com/example/resqnow/Ui_Ux/theme/Theme.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AppResQNow/app/src/main/java/com/example/resqnow/Ui_Ux/theme/Type.kt" beforeDir="false" afterPath="$PROJECT_DIR$/AppResQNow/app/src/main/java/com/example/resqnow/Ui_Ux/theme/Type.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AppResQNow/app/src/main/res/drawable/ic_launcher_background.xml" beforeDir="false" afterPath="$PROJECT_DIR$/AppResQNow/app/src/main/res/drawable/ic_launcher_background.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AppResQNow/app/src/main/res/drawable/ic_launcher_foreground.xml" beforeDir="false" afterPath="$PROJECT_DIR$/AppResQNow/app/src/main/res/drawable/ic_launcher_foreground.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AppResQNow/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" beforeDir="false" afterPath="$PROJECT_DIR$/AppResQNow/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AppResQNow/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" beforeDir="false" afterPath="$PROJECT_DIR$/AppResQNow/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AppResQNow/app/src/main/res/values/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/AppResQNow/app/src/main/res/values/colors.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AppResQNow/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/AppResQNow/app/src/main/res/values/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AppResQNow/app/src/main/res/values/themes.xml" beforeDir="false" afterPath="$PROJECT_DIR$/AppResQNow/app/src/main/res/values/themes.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AppResQNow/app/src/main/res/xml/backup_rules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/AppResQNow/app/src/main/res/xml/backup_rules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AppResQNow/app/src/main/res/xml/data_extraction_rules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/AppResQNow/app/src/main/res/xml/data_extraction_rules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AppResQNow/app/src/test/java/com/example/resqnow/ExampleUnitTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/AppResQNow/app/src/test/java/com/example/resqnow/ExampleUnitTest.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AppResQNow/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/AppResQNow/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AppResQNow/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/AppResQNow/gradle.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AppResQNow/gradle/libs.versions.toml" beforeDir="false" afterPath="$PROJECT_DIR$/AppResQNow/gradle/libs.versions.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AppResQNow/gradlew" beforeDir="false" afterPath="$PROJECT_DIR$/AppResQNow/gradlew" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AppResQNow/settings.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/AppResQNow/settings.gradle.kts" afterDir="false" />
+    <list default="true" id="ce90d1d6-a3dd-4a4f-b523-e11cf6744a6b" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,7 +15,6 @@
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[DeviceId(pluginId=LocalEmulator, isTemplate=false, identifier=path=C:\Users\thanh\.android\avd\Pixel_9_Pro_API_35.avd)]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$/AppResQNow">
       <ProjectState />
@@ -66,10 +35,23 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "huynh-dang187"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/DangTDuy/Instant-Emergency-Assistance.git",
+    "accountId": "e0d169d0-4201-47a8-a720-a01f4982ceed"
+  }
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 6
 }</component>
   <component name="ProjectId" id="2vAIp1i1G6mjbZmIMMd2FlnhfkQ" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -84,7 +66,8 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
-    "git-widget-placeholder": "main",
+    "dart.analysis.tool.window.visible": "false",
+    "git-widget-placeholder": "SubMainForApp",
     "ignore.virus.scanning.warn.message": "true",
     "last_opened_file_path": "C:/Instant-Emergency-Assistance/AppResQNow/build.gradle.kts"
   }
@@ -111,40 +94,11 @@
       <option name="CLEAR_LOGCAT" value="false" />
       <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
       <option name="TARGET_SELECTION_MODE" value="DEVICE_AND_SNAPSHOT_COMBO_BOX" />
-      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
-      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
-      <option name="DEBUGGER_TYPE" value="Auto" />
-      <Auto>
-        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
-        <option name="SHOW_STATIC_VARS" value="true" />
-        <option name="WORKING_DIR" value="" />
-        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
-        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
-        <option name="ATTACH_ON_WAIT_FOR_DEBUGGER" value="false" />
-        <option name="DEBUG_SANDBOX_SDK" value="false" />
-      </Auto>
-      <Hybrid>
-        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
-        <option name="SHOW_STATIC_VARS" value="true" />
-        <option name="WORKING_DIR" value="" />
-        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
-        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
-        <option name="ATTACH_ON_WAIT_FOR_DEBUGGER" value="false" />
-        <option name="DEBUG_SANDBOX_SDK" value="false" />
-      </Hybrid>
+      <option name="DEBUGGER_TYPE" value="Java" />
       <Java>
         <option name="ATTACH_ON_WAIT_FOR_DEBUGGER" value="false" />
         <option name="DEBUG_SANDBOX_SDK" value="false" />
       </Java>
-      <Native>
-        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
-        <option name="SHOW_STATIC_VARS" value="true" />
-        <option name="WORKING_DIR" value="" />
-        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
-        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
-        <option name="ATTACH_ON_WAIT_FOR_DEBUGGER" value="false" />
-        <option name="DEBUG_SANDBOX_SDK" value="false" />
-      </Native>
       <Profilers>
         <option name="ADVANCED_PROFILING_ENABLED" value="false" />
         <option name="STARTUP_PROFILING_ENABLED" value="false" />
@@ -158,9 +112,7 @@
       <option name="ACTIVITY_CLASS" value="" />
       <option name="SEARCH_ACTIVITY_IN_GLOBAL_SCOPE" value="false" />
       <option name="SKIP_ACTIVITY_VALIDATION" value="false" />
-      <method v="2">
-        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-      </method>
+      <method v="2" />
     </configuration>
     <configuration name="hhhh" type="ComposePreviewRunConfiguration">
       <option name="ANDROID_RUN_CONFIGURATION_SCHEMA_VERSION" value="1" />
@@ -182,40 +134,11 @@
       <option name="CLEAR_LOGCAT" value="false" />
       <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
       <option name="TARGET_SELECTION_MODE" value="DEVICE_AND_SNAPSHOT_COMBO_BOX" />
-      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
-      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
-      <option name="DEBUGGER_TYPE" value="Auto" />
-      <Auto>
-        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
-        <option name="SHOW_STATIC_VARS" value="true" />
-        <option name="WORKING_DIR" value="" />
-        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
-        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
-        <option name="ATTACH_ON_WAIT_FOR_DEBUGGER" value="false" />
-        <option name="DEBUG_SANDBOX_SDK" value="false" />
-      </Auto>
-      <Hybrid>
-        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
-        <option name="SHOW_STATIC_VARS" value="true" />
-        <option name="WORKING_DIR" value="" />
-        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
-        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
-        <option name="ATTACH_ON_WAIT_FOR_DEBUGGER" value="false" />
-        <option name="DEBUG_SANDBOX_SDK" value="false" />
-      </Hybrid>
+      <option name="DEBUGGER_TYPE" value="Java" />
       <Java>
         <option name="ATTACH_ON_WAIT_FOR_DEBUGGER" value="false" />
         <option name="DEBUG_SANDBOX_SDK" value="false" />
       </Java>
-      <Native>
-        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
-        <option name="SHOW_STATIC_VARS" value="true" />
-        <option name="WORKING_DIR" value="" />
-        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
-        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
-        <option name="ATTACH_ON_WAIT_FOR_DEBUGGER" value="false" />
-        <option name="DEBUG_SANDBOX_SDK" value="false" />
-      </Native>
       <Profilers>
         <option name="ADVANCED_PROFILING_ENABLED" value="false" />
         <option name="STARTUP_PROFILING_ENABLED" value="false" />
