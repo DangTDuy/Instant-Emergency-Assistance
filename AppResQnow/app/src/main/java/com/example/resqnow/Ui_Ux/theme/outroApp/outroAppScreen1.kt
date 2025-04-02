@@ -59,8 +59,7 @@ fun OutroScreen1(navController: NavController) {
                     .size(width = 87.dp, height = 200.dp)
 
             )
-
-
+            
         }
     }
 }
