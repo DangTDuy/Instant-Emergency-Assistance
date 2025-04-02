@@ -33,7 +33,6 @@ import androidx.navigation.compose.rememberNavController
 import com.example.resqnow.Components.Bắt_đầu_color
 
 import com.example.resqnow.R
-import com.example.resqnow.Ui_Ux.theme.Navigation.Screen
 import kotlinx.coroutines.delay
 
 @Composable

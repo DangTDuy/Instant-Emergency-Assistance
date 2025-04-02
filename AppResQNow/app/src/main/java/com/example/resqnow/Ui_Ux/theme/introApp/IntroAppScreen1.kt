@@ -23,13 +23,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.resqnow.Ui_Ux.theme.Navigation.Screen
+import com.example.resqnow.Ui_Ux.theme.Router.Screen
 import kotlinx.coroutines.delay
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
-import androidx.compose.animation.slideInHorizontally
-import androidx.compose.animation.slideOutHorizontally
 
 
 // Intro bắt đầu ứng dụng

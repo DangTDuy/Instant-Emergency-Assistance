@@ -19,15 +19,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.example.resqnow.Components.Intro_color
 import com.example.resqnow.R
-import com.example.resqnow.Ui_Ux.theme.Navigation.Screen
-import com.example.resqnow.Ui_Ux.theme.common.IntroScreen1
-import com.example.resqnow.Ui_Ux.theme.introApp.IntroScreen4
+import com.example.resqnow.Ui_Ux.theme.Router.Screen
 import kotlinx.coroutines.delay
 
 @Composable
