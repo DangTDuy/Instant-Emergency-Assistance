@@ -12,6 +12,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.resqnow.Ui_Ux.theme.Homepage.HomePage1
 import com.example.resqnow.Ui_Ux.theme.ResQnowTheme
+import com.example.resqnow.Ui_Ux.theme.SignUp.SignupScreen
 import com.example.resqnow.Ui_Ux.theme.common.IntroScreen1
 
 import com.example.resqnow.Ui_Ux.theme.introApp.IntroScreen2
@@ -28,7 +29,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             ResQnowTheme {
-                Navigation()
+                SignupScreen()
             }
             }
         }

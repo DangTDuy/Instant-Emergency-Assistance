@@ -7,3 +7,6 @@ import  androidx.compose.ui.graphics.Color
 
 val Intro_color = Color(0xFFD32F2F)
 val Bắt_đầu_color = Color(0xFF007AFF)
+
+//FlowSignInScreen
+val background = Color(0xFFF8EEEC) // kem hồng phấn
