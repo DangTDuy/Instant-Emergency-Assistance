@@ -1,5 +1,6 @@
 package com.example.resqnow.Ui_Ux.theme.introApp
 
+import androidx.compose.ui.unit.sp
 
 
 import androidx.compose.animation.AnimatedVisibility
@@ -25,6 +26,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -52,11 +54,27 @@ fun IntroScreen3(navController: NavController) {
                 .fillMaxSize()
         )
 
-        Image(painter = painterResource(R.drawable.text_intro3),contentDescription = "chữ "
-            ,modifier = Modifier
-                .padding(start = 10.dp, top =600.dp)
-                .size(width = 355.69.dp, height = 59.dp)
-        )
+
+        Box(
+            modifier = Modifier.fillMaxSize() // Mở rộng toàn bộ màn hình
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 270.dp)
+                    .align(Alignment.BottomCenter), // Căn xuống dưới
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(
+                    text = "Sơ cứu - Đúng cách - An toàn",
+                    style = MaterialTheme.typography.headlineLarge,
+                    color = Color.Black,
+                    fontSize = 25.sp,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+        }
+
         AnimatedVisibility(
             visible = isVisible,
             enter = slideInHorizontally(initialOffsetX = { -100 }) + fadeIn(),
