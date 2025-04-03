@@ -15,9 +15,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.resqnow.Components.Bắt_đầu_color
 
@@ -32,11 +34,32 @@ fun IntroScreen4(navController: NavController) {
                 .fillMaxSize()
         )
 
-        Image(painter = painterResource(R.drawable.text_intro4),contentDescription = "chữ "
-            ,modifier = Modifier
-                .padding(start = 10.dp, top = 600.dp)
-                .size(width = 370.dp, height = 70.dp)
-        )
+        Box(
+            modifier = Modifier.fillMaxSize() // Mở rộng toàn bộ màn hình
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 270.dp)
+                    .align(Alignment.BottomCenter), // Căn xuống dưới
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(
+                    text = "Hướng dẫn sơ cứu tức thì",
+                    style = MaterialTheme.typography.headlineLarge,
+                    color = Color.Black,
+                    fontSize = 22.sp,
+                    fontWeight = FontWeight.Bold
+                )
+                Text(
+                    text = "Giúp bạn xử lý mọi tình huống khẩn cấp!",
+                    style = MaterialTheme.typography.headlineLarge,
+                    color = Color.Black,
+                    fontSize = 22.sp,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+        }
 
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier
             .padding(start = 2.dp, top = 700.dp)

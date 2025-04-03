@@ -69,7 +69,7 @@ fun IntroScreen3(navController: NavController) {
                     text = "Sơ cứu - Đúng cách - An toàn",
                     style = MaterialTheme.typography.headlineLarge,
                     color = Color.Black,
-                    fontSize = 25.sp,
+                    fontSize = 22.sp,
                     fontWeight = FontWeight.Bold
                 )
             }
