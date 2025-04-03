@@ -61,7 +61,7 @@ fun IntroScreen3(navController: NavController) {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(bottom = 270.dp)
+                    .padding(bottom = 250.dp)
                     .align(Alignment.BottomCenter), // Căn xuống dưới
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
