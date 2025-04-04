@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -88,7 +89,7 @@ fun HomePage1(navController: NavController) {
             }
         }
 
-        Spacer(modifier = Modifier.height(10.dp))
+        Spacer(modifier = Modifier.width(5.dp))
 
         Box {
             Image(
@@ -104,7 +105,7 @@ fun HomePage1(navController: NavController) {
                     .padding(top = 20.dp)
             ) {
                 Text(
-                    text = "00:00 , Ngày 00 tháng 00",
+                    text = "00:00,Ngày 00 tháng 00",
                     fontSize = 17.sp,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier.padding(start = 16.dp)
@@ -114,8 +115,8 @@ fun HomePage1(navController: NavController) {
 
                 Text(
                     text = "LH: 0123456789",
-                    fontSize = 17.sp,
-                    fontWeight = FontWeight.Bold,
+                    fontSize = 15.sp,
+                    fontWeight = FontWeight.SemiBold,
                 )
             }
 
@@ -258,14 +259,16 @@ fun HomePage1(navController: NavController) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(top = 800.dp)
-            .height(80.dp),
-        contentAlignment = Alignment.BottomCenter
+            .padding(top = 750.dp)
+            .height(80.dp)
+
+
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(vertical = 8.dp),
+
             horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -274,31 +277,37 @@ fun HomePage1(navController: NavController) {
                 contentDescription = "Trang chủ",
                 contentScale = ContentScale.Fit,
                 modifier = Modifier
-                    .size(130.dp)
+                    .size(140.dp)
                     .clickable {}
             )
+            Spacer(modifier = Modifier.width(10.dp))
             Image(
                 painter = painterResource(R.drawable.a),
                 contentDescription = "",
                 contentScale = ContentScale.Fit,
                 modifier = Modifier
-                    .size(60.dp)
+                    .size(50.dp)
+
                     .clickable {}
             )
+            Spacer(modifier = Modifier.width(10.dp))
             Image(
                 painter = painterResource(R.drawable.b),
                 contentDescription = "",
                 contentScale = ContentScale.Fit,
                 modifier = Modifier
-                    .size(50.dp)
+                    .size(40.dp)
+
                     .clickable {}
             )
+            Spacer(modifier = Modifier.width(10.dp))
             Image(
                 painter = painterResource(R.drawable.c),
                 contentDescription = "",
                 contentScale = ContentScale.Fit,
                 modifier = Modifier
-                    .size(50.dp)
+                    .size(40.dp)
+
                     .clickable {}
             )
         }
