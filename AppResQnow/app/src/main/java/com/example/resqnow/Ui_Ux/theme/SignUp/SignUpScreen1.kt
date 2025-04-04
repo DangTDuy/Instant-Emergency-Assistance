@@ -72,9 +72,6 @@ fun SignupScreen() {
                 .fillMaxWidth()
                 .align(Alignment.TopCenter)
                 .height(365.dp)
-
-
-
         )
         Image(
             painter = painterResource(R.drawable.home_page),

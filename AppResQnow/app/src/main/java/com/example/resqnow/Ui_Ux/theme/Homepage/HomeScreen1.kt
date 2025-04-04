@@ -81,7 +81,7 @@ fun HomePage1(navController: NavController) {
                         .clip(RoundedCornerShape(15.dp)),
                 ) {
                     Text(
-                        text = "Đăng ký",
+                        text = "Đăng Nhập",
                         fontSize = 14.sp,
                         color = Color.White
                     )
