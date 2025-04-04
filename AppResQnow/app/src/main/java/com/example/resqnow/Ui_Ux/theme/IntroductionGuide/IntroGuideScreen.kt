@@ -172,7 +172,7 @@ fun IntroductionGuide(navController: NavController) {
                 contentScale = ContentScale.Fit,
                 modifier = Modifier
                     .size(140.dp)
-                    .clickable {}
+                    .clickable (onClick = {navController.navigate("HomeScreen1")})
             )
             Spacer(modifier = Modifier.width(10.dp))
             Image(

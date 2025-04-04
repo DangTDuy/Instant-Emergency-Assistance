@@ -16,9 +16,11 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -305,14 +307,31 @@ fun HomePage1(navController: NavController) {
             horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.CenterVertically
         ) {
+            var showDialog by remember { mutableStateOf(false) }
+
             Image(
                 painter = painterResource(R.drawable.trangchu),
                 contentDescription = "Trang chủ",
                 contentScale = ContentScale.Fit,
                 modifier = Modifier
                     .size(140.dp)
-                    .clickable {}
+                    .clickable {
+                        showDialog = true
+                    }
             )
+
+            if (showDialog) {
+                AlertDialog(
+                    onDismissRequest = { showDialog = false },
+                    title = { Text("Xin chào!") },
+                    text = { Text("Bạn đang ở trang chủ.") },
+                    confirmButton = {
+                        TextButton(onClick = { showDialog = false }) {
+                            Text("Đóng")
+                        }
+                    }
+                )
+            }
             Spacer(modifier = Modifier.width(10.dp))
             Image(
                 painter = painterResource(R.drawable.a),
