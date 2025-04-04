@@ -26,6 +26,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -75,10 +76,9 @@ fun HomePage1(navController: NavController) {
                 Button(
                     onClick = {navController.navigate("SignupScreen") },
                     colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
-                    shape = RoundedCornerShape(50.dp),
                     modifier = Modifier
-                        .width(100.dp)
-                        .height(50.dp)
+                        .size(width = 127.dp, height = 45.dp)
+                        .clip(RoundedCornerShape(15.dp)),
                 ) {
                     Text(
                         text = "Đăng ký",
@@ -103,28 +103,28 @@ fun HomePage1(navController: NavController) {
             Row(
                 modifier = Modifier
                     .padding(top = 20.dp)
+                    .fillMaxWidth()
             ) {
                 Text(
 
                     text = "00:00,Ngày 00 tháng 00",
-                    fontSize = 17.sp,
-
-
+                    fontSize = 14.sp,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier.padding(start = 16.dp)
                 )
 
-                Spacer(modifier = Modifier.width(80.dp))
+                Spacer(modifier = Modifier.width(50.dp))
 
                 Text(
                     text = "LH: 0123456789",
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Bold,
+                    modifier = Modifier.offset(x = 35.dp)
 
                 )
             }
 
-            Row(modifier = Modifier.padding(top = 50.dp, start = 300.dp)) {
+            Row(modifier = Modifier.padding(top = 50.dp, start = 270.dp)) {
                 Image(
                     painter = painterResource(R.drawable.facebook),
                     contentDescription = "fb",
