@@ -10,11 +10,11 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -71,15 +71,15 @@ fun HomePage1(navController: NavController) {
 
             Box(
                 modifier = Modifier
-                    .offset(x = 10.dp,y = -5.dp)
+                    .offset(x = 10.dp, y = -5.dp)
                     .background(brush = gradientBrush, shape = RoundedCornerShape(50.dp))
             ) {
                 Button(
-                    onClick = {navController.navigate("SignupScreen") },
+                    onClick = { navController.navigate("SignupScreen") },
                     colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
                     modifier = Modifier
                         .size(width = 127.dp, height = 45.dp)
-                        .clip(RoundedCornerShape(15.dp)),
+                        .clip(RoundedCornerShape(15.dp))
                 ) {
                     Text(
                         text = "Đăng ký",
@@ -107,7 +107,6 @@ fun HomePage1(navController: NavController) {
                     .fillMaxWidth()
             ) {
                 Text(
-
                     text = "00:00,Ngày 00 tháng 00",
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Bold,
@@ -121,7 +120,6 @@ fun HomePage1(navController: NavController) {
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier.offset(x = 35.dp)
-
                 )
             }
 
@@ -170,6 +168,37 @@ fun HomePage1(navController: NavController) {
                             .width(360.dp)
                             .height(250.dp)
                     )
+
+                    Row(
+                        modifier = Modifier
+                            .align(Alignment.Center)
+                            .padding(top = 100.dp),
+                        horizontalArrangement = Arrangement.spacedBy(10.dp)
+                    ) {
+                        if (currentImageIndex == 0) {
+                            Box(
+                                modifier = Modifier
+                                    .size(10.dp)
+                                    .background(Color.Red, CircleShape)
+                            )
+                            Box(
+                                modifier = Modifier
+                                    .size(10.dp)
+                                    .background(Color.White, CircleShape)
+                            )
+                        } else {
+                            Box(
+                                modifier = Modifier
+                                    .size(10.dp)
+                                    .background(Color.White, CircleShape)
+                            )
+                            Box(
+                                modifier = Modifier
+                                    .size(10.dp)
+                                    .background(Color.Red, CircleShape)
+                            )
+                        }
+                    }
 
                     Image(
                         painter = painterResource(R.drawable.trai),
@@ -240,7 +269,7 @@ fun HomePage1(navController: NavController) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .offset(y = 240.dp)
-                    .padding(horizontal = 16.dp),
+                    .padding(horizontal = 16.dp)
             ) {
                 Image(
                     painter = painterResource(R.drawable.gioithieu),
@@ -261,24 +290,18 @@ fun HomePage1(navController: NavController) {
             }
         }
     }
+
     Box(
         modifier = Modifier
             .fillMaxWidth()
             .padding(top = 750.dp)
-
-            .height(80.dp)
-
-
-
             .height(80.dp),
         contentAlignment = Alignment.BottomCenter
-
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(vertical = 8.dp),
-
             horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -297,7 +320,6 @@ fun HomePage1(navController: NavController) {
                 contentScale = ContentScale.Fit,
                 modifier = Modifier
                     .size(50.dp)
-
                     .clickable {}
             )
             Spacer(modifier = Modifier.width(10.dp))
@@ -307,7 +329,6 @@ fun HomePage1(navController: NavController) {
                 contentScale = ContentScale.Fit,
                 modifier = Modifier
                     .size(40.dp)
-
                     .clickable {}
             )
             Spacer(modifier = Modifier.width(10.dp))
@@ -317,7 +338,6 @@ fun HomePage1(navController: NavController) {
                 contentScale = ContentScale.Fit,
                 modifier = Modifier
                     .size(40.dp)
-
                     .clickable {}
             )
         }
