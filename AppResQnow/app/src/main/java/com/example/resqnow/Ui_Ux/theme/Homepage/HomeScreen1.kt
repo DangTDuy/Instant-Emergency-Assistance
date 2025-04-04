@@ -53,7 +53,7 @@ fun HomePage1(navController: NavController) {
                 fontWeight = FontWeight.Bold
             )
 
-            Spacer(modifier = Modifier.width(100.dp))
+            Spacer(modifier = Modifier.width(60.dp))
 
             Image(
                 painter = painterResource(R.drawable.kinhlup),
@@ -61,8 +61,9 @@ fun HomePage1(navController: NavController) {
                 modifier = Modifier
                     .size(40.dp)
                     .clickable {}
+                    .offset(x = 10.dp)
             )
-            Spacer(modifier = Modifier.width(10.dp))
+            Spacer(modifier = Modifier.width(5.dp))
 
             val gradientBrush = Brush.linearGradient(
                 colors = listOf(Color(0xFFFA382D), Color(0xFF94211A))
@@ -70,7 +71,7 @@ fun HomePage1(navController: NavController) {
 
             Box(
                 modifier = Modifier
-                    .offset(y = -5.dp)
+                    .offset(x = 10.dp,y = -5.dp)
                     .background(brush = gradientBrush, shape = RoundedCornerShape(50.dp))
             ) {
                 Button(
