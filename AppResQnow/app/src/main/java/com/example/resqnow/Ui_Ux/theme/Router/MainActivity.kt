@@ -29,11 +29,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             ResQnowTheme {
-<<<<<<< HEAD
-            Navigation()
-=======
-                Navigation()
->>>>>>> 4eb582471bbca1fb4d830e042a480e076af2dd9d
+                SignupScreen()
             }
             }
         }

@@ -105,13 +105,11 @@ fun HomePage1(navController: NavController) {
                     .padding(top = 20.dp)
             ) {
                 Text(
-<<<<<<< HEAD
+
                     text = "00:00,Ngày 00 tháng 00",
                     fontSize = 17.sp,
-=======
-                    text = "00:00 , Ngày 00 tháng 00",
-                    fontSize = 14.sp,
->>>>>>> 4eb582471bbca1fb4d830e042a480e076af2dd9d
+
+
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier.padding(start = 16.dp)
                 )
@@ -120,13 +118,9 @@ fun HomePage1(navController: NavController) {
 
                 Text(
                     text = "LH: 0123456789",
-<<<<<<< HEAD
-                    fontSize = 15.sp,
-                    fontWeight = FontWeight.SemiBold,
-=======
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Bold,
->>>>>>> 4eb582471bbca1fb4d830e042a480e076af2dd9d
+
                 )
             }
 
@@ -270,14 +264,14 @@ fun HomePage1(navController: NavController) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(top = 750.dp)
-<<<<<<< HEAD
+
             .height(80.dp)
 
 
-=======
+
             .height(80.dp),
         contentAlignment = Alignment.BottomCenter
->>>>>>> 4eb582471bbca1fb4d830e042a480e076af2dd9d
+
     ) {
         Row(
             modifier = Modifier

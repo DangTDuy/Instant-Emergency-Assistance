@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.OutlinedTextField
@@ -46,6 +47,7 @@ import com.example.resqnow.Components.background
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.withStyle
 
 @Composable
@@ -58,9 +60,19 @@ fun SignupScreen() {
         modifier = Modifier
             .fillMaxWidth()
             .fillMaxHeight()
-            .padding(top = 20.dp)
             .background(background)
+
     ) {
+        Image(
+            painter = painterResource(R.drawable.top_background1),
+            contentDescription = null,
+            modifier = Modifier
+                .fillMaxWidth()
+
+                .height(365.dp)
+            ,contentScale = ContentScale.Crop
+
+        )
         Image(
             painter = painterResource(R.drawable.home_page),
             contentDescription = null,
@@ -70,13 +82,6 @@ fun SignupScreen() {
                 .zIndex(1f),
         )
 
-        Image(
-            painter = painterResource(R.drawable.top_background1),
-            contentDescription = null,
-            modifier = Modifier
-                .size(width = 411.dp, height = 365.dp)
-                .padding(top = 0.dp)
-        )
 
 
         Text(
