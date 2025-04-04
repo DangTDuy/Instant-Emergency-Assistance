@@ -51,7 +51,7 @@ fun HomePage1(navController: NavController) {
                 fontWeight = FontWeight.Bold
             )
 
-            Spacer(modifier = Modifier.width(90.dp))
+            Spacer(modifier = Modifier.width(100.dp))
 
             Image(
                 painter = painterResource(R.drawable.kinhlup),
@@ -72,7 +72,7 @@ fun HomePage1(navController: NavController) {
                     .background(brush = gradientBrush, shape = RoundedCornerShape(50.dp))
             ) {
                 Button(
-                    onClick = {},
+                    onClick = {navController.navigate("SignupScreen") },
                     colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
                     shape = RoundedCornerShape(50.dp),
                     modifier = Modifier
@@ -105,16 +105,16 @@ fun HomePage1(navController: NavController) {
             ) {
                 Text(
                     text = "00:00 , Ngày 00 tháng 00",
-                    fontSize = 17.sp,
+                    fontSize = 14.sp,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier.padding(start = 16.dp)
                 )
 
-                Spacer(modifier = Modifier.width(50.dp))
+                Spacer(modifier = Modifier.width(80.dp))
 
                 Text(
                     text = "LH: 0123456789",
-                    fontSize = 17.sp,
+                    fontSize = 14.sp,
                     fontWeight = FontWeight.Bold,
                 )
             }
@@ -258,7 +258,7 @@ fun HomePage1(navController: NavController) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(top = 800.dp)
+            .padding(top = 750.dp)
             .height(80.dp),
         contentAlignment = Alignment.BottomCenter
     ) {
