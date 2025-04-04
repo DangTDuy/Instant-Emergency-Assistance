@@ -11,6 +11,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.resqnow.Ui_Ux.theme.Homepage.HomePage1
+import com.example.resqnow.Ui_Ux.theme.IntroductionGuide.IntroductionGuide
 import com.example.resqnow.Ui_Ux.theme.ResQnowTheme
 import com.example.resqnow.Ui_Ux.theme.SignUp.SignupScreen
 import com.example.resqnow.Ui_Ux.theme.common.IntroScreen1
@@ -74,6 +75,10 @@ fun Navigation() {
 
         // Signup
         composable("SignupScreen") { SignupScreen() }
+
+        //
+        composable("IntroductionGuide") { IntroductionGuide(navController = navController) }
+
 
         //flow Homepage
         composable("HomeScreen1") { HomePage1(navController = navController) }

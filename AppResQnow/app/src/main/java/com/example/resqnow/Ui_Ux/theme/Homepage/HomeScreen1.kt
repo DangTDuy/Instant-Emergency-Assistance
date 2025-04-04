@@ -53,7 +53,7 @@ fun HomePage1(navController: NavController) {
                 fontWeight = FontWeight.Bold
             )
 
-            Spacer(modifier = Modifier.width(60.dp))
+            Spacer(modifier = Modifier.width(80.dp))
 
             Image(
                 painter = painterResource(R.drawable.kinhlup),
@@ -276,7 +276,7 @@ fun HomePage1(navController: NavController) {
                     contentDescription = "tính năng 3",
                     modifier = Modifier
                         .size(180.dp)
-                        .clickable(onClick = {})
+                        .clickable(onClick = {navController.navigate("IntroductionGuide") })
                 )
                 Spacer(modifier = Modifier.width(20.dp))
                 Image(
