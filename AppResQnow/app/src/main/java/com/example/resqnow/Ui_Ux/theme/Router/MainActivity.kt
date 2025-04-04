@@ -29,7 +29,11 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             ResQnowTheme {
+<<<<<<< HEAD
             Navigation()
+=======
+                Navigation()
+>>>>>>> 4eb582471bbca1fb4d830e042a480e076af2dd9d
             }
             }
         }
@@ -72,8 +76,12 @@ fun Navigation() {
 
         }
 
+        // Signup
+        composable("SignupScreen") { SignupScreen() }
+
         //flow Homepage
         composable("HomeScreen1") { HomePage1(navController = navController) }
+
 
     }
 }
