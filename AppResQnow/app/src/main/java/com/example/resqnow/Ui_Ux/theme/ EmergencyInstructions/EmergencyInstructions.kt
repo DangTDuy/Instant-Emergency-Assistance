@@ -104,14 +104,14 @@ fun EmergencyInstructions(navController: NavController){
                 fontSize = 30.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.White,
-                modifier = Modifier.padding(start = 250.dp, top = 60.dp)
+                modifier = Modifier.padding(start = 230.dp, top = 60.dp)
             )
             Text(
                 text = "  khẩn cấp",
                 fontSize = 30.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.White,
-                modifier = Modifier.padding(start = 250.dp, top = 95.dp)
+                modifier = Modifier.padding(start = 230.dp, top = 95.dp)
             )
             Image(
                 painter = painterResource(R.drawable.nen1),

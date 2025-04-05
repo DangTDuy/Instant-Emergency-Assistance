@@ -105,7 +105,7 @@ fun LearnFirstAid(navController: NavController) {
                 fontSize = 30.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.White,
-                modifier = Modifier.padding(start = 250.dp, top = 70.dp)
+                modifier = Modifier.padding(start = 220.dp, top = 70.dp)
             )
             Image(
                 painter = painterResource(R.drawable.nen1),
