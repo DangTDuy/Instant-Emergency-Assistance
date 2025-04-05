@@ -1,4 +1,4 @@
-package com.example.resqnow.Ui_Ux.theme.IntroductionGuide
+package com.example.resqnow.Ui_Ux.theme.EmergencyInstructions
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -14,8 +14,6 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -34,10 +32,9 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.resqnow.R
 
-// màn hình giới thiệu ứng dụng
-
-@Composable
-fun IntroductionGuide(navController: NavController) {
+// màn hinh hướng dẫn khẩn cấp
+ @Composable
+fun EmergencyInstructions(navController: NavController){
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -88,7 +85,6 @@ fun IntroductionGuide(navController: NavController) {
                 }
             }
         }
-
         Spacer(modifier = Modifier.height(20.dp))
 
         Box(
@@ -104,11 +100,18 @@ fun IntroductionGuide(navController: NavController) {
                     .width(500.dp)
             )
             Text(
-                text = "Giới Thiệu",
+                text = "Hướng dẫn",
                 fontSize = 30.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.White,
-                modifier = Modifier.padding(start = 250.dp, top = 70.dp)
+                modifier = Modifier.padding(start = 250.dp, top = 60.dp)
+            )
+            Text(
+                text = "  khẩn cấp",
+                fontSize = 30.sp,
+                fontWeight = FontWeight.Bold,
+                color = Color.White,
+                modifier = Modifier.padding(start = 250.dp, top = 95.dp)
             )
             Image(
                 painter = painterResource(R.drawable.nen1),
@@ -120,40 +123,15 @@ fun IntroductionGuide(navController: NavController) {
                     .height(430.dp)
             )
             Image(
-                painter = painterResource(R.drawable.gt),
+                painter = painterResource(R.drawable.huongdankhancap),
                 contentDescription = "ảnh",
                 modifier = Modifier
                     .padding(end = 150.dp, top = 30.dp)
-                    .height(230.dp)
-                    .width(350.dp)
+                    .height(200.dp)
+                    .width(300.dp)
             )
-            LazyColumn(
-                modifier = Modifier
-                    .padding(top = 240.dp)
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp)
-            ) {
-                items(listOf(
-                    R.drawable.buttonsotaycuuthuong,
-                    R.drawable.btcanhanhoa,
-                    R.drawable.bthocphuongphapsocuu,
-                    R.drawable.btlienlackhancap,
-                    R.drawable.bttimdiachibenhvien
-                )) { imageRes ->
-                    Image(
-                        painter = painterResource(imageRes),
-                        contentDescription = "",
-                        contentScale = ContentScale.Fit,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(200.dp)
-                            .padding(vertical = 8.dp)
-                    )
-                }
-            }
         }
     }
-
     Box(
         modifier = Modifier
             .fillMaxWidth()

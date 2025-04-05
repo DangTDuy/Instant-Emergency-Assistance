@@ -252,7 +252,7 @@ fun HomePage1(navController: NavController) {
                     contentDescription = "tính năng 1",
                     modifier = Modifier
                         .size(200.dp)
-                        .clickable(onClick = {})
+                        .clickable(onClick = {navController.navigate("EmergencyInstructions") })
                 )
 
                 Spacer(modifier = Modifier.width(10.dp))
@@ -263,7 +263,7 @@ fun HomePage1(navController: NavController) {
                     modifier = Modifier
                         .offset(y = -10.dp)
                         .size(300.dp)
-                        .clickable(onClick = {})
+                        .clickable(onClick = {navController.navigate("LearnFirstAid") })
                 )
             }
 
@@ -287,7 +287,7 @@ fun HomePage1(navController: NavController) {
                     modifier = Modifier
                         .offset(y = 20.dp)
                         .size(190.dp)
-                        .clickable(onClick = {})
+                        .clickable(onClick = {navController.navigate("Personalization") })
                 )
             }
         }
