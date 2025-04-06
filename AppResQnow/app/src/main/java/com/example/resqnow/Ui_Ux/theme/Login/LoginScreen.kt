@@ -1,4 +1,4 @@
-package com.example.resqnow.Ui_Ux.theme.SignUp
+package com.example.resqnow.Ui_Ux.theme.Login
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.OutlinedTextField
@@ -50,9 +49,10 @@ import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.withStyle
+import androidx.navigation.NavController
 
 @Composable
-fun SignupScreen() {
+fun LoginScreen(navController: NavController) {
     var passwordVisible by rememberSaveable { mutableStateOf(false) }
     var phoneNumber by rememberSaveable { mutableStateOf("") }
     var password by rememberSaveable { mutableStateOf("") }
@@ -125,6 +125,7 @@ fun SignupScreen() {
 
 
         OutlinedTextField(
+
             value = password,
             onValueChange = { password = it },
             modifier = Modifier
@@ -161,9 +162,26 @@ fun SignupScreen() {
             shape = RoundedCornerShape(15.dp),
         )
 
-
+        var isPasswordIncorrect by rememberSaveable { mutableStateOf(false) }
+//        Text(
+//            text = "Email hoặc mật khẩu không đúng,vui lòng thử lại",
+//            color = Color.Red,
+//            fontSize = 14.sp,
+//            modifier = Modifier
+//                .padding(start = 29.dp, top = 531.dp) // căn chỉnh theo layout của bạn
+//        )
         Button(
-            onClick = {},
+            onClick = {
+
+                if (password == "123456") {
+                    isPasswordIncorrect = false
+                    navController.navigate("LoginSuccess")
+
+                }else{
+                    isPasswordIncorrect = true
+                }
+            },
+
             modifier = Modifier
                 .offset(x = 260.dp, y = 550.dp)
                 .size(width = 127.dp, height = 37.dp)
@@ -174,6 +192,19 @@ fun SignupScreen() {
         ) {
             Text(text = "Tiếp tục", fontSize = 17.sp, fontWeight = FontWeight.ExtraBold, color = Color.White)
         }
+
+        //đặt logic đúng-sai mật khẩu
+        if (isPasswordIncorrect) {
+            Text(
+                text = "Số điện thoại hoặc mật khẩu không đúng, vui lòng thử lại",
+                color = Color.Red,
+                fontSize = 14.sp,
+                modifier = Modifier
+                    .padding(start = 29.dp)
+                    .offset(y = 550.dp) // chỉnh sao cho phù hợp layout
+            )
+        }
+
 
         Row(
             horizontalArrangement = Arrangement.Center,
@@ -247,17 +278,20 @@ fun SignupScreen() {
                 modifier = Modifier.padding(top = 700.dp),
                 text = buildAnnotatedString {
                     append("Bạn là người mới? ")
-                    withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)) {
+                    withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)
+
+                    ) {
                         append("Đăng ký")
                     }
                 }
             )
         }
+        Row(modifier = Modifier.fillMaxSize(),horizontalArrangement = Arrangement.Center) {
+            Text(text = "Quên mật khẩu ?",
+                fontWeight = FontWeight.SemiBold,
+                modifier = Modifier.padding(top = 780.dp)
+            )
+        }
     }
 }
 
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun PreviewSignupScreen() {
-    SignupScreen()
-}

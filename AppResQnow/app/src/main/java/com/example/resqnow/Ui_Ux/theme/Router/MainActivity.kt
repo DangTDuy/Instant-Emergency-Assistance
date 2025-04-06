@@ -13,8 +13,12 @@ import androidx.navigation.compose.rememberNavController
 import com.example.resqnow.Ui_Ux.theme.EmergencyInstructions.EmergencyInstructions
 import com.example.resqnow.Ui_Ux.theme.Homepage.HomePage1
 import com.example.resqnow.Ui_Ux.theme.IntroductionGuide.IntroductionGuide
+import com.example.resqnow.Ui_Ux.theme.Login.LoginScreen
+import com.example.resqnow.Ui_Ux.theme.Login.LoginScreenSuccess
 import com.example.resqnow.Ui_Ux.theme.ResQnowTheme
-import com.example.resqnow.Ui_Ux.theme.SignUp.SignupScreen
+import com.example.resqnow.Ui_Ux.theme.Router.Screen.LoginSuccess
+
+import com.example.resqnow.Ui_Ux.theme.SignIn.SignInSuccessScreen
 import com.example.resqnow.Ui_Ux.theme.common.IntroScreen1
 
 import com.example.resqnow.Ui_Ux.theme.introApp.IntroScreen2
@@ -52,6 +56,11 @@ sealed class Screen(val route: String) {
     object ScreenOutro3 : Screen("outroAppScreen3")
     //Homepage
     object HomePage1 : Screen("HomeScreen1")
+
+    //Login
+    object LoginScreen : Screen("LoginScreen")
+    object LoginSuccess : Screen("LoginSuccess")
+
 }
 //Hàm Controller màn hình
 @Composable
@@ -76,10 +85,12 @@ fun Navigation() {
 
         }
 
-        // Signup
-        composable("SignupScreen") { SignupScreen() }
+        // Login
+        composable("LoginScreen") { LoginScreen(navController = navController) }
+        composable("LoginSuccess") { LoginScreenSuccess(navController = navController) }
 
-        //
+
+        //IntroductionGuide
         composable("IntroductionGuide") { IntroductionGuide(navController = navController) }
 
 

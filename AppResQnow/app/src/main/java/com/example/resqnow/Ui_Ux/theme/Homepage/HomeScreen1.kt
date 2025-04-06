@@ -77,7 +77,7 @@ fun HomePage1(navController: NavController) {
                     .background(brush = gradientBrush, shape = RoundedCornerShape(50.dp))
             ) {
                 Button(
-                    onClick = { navController.navigate("SignupScreen") },
+                    onClick = { navController.navigate("LoginScreen") },
                     colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
                     modifier = Modifier
                         .size(width = 127.dp, height = 45.dp)
