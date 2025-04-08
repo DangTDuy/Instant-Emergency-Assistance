@@ -53,9 +53,11 @@ import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.withStyle
+import androidx.navigation.NavController
+import com.example.resqnow.Data.Api_and_Firebase.FireBaseGoogle.GoogleAuthUiClient
 
 @Composable
-fun SignInSuccessScreen() {
+fun SignInSuccessScreen(navController: NavController, googleAuthUiClient: GoogleAuthUiClient) {
     Box (
         modifier = Modifier
             .fillMaxSize()
@@ -84,17 +86,17 @@ fun SignInSuccessScreen() {
             fontSize = 25.sp,
             fontWeight = FontWeight.SemiBold,
             modifier = Modifier
-                .padding(start = 80.dp,top = 365.dp)
+                .padding(start = 65.dp,top = 365.dp)
             )
         Button(
-            onClick = {},
+            onClick = {navController.navigate("HomeScreen1")},
             colors = ButtonDefaults.buttonColors(Color(0xFFF5F5DC)),
             modifier = Modifier
                 .padding(start = 95.dp, top = 420.dp)
                 .border(3.dp, Color.Red, shape = RoundedCornerShape(14.dp))
                 .size(width = 200.dp, height = 47.dp)
         ){
-            Text(text = "Đăng nhập", fontSize = 20.sp, fontWeight = FontWeight.Bold, color = Color.Black)
+            Text(text = "Trang Chủ", fontSize = 20.sp, fontWeight = FontWeight.Bold, color = Color.Black)
         }
 
 

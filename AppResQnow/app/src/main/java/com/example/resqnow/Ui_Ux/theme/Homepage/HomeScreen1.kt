@@ -33,14 +33,20 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.example.resqnow.Data.Api_and_Firebase.FireBaseGoogle.GoogleAuthUiClient
+import com.example.resqnow.Data.Api_and_Firebase.FireBaseGoogle.UserViewModel
 import com.example.resqnow.R
 
 @Composable
-fun HomePage1(navController: NavController) {
+fun HomePage1(navController: NavController,googleAuthUiClient: GoogleAuthUiClient) {
+    val user = googleAuthUiClient.getSignedInUser()
+//    val user = userViewModel.currentUser
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -74,19 +80,28 @@ fun HomePage1(navController: NavController) {
             Box(
                 modifier = Modifier
                     .offset(x = 10.dp, y = -5.dp)
+                    .size(width = 100.dp,height = 45.dp)
                     .background(brush = gradientBrush, shape = RoundedCornerShape(50.dp))
             ) {
-                Button(
-                    onClick = { navController.navigate("LoginScreen") },
-                    colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
-                    modifier = Modifier
-                        .size(width = 127.dp, height = 45.dp)
-                        .clip(RoundedCornerShape(15.dp))
-                ) {
+                if (user != null) {
+                    // Nếu đã đăng nhập, hiển thị tên người dùng
                     Text(
-                        text = "Đăng Nhập",
-                        fontSize = 14.sp,
-                        color = Color.White
+                        text = "${user.name}",
+                        fontSize = 13.sp,
+                        color = Color.White, fontWeight = FontWeight.ExtraBold,
+                        modifier = Modifier.align(Alignment.Center)
+                    )
+                } else {
+                    // Nếu chưa đăng nhập, hiển thị "Đăng nhập" và cho phép nhấp
+                    Text(
+                        text = "Đăng nhập",
+                        fontSize = 13.sp,
+                        color = Color.White, fontWeight = FontWeight.ExtraBold,
+                        modifier = Modifier
+                            .align(Alignment.Center)
+                            .clickable {
+                            navController.navigate("SignInScreen")
+                        }
                     )
                 }
             }
@@ -109,7 +124,7 @@ fun HomePage1(navController: NavController) {
                     .fillMaxWidth()
             ) {
                 Text(
-                    text = "00:00,Ngày 00 tháng 00",
+                    text = "14:00,Ngày 24 tháng 08",
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier.padding(start = 16.dp)
@@ -118,7 +133,7 @@ fun HomePage1(navController: NavController) {
                 Spacer(modifier = Modifier.width(50.dp))
 
                 Text(
-                    text = "LH: 0123456789",
+                    text = "LH: 0808.555.555",
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier.offset(x = 35.dp)

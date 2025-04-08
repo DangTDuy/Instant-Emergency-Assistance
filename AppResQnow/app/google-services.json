@@ -1,26 +1,44 @@
 {
   "project_info": {
-    "project_number": "458962482020",
-    "project_id": "resqnow-d83fa",
-    "storage_bucket": "resqnow-d83fa.firebasestorage.app"
+    "project_number": "852336046287",
+    "project_id": "resqnow-5f303",
+    "storage_bucket": "resqnow-5f303.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:458962482020:android:0ceddef4b68b739a958071",
+        "mobilesdk_app_id": "1:852336046287:android:816aaa20c72ede3c2cc7ba",
         "android_client_info": {
           "package_name": "com.example.resqnow"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "852336046287-h847c0smv3lqvtk46hs3es6o3utqjk8g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.resqnow",
+            "certificate_hash": "1d54884f1491dad335d6c480c4d4943c5fc016f6"
+          }
+        },
+        {
+          "client_id": "852336046287-bcop8t4bv02r7m1n6i4nb33ugr84tu5q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
-          "current_key": "AIzaSyASYOh0hn-NfRGsfx3wjhwVL70EHLEUy1k"
+          "current_key": "AIzaSyAfacRoVL0SpPwL1FnHzFeEikjpsJU-qbI"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "852336046287-bcop8t4bv02r7m1n6i4nb33ugr84tu5q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

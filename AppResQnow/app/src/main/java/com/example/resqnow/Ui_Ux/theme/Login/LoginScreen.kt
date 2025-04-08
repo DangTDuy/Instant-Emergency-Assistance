@@ -3,6 +3,7 @@ package com.example.resqnow.Ui_Ux.theme.Login
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -242,9 +243,14 @@ fun LoginScreen(navController: NavController) {
             }
             Spacer(modifier = Modifier.width(16.dp))
 
+
+
+
+
+
             // Google button
             Button(
-                onClick = {},
+                onClick = {navController.navigate("SignInScreen")},
                 modifier = Modifier
                     .size(width = 150.dp, height = 49.dp)
                     .border(3.dp, Color.Red, shape = RoundedCornerShape(15.dp)),
@@ -273,23 +279,30 @@ fun LoginScreen(navController: NavController) {
         }
 
         // Register link
-        Row(modifier = Modifier.fillMaxSize(), horizontalArrangement = Arrangement.Center) {
+        Row(
+            modifier = Modifier.fillMaxSize(),
+            horizontalArrangement = Arrangement.Center
+        ) {
             Text(
-                modifier = Modifier.padding(top = 700.dp),
-                text = buildAnnotatedString {
-                    append("Bạn là người mới? ")
-                    withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)
-
-                    ) {
-                        append("Đăng ký")
+                text = "Bạn là người mới? ",
+                fontSize = 16.sp,
+                modifier = Modifier.padding(top = 700.dp)
+            )
+            Text(
+                text = "Đăng ký",
+                fontSize = 16.sp,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier
+                    .padding(top = 700.dp)
+                    .clickable {
+                        navController.navigate("SignInScreen") // Điều hướng đến SignInScreen
                     }
-                }
             )
         }
         Row(modifier = Modifier.fillMaxSize(),horizontalArrangement = Arrangement.Center) {
             Text(text = "Quên mật khẩu ?",
                 fontWeight = FontWeight.SemiBold,
-                modifier = Modifier.padding(top = 780.dp)
+                modifier = Modifier.padding(top = 750.dp)
             )
         }
     }

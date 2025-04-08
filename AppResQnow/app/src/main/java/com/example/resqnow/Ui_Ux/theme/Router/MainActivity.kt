@@ -1,15 +1,30 @@
 package com.example.resqnow.Ui_Ux.theme.Router // nới chứa các Navigation
 
 
+import android.app.Activity
+import android.app.Activity.RESULT_OK
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+
 import android.os.Bundle
+
 import androidx.activity.ComponentActivity
+import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.google.android.gms.auth.api.identity.Identity
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.resqnow.Data.Api_and_Firebase.FireBaseGoogle.GoogleAuthUiClient
+import com.example.resqnow.Data.Api_and_Firebase.FireBaseGoogle.SignInScreen
+import com.example.resqnow.Data.Api_and_Firebase.FireBaseGoogle.SignInViewModel
+import com.example.resqnow.Data.Api_and_Firebase.FireBaseGoogle.UserViewModel
 import com.example.resqnow.Ui_Ux.theme.EmergencyInstructions.EmergencyInstructions
 import com.example.resqnow.Ui_Ux.theme.Homepage.HomePage1
 import com.example.resqnow.Ui_Ux.theme.IntroductionGuide.IntroductionGuide
@@ -31,13 +46,20 @@ import com.example.resqnow.Ui_Ux.theme.outroApp.OutroScreen3
 import com.example.resqnow.Ui_Ux.theme.personalization.Personalization
 
 
+
 class MainActivity : ComponentActivity() {
+    private val googleAuthUiClient by lazy {
+        GoogleAuthUiClient(
+            context = this,
+            oneTapClient = Identity.getSignInClient(this)
+        )
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
             ResQnowTheme {
-                Navigation()
+                Navigation(googleAuthUiClient)
             }
             }
         }
@@ -60,13 +82,23 @@ sealed class Screen(val route: String) {
     //Login
     object LoginScreen : Screen("LoginScreen")
     object LoginSuccess : Screen("LoginSuccess")
+    //SignIn
+    object SignInScreen : Screen("SignInScreen")
+    object SignInSuccess : Screen("SignInSuccess")
 
 }
 //Hàm Controller màn hình
 @Composable
-fun Navigation() {
-    val navController = rememberNavController()
+fun Navigation(googleAuthUiClient: GoogleAuthUiClient) {
 
+    val navController = rememberNavController()
+    val userViewModel: UserViewModel = viewModel()
+
+    val startDestination = if (googleAuthUiClient.getSignedInUser() != null) {
+        "HomeScreen1"
+    } else {
+        "IntroScreen1"
+    }
     NavHost(navController = navController, startDestination = "IntroAppScreen1") {
         //flow Intro
         composable("IntroAppScreen1") { IntroScreen1(navController = navController) }
@@ -85,17 +117,31 @@ fun Navigation() {
 
         }
 
-        // Login
-        composable("LoginScreen") { LoginScreen(navController = navController) }
-        composable("LoginSuccess") { LoginScreenSuccess(navController = navController) }
+        //Signin
+        composable("SignInScreen") {
+            com.example.resqnow.Ui_Ux.theme.Login.SignInScreen(navController = navController,
+                googleAuthUiClient = googleAuthUiClient,
+                userViewModel = userViewModel
+                )
+        }
+        composable("SignInSuccess") {
+            SignInSuccessScreen(
+                navController = navController,
+                googleAuthUiClient = googleAuthUiClient
 
+            )
+        }
+        //Login
+        composable("LoginScreen") {LoginScreen(navController=navController)}
+        composable("LoginSuccess") {LoginScreenSuccess(navController=navController)}
+        //flow Homepage
+        composable("HomeScreen1") { HomePage1(navController = navController, googleAuthUiClient = googleAuthUiClient) }
 
         //IntroductionGuide
         composable("IntroductionGuide") { IntroductionGuide(navController = navController) }
 
 
-        //flow Homepage
-        composable("HomeScreen1") { HomePage1(navController = navController) }
+
 
         //learn first aid
         composable("LearnFirstAid") { LearnFirstAid(navController = navController) }
@@ -112,7 +158,7 @@ fun Navigation() {
 fun GreetingPreview() {
     ResQnowTheme {
 
-            IntroScreen2(navController = rememberNavController())
+//            IntroScreen2(navController = rememberNavController())
 
     }
 }

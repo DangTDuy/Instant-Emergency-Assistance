@@ -14,6 +14,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 
@@ -30,18 +31,18 @@ fun IntroScreen4(navController: NavController) {
     Box(modifier = Modifier.fillMaxSize()){
         Image(painter = painterResource(R.drawable.image_intro4),contentDescription = "tay cầm phone"
             , modifier = Modifier
-                .offset(x = 0.dp, y = (-50).dp)
+                .offset(x = 0.dp, y = (-60).dp)
                 .fillMaxSize()
         )
 
         Box(
-            modifier = Modifier.fillMaxSize() // Mở rộng toàn bộ màn hình
+            modifier = Modifier.fillMaxSize()
         ) {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(bottom = 270.dp)
-                    .align(Alignment.BottomCenter), // Căn xuống dưới
+                    .padding(top = 550.dp)
+                    ,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
@@ -98,8 +99,8 @@ fun IntroScreen4(navController: NavController) {
     }
 
 }
-//@Preview(showBackground = true, showSystemUi = true)
-//@Composable
-//fun PreviewIntroScreen4() {
-//    IntroScreen4()
-//}
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+fun PreviewIntroScreen4() {
+    IntroScreen4(navController = NavController(LocalContext.current))
+}
