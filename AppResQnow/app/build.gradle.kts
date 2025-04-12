@@ -3,10 +3,6 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     id("com.google.gms.google-services")
-
-
-
-
 }
 
 android {
@@ -32,13 +28,16 @@ android {
             )
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+
     kotlinOptions {
         jvmTarget = "11"
     }
+
     buildFeatures {
         compose = true
     }
@@ -46,6 +45,7 @@ android {
 
 dependencies {
 
+    // AndroidX Dependencies
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -54,6 +54,7 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
 
+    // Test Libraries
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -61,25 +62,35 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
-// Thư viện cho Firebase
+
+    // Firebase
     implementation(platform("com.google.firebase:firebase-bom:33.11.0"))
     implementation("com.google.firebase:firebase-analytics")
-// Google Sign-In
-    implementation("com.google.android.gms:play-services-auth:20.7.0")
-    implementation("io.coil-kt:coil-compose:2.0.0")
     implementation("com.google.firebase:firebase-auth")
-// Navigation
-    implementation ("androidx.navigation:navigation-compose:2.7.5")
-//OutlineTexTField
+
+    // Google Sign-In
+    implementation("com.google.android.gms:play-services-auth:20.7.0")
+
+    // Coil (for image loading)
+    implementation("io.coil-kt:coil-compose:2.0.0")
+
+    // Facebook Sign-In
+    implementation("com.facebook.android:facebook-android-sdk:latest.release")
+
+    // Activity Compose
+    implementation("androidx.activity:activity-compose:1.6.1")
+
+    // Navigation for Compose
+    implementation("androidx.navigation:navigation-compose:2.7.5")
+
+    // Material 3
     implementation("androidx.compose.material3:material3:1.1.0")
 
+    // Compose UI
     implementation("androidx.compose.ui:ui:1.0.0")
     implementation("androidx.compose.ui:ui-tooling-preview:1.0.0")
-    implementation ("androidx.compose.material:material-icons-extended:1.5.0")
-    implementation ("com.google.android.gms:play-services-auth:20.7.0")
+    implementation("androidx.compose.material:material-icons-extended:1.5.0")
 
-
-
-
-
+    // DataStore
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
 }

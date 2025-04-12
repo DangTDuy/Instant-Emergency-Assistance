@@ -1,10 +1,12 @@
 package com.example.resqnow.Ui_Ux.theme.Router // nới chứa các Navigation
 
-
 import android.app.Activity
 import android.app.Activity.RESULT_OK
+import android.content.Intent
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.facebook.FacebookSdk
+import com.facebook.appevents.AppEventsLogger
 
 import android.os.Bundle
 
@@ -15,14 +17,17 @@ import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.google.android.gms.auth.api.identity.Identity
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.resqnow.Data.Api_and_Firebase.FireBase.FirebaseFacebook.FacebookAuthManager
+import com.example.resqnow.Data.Api_and_Firebase.FireBase.FirebaseFacebook.FacebookLoginViewModel
 import com.example.resqnow.Data.Api_and_Firebase.FireBaseGoogle.GoogleAuthUiClient
-import com.example.resqnow.Data.Api_and_Firebase.FireBaseGoogle.SignInScreen
+
 import com.example.resqnow.Data.Api_and_Firebase.FireBaseGoogle.SignInViewModel
 import com.example.resqnow.Data.Api_and_Firebase.FireBaseGoogle.UserViewModel
 import com.example.resqnow.Ui_Ux.theme.EmergencyInstructions.EmergencyInstructions
@@ -30,8 +35,14 @@ import com.example.resqnow.Ui_Ux.theme.Homepage.HomePage1
 import com.example.resqnow.Ui_Ux.theme.IntroductionGuide.IntroductionGuide
 import com.example.resqnow.Ui_Ux.theme.Login.LoginScreen
 import com.example.resqnow.Ui_Ux.theme.Login.LoginScreenSuccess
+
+
+import com.example.resqnow.Ui_Ux.theme.Profile.ProfileScreen
+import com.example.resqnow.Ui_Ux.theme.Profile.ProfileScreenWithoutAccount
 import com.example.resqnow.Ui_Ux.theme.ResQnowTheme
 import com.example.resqnow.Ui_Ux.theme.Router.Screen.LoginSuccess
+import com.example.resqnow.Ui_Ux.theme.SignIn.SignInScreen
+
 
 import com.example.resqnow.Ui_Ux.theme.SignIn.SignInSuccessScreen
 import com.example.resqnow.Ui_Ux.theme.common.IntroScreen1
@@ -44,121 +55,147 @@ import com.example.resqnow.Ui_Ux.theme.outroApp.OutroScreen1
 import com.example.resqnow.Ui_Ux.theme.outroApp.OutroScreen2
 import com.example.resqnow.Ui_Ux.theme.outroApp.OutroScreen3
 import com.example.resqnow.Ui_Ux.theme.personalization.Personalization
-
+import com.facebook.CallbackManager
 
 
 class MainActivity : ComponentActivity() {
+    private lateinit var authManager: FacebookAuthManager
+    private lateinit var viewModel: FacebookLoginViewModel
+
+
     private val googleAuthUiClient by lazy {
         GoogleAuthUiClient(
             context = this,
             oneTapClient = Identity.getSignInClient(this)
         )
     }
+
+    
+    private lateinit var callbackManager: CallbackManager // Khai báo callbackManager
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        callbackManager = CallbackManager.Factory.create() // Khởi tạo callbackManager
+        FacebookSdk.sdkInitialize(applicationContext)
+        viewModel = ViewModelProvider(this)[FacebookLoginViewModel::class.java]
+        authManager = FacebookAuthManager(this, viewModel)
+
         enableEdgeToEdge()
         setContent {
             ResQnowTheme {
-                Navigation(googleAuthUiClient)
-            }
+                // Truyền callbackManager vào hàm Navigation
+                Navigation(googleAuthUiClient, callbackManager)
             }
         }
+        enableEdgeToEdge() // Cho phép edge-to-edge UI
     }
 
-//tạo object lưu màn hình
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        callbackManager.onActivityResult(requestCode, resultCode, data) // Xử lý kết quả Facebook login
+    }
+}
+
+// Tạo object lưu màn hình
 sealed class Screen(val route: String) {
-    //intro
+    // Intro
     object ScreenIntro1 : Screen("IntroAppScreen1")
     object ScreenIntro2 : Screen("IntroAppScreen2")
     object ScreenIntro3 : Screen("IntroAppScreen3")
     object ScreenIntro4 : Screen("IntroAppScreen4")
-    //outro
+    // Outro
     object ScreenOutro1 : Screen("outroAppScreen1")
     object ScreenOutro2 : Screen("outroAppScreen2")
     object ScreenOutro3 : Screen("outroAppScreen3")
-    //Homepage
+    // Homepage
     object HomePage1 : Screen("HomeScreen1")
 
-    //Login
+    // Login
     object LoginScreen : Screen("LoginScreen")
     object LoginSuccess : Screen("LoginSuccess")
-    //SignIn
+    // SignIn
     object SignInScreen : Screen("SignInScreen")
     object SignInSuccess : Screen("SignInSuccess")
-
+    // Profile
+    object ProfileScreen : Screen("ProfileScreen")
+    object ProfileScreenWithoutAccount : Screen("ProfileScreenWithoutAccount")
 }
-//Hàm Controller màn hình
+
+// Hàm Controller màn hình
 @Composable
-fun Navigation(googleAuthUiClient: GoogleAuthUiClient) {
+fun Navigation(googleAuthUiClient: GoogleAuthUiClient, callbackManager: CallbackManager) {
 
     val navController = rememberNavController()
     val userViewModel: UserViewModel = viewModel()
 
-    val startDestination = if (googleAuthUiClient.getSignedInUser() != null) {
-        "HomeScreen1"
-    } else {
-        "IntroScreen1"
-    }
-    NavHost(navController = navController, startDestination = "IntroAppScreen1") {
-        //flow Intro
+    NavHost(navController = navController, startDestination = Screen.ScreenIntro1.route) {
+        // Flow Intro
         composable("IntroAppScreen1") { IntroScreen1(navController = navController) }
         composable("IntroAppScreen2") { IntroScreen2(navController = navController) }
         composable("IntroAppScreen3") { IntroScreen3(navController = navController) }
         composable("IntroAppScreen4") {
             IntroScreen4(navController = navController)
         }
-        //flow intro to outro
+        // Flow Intro to Outro
 
-        //flow Outro
+        // Flow Outro
         composable("OutroAppScreen1") { OutroScreen1(navController = navController) }
         composable("OutroAppScreen2") { OutroScreen2(navController = navController) }
         composable("OutroAppScreen3") {
             OutroScreen3(navController = navController)
-
         }
 
-        //Signin
-        composable("SignInScreen") {
-            com.example.resqnow.Ui_Ux.theme.Login.SignInScreen(navController = navController,
+        // SignIn
+        composable(Screen.SignInScreen.route) {
+            SignInScreen(
+                navController = navController,
                 googleAuthUiClient = googleAuthUiClient,
+//                callbackManager = callbackManager, // Truyền callbackManager
                 userViewModel = userViewModel
-                )
+            )
         }
-        composable("SignInSuccess") {
+
+        composable(Screen.SignInSuccess.route) {
             SignInSuccessScreen(
                 navController = navController,
                 googleAuthUiClient = googleAuthUiClient
-
             )
         }
-        //Login
-        composable("LoginScreen") {LoginScreen(navController=navController)}
-        composable("LoginSuccess") {LoginScreenSuccess(navController=navController)}
-        //flow Homepage
+
+        // Login
+        composable("LoginScreen") { LoginScreen(navController = navController) }
+        composable("LoginSuccess") { LoginScreenSuccess(navController = navController) }
+
+        // Profile
+        composable(Screen.ProfileScreen.route) {
+            if (googleAuthUiClient.getSignedInUser() != null) {
+                ProfileScreen(
+                    userData = googleAuthUiClient.getSignedInUser(),
+                    googleAuthUiClient = googleAuthUiClient,
+                    onSignedOut = {
+                        navController.navigate(Screen.SignInScreen.route) {
+                            popUpTo(Screen.ProfileScreen.route) { inclusive = true }
+                        }
+                    }
+                )
+            } else {
+                ProfileScreenWithoutAccount(navController = navController)
+            }
+        }
+
+        // Flow Homepage
         composable("HomeScreen1") { HomePage1(navController = navController, googleAuthUiClient = googleAuthUiClient) }
 
-        //IntroductionGuide
+        // Introduction Guide
         composable("IntroductionGuide") { IntroductionGuide(navController = navController) }
 
-
-
-
-        //learn first aid
+        // Learn First Aid
         composable("LearnFirstAid") { LearnFirstAid(navController = navController) }
 
-        //personalization
+        // Personalization
         composable("Personalization") { Personalization(navController = navController) }
 
-        //Emergency Instructions
+        // Emergency Instructions
         composable("EmergencyInstructions") { EmergencyInstructions(navController = navController) }
-    }
-}
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun GreetingPreview() {
-    ResQnowTheme {
-
-//            IntroScreen2(navController = rememberNavController())
-
     }
 }
