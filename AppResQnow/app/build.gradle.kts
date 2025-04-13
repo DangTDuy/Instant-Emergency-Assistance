@@ -44,7 +44,7 @@ android {
 }
 
 dependencies {
-    //API GOOGLE MAPS
+    // API Google Maps
     implementation("com.google.maps.android:maps-compose:2.11.4")
     implementation("com.google.android.gms:play-services-maps:18.2.0")
 
@@ -54,7 +54,7 @@ dependencies {
     // Location
     implementation("com.google.android.gms:play-services-location:21.0.1")
 
-    // Volley - gọi HTTP API
+    // Volley - HTTP
     implementation("com.android.volley:volley:1.2.1")
 
     // AndroidX Dependencies
@@ -66,30 +66,6 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
 
-    // Test Libraries
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
-    androidTestImplementation(platform(libs.androidx.compose.bom))
-    androidTestImplementation(libs.androidx.ui.test.junit4)
-    debugImplementation(libs.androidx.ui.tooling)
-    debugImplementation(libs.androidx.ui.test.manifest)
-
-<<<<<<< HEAD
-    // Thư viện cho Firebase
-    implementation(platform("com.google.firebase:firebase-bom:33.11.0"))
-    implementation("com.google.firebase:firebase-analytics")
-
-    // Google Sign-In
-    implementation("com.google.android.gms:play-services-auth:20.7.0")
-    implementation("io.coil-kt:coil-compose:2.0.0")
-    implementation("com.google.firebase:firebase-auth")
-
-    // Navigation
-    implementation("androidx.navigation:navigation-compose:2.7.5")
-
-    // OutlineTextField
-=======
     // Firebase
     implementation(platform("com.google.firebase:firebase-bom:33.11.0"))
     implementation("com.google.firebase:firebase-analytics")
@@ -98,31 +74,30 @@ dependencies {
     // Google Sign-In
     implementation("com.google.android.gms:play-services-auth:20.7.0")
 
-    // Coil (for image loading)
-    implementation("io.coil-kt:coil-compose:2.0.0")
-
-    // Facebook Sign-In
+    // Facebook SDK
     implementation("com.facebook.android:facebook-android-sdk:latest.release")
 
-    // Activity Compose
-    implementation("androidx.activity:activity-compose:1.6.1")
+    // Coil (Image loading)
+    implementation("io.coil-kt:coil-compose:2.0.0")
 
-    // Navigation for Compose
+    // Navigation
     implementation("androidx.navigation:navigation-compose:2.7.5")
 
-    // Material 3
->>>>>>> 7dd2d1af6625a33cb3715e0ff8e67ff028c5aa7d
+    // Compose UI & Material
     implementation("androidx.compose.material3:material3:1.1.0")
-
-    // Compose UI
+    implementation("androidx.compose.material:material-icons-extended:1.5.0")
     implementation("androidx.compose.ui:ui:1.0.0")
     implementation("androidx.compose.ui:ui-tooling-preview:1.0.0")
-    implementation("androidx.compose.material:material-icons-extended:1.5.0")
-<<<<<<< HEAD
-    implementation("com.google.android.gms:play-services-auth:20.7.0")
-=======
 
     // DataStore
     implementation("androidx.datastore:datastore-preferences:1.0.0")
->>>>>>> 7dd2d1af6625a33cb3715e0ff8e67ff028c5aa7d
+
+    // Test
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation(platform(libs.androidx.compose.bom))
+    androidTestImplementation(libs.androidx.ui.test.junit4)
+    debugImplementation(libs.androidx.ui.tooling)
+    debugImplementation(libs.androidx.ui.test.manifest)
 }
