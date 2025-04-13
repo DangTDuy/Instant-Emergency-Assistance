@@ -21,7 +21,7 @@
         <!-- Thêm API key cho Google Maps -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyBwPmK0eNnFTtGJnbw5qon0g8tZOJprwtk" />
+            android:value="AIzaSyAsL_GBsnfBifXu9CKSVGMxPKHq8sbiJek" />
 
         <!-- Facebook SDK cấu hình -->
         <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
