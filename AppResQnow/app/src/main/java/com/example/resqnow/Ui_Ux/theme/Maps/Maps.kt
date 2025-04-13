@@ -25,6 +25,7 @@ import com.google.maps.android.compose.*
 import kotlinx.coroutines.tasks.await
 import org.json.JSONObject
 
+// Data class để lưu thông tin bệnh viện
 data class Hospital(
     val position: LatLng,
     val name: String,
@@ -62,62 +63,42 @@ fun MapsContent(navController: NavHostController) {
     val cameraPositionState = rememberCameraPositionState()
     val apiKey = "AIzaSyAsL_GBsnfBifXu9CKSVGMxPKHq8sbiJek"
     var showNoHospitalsDialog by remember { mutableStateOf(false) }
-    var errorMessage by remember { mutableStateOf("") }
     var selectedHospital by remember { mutableStateOf<Hospital?>(null) }
     var currentLocation by remember { mutableStateOf<LatLng?>(null) }
 
     LaunchedEffect(Unit) {
         val fusedLocationClient = LocationServices.getFusedLocationProviderClient(context)
-        try {
-            val location = fusedLocationClient.getCurrentLocation(Priority.PRIORITY_HIGH_ACCURACY, null).await()
-            val currentLatLng = LatLng(location.latitude, location.longitude)
-            Log.d("CURRENT_LOCATION", "Lat: ${location.latitude}, Lng: ${location.longitude}")
-            currentLocation = currentLatLng
+        val location = fusedLocationClient.getCurrentLocation(Priority.PRIORITY_HIGH_ACCURACY, null).await()
+        val currentLatLng = LatLng(location.latitude, location.longitude)
+        currentLocation = currentLatLng
 
-            cameraPositionState.position = CameraPosition.fromLatLngZoom(currentLatLng, 14f)
+        cameraPositionState.position = CameraPosition.fromLatLngZoom(currentLatLng, 14f)
 
-            val url =
-                "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${location.latitude},${location.longitude}&radius=50000&type=hospital&key=$apiKey"
+        val url =
+            "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${location.latitude},${location.longitude}&radius=3000&type=hospital&key=$apiKey"
 
-            val queue = Volley.newRequestQueue(context)
-            val request = StringRequest(Request.Method.GET, url,
-                { response ->
-                    Log.d("API_RESPONSE", response)
-                    val json = JSONObject(response)
-                    val status = json.getString("status")
-                    Log.d("API_RESPONSE", "Status: $status")
-                    if (status != "OK" && status != "ZERO_RESULTS") {
-                        errorMessage = "Lỗi API: $status"
-                        showNoHospitalsDialog = true
-                        return@StringRequest
-                    }
-                    val results = json.getJSONArray("results")
-                    Log.d("API_RESPONSE", "Results count: ${results.length()}")
-                    if (results.length() == 0) {
-                        errorMessage = "Không tìm thấy bệnh viện trong bán kính 50km"
-                        showNoHospitalsDialog = true
-                    }
-                    for (i in 0 until results.length()) {
-                        val place = results.getJSONObject(i)
-                        val loc = place.getJSONObject("geometry").getJSONObject("location")
-                        val lat = loc.getDouble("lat")
-                        val lng = loc.getDouble("lng")
-                        val name = place.getString("name")
-                        val placeId = place.getString("place_id")
-                        hospitals.add(Hospital(LatLng(lat, lng), name, placeId))
-                    }
-                },
-                { error ->
-                    Log.e("API_ERROR", "Error: ${error.networkResponse?.statusCode}, ${error.message}")
-                    errorMessage = "Lỗi kết nối: ${error.message}"
+        val queue = Volley.newRequestQueue(context)
+        val request = StringRequest(Request.Method.GET, url,
+            { response ->
+                val json = JSONObject(response)
+                val results = json.getJSONArray("results")
+                if (results.length() == 0) {
                     showNoHospitalsDialog = true
-                })
-            queue.add(request)
-        } catch (e: Exception) {
-            Log.e("LOCATION_ERROR", "Lỗi lấy vị trí: ${e.message}")
-            errorMessage = "Không thể lấy vị trí hiện tại"
-            showNoHospitalsDialog = true
-        }
+                }
+                for (i in 0 until results.length()) {
+                    val place = results.getJSONObject(i)
+                    val loc = place.getJSONObject("geometry").getJSONObject("location")
+                    val lat = loc.getDouble("lat")
+                    val lng = loc.getDouble("lng")
+                    val name = place.getString("name")
+                    val placeId = place.getString("place_id")
+                    hospitals.add(Hospital(LatLng(lat, lng), name, placeId))
+                }
+            },
+            { error ->
+                Log.e("API_ERROR", error.toString())
+            })
+        queue.add(request)
     }
 
     GoogleMap(
@@ -138,6 +119,7 @@ fun MapsContent(navController: NavHostController) {
         }
     }
 
+    // Dialog chọn hành động khi click vào bệnh viện
     selectedHospital?.let { hospital ->
         AlertDialog(
             onDismissRequest = { selectedHospital = null },
@@ -146,6 +128,7 @@ fun MapsContent(navController: NavHostController) {
             confirmButton = {
                 Button(onClick = {
                     currentLocation?.let { current ->
+                        // Mở Google Maps với hướng dẫn đường đi
                         val uri = Uri.parse(
                             "google.navigation:q=${hospital.position.latitude},${hospital.position.longitude}&mode=d"
                         )
@@ -169,8 +152,8 @@ fun MapsContent(navController: NavHostController) {
     if (showNoHospitalsDialog) {
         AlertDialog(
             onDismissRequest = { showNoHospitalsDialog = false },
-            title = { Text("Thông báo") },
-            text = { Text(errorMessage) },
+            title = { Text("Không có bệnh viện gần đây") },
+            text = { Text("Chúng tôi không thể tìm thấy bệnh viện gần vị trí của bạn.") },
             confirmButton = {
                 Button(onClick = { showNoHospitalsDialog = false }) {
                     Text("Đóng")
