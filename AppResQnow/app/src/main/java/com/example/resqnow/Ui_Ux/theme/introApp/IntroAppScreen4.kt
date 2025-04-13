@@ -41,8 +41,7 @@ fun IntroScreen4(navController: NavController) {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = 550.dp)
-                    ,
+                    .padding(top = 570.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(

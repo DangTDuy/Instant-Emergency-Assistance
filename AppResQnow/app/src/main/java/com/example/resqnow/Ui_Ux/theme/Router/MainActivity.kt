@@ -1,37 +1,27 @@
 package com.example.resqnow.Ui_Ux.theme.Router // nới chứa các Navigation
 
 
-import android.app.Activity
-import android.app.Activity.RESULT_OK
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-
 import android.os.Bundle
 
 import androidx.activity.ComponentActivity
-import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.google.android.gms.auth.api.identity.Identity
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.resqnow.Data.Api_and_Firebase.FireBaseGoogle.GoogleAuthUiClient
-import com.example.resqnow.Data.Api_and_Firebase.FireBaseGoogle.SignInScreen
-import com.example.resqnow.Data.Api_and_Firebase.FireBaseGoogle.SignInViewModel
 import com.example.resqnow.Data.Api_and_Firebase.FireBaseGoogle.UserViewModel
 import com.example.resqnow.Ui_Ux.theme.EmergencyInstructions.EmergencyInstructions
 import com.example.resqnow.Ui_Ux.theme.Homepage.HomePage1
 import com.example.resqnow.Ui_Ux.theme.IntroductionGuide.IntroductionGuide
 import com.example.resqnow.Ui_Ux.theme.Login.LoginScreen
 import com.example.resqnow.Ui_Ux.theme.Login.LoginScreenSuccess
+import com.example.resqnow.Ui_Ux.theme.Maps.Maps
 import com.example.resqnow.Ui_Ux.theme.ResQnowTheme
-import com.example.resqnow.Ui_Ux.theme.Router.Screen.LoginSuccess
 
 import com.example.resqnow.Ui_Ux.theme.SignIn.SignInSuccessScreen
 import com.example.resqnow.Ui_Ux.theme.common.IntroScreen1
@@ -151,6 +141,9 @@ fun Navigation(googleAuthUiClient: GoogleAuthUiClient) {
 
         //Emergency Instructions
         composable("EmergencyInstructions") { EmergencyInstructions(navController = navController) }
+
+        //Maps
+        composable("Maps") { Maps(navController = navController) }
     }
 }
 @Preview(showBackground = true, showSystemUi = true)

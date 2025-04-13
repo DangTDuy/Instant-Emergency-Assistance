@@ -363,7 +363,7 @@ fun HomePage1(navController: NavController,googleAuthUiClient: GoogleAuthUiClien
                 contentScale = ContentScale.Fit,
                 modifier = Modifier
                     .size(40.dp)
-                    .clickable {}
+                    .clickable { navController.navigate("Maps") }
             )
             Spacer(modifier = Modifier.width(10.dp))
             Image(
