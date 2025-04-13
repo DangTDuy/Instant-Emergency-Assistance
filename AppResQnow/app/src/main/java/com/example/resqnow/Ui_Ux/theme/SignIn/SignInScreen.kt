@@ -1,6 +1,8 @@
 package com.example.resqnow.Ui_Ux.theme.SignIn
 
+import android.R.attr.text
 import android.app.Activity
+import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -21,6 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -37,33 +40,43 @@ import com.example.resqnow.Data.Api_and_Firebase.FireBaseGoogle.GoogleAuthUiClie
 import com.example.resqnow.Data.Api_and_Firebase.FireBaseGoogle.SignInResult
 import com.example.resqnow.R
 import com.example.resqnow.Components.background
+import com.example.resqnow.Data.Api_and_Firebase.FireBase.FirebaseEmail.AuthRepository
+import com.example.resqnow.Data.Api_and_Firebase.FireBase.FirebaseEmail.AuthViewModel
+import com.example.resqnow.Data.Api_and_Firebase.FireBase.FirebaseEmail.AuthViewModelFactory
+import com.example.resqnow.Data.Api_and_Firebase.FireBase.FirebaseFacebook.FacebookAuthUiClient
 import com.example.resqnow.Data.Api_and_Firebase.FireBaseGoogle.UserViewModel
+import com.example.resqnow.Ui_Ux.theme.Router.Screen
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.launch
 
 @Composable
 fun SignInScreen(
     navController: NavController,
     googleAuthUiClient: GoogleAuthUiClient,
+    facebookAuthUiClient: FacebookAuthUiClient,
     userViewModel: UserViewModel = viewModel()
 ) {
+    var emailError by rememberSaveable { mutableStateOf<String?>(null) }
+    val authRepository = AuthRepository(FirebaseAuth.getInstance())
+    val factory = AuthViewModelFactory(authRepository)
+    val authViewModel: AuthViewModel = viewModel(factory = factory)
     var passwordVisible by rememberSaveable { mutableStateOf(false) }
-    var phoneNumber by rememberSaveable { mutableStateOf("") }
+    var email by rememberSaveable { mutableStateOf("") }
     var password by rememberSaveable { mutableStateOf("") }
     val scope = rememberCoroutineScope()
-
-
+    val context = LocalContext.current
     val launcher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.StartIntentSenderForResult()
     ) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
             scope.launch {
                 try {
-                    val signInResult = googleAuthUiClient.signInWithIntent(result.data ?: return@launch)
+                    val signInResult =
+                        googleAuthUiClient.signInWithIntent(result.data ?: return@launch)
                     if (signInResult.data != null) {
                         userViewModel.setUser(signInResult.data)
-                        navController.navigate("SignInSuccess") {
-
-                            popUpTo("LoginScreen") { inclusive = true }
+                        navController.navigate(Screen.HomePage1.route) {
+                            popUpTo(Screen.SignInScreen.route) { inclusive = true }
                         }
                     } else {
                         println("Sign-in failed: ${signInResult.errorMessage}")
@@ -74,6 +87,7 @@ fun SignInScreen(
             }
         }
     }
+
 
     Box(
         modifier = Modifier
@@ -90,18 +104,23 @@ fun SignInScreen(
                 .align(Alignment.TopCenter)
                 .height(365.dp)
         )
-        Image(
-            painter = painterResource(R.drawable.home_page),
-            contentDescription = null,
-            modifier = Modifier
-                .size(150.dp)
-                .padding(start = 9.dp, top = 35.dp)
-                .zIndex(1f)
-                .clickable {
-                    navController.navigate("HomeScreen1")
-                }
-            ,
-        )
+        Row(modifier = Modifier
+            .padding(start = 9.dp, top = 50.dp)
+            .clickable{navController.navigate(Screen.HomePage1.route)},
+        ) {
+            Icon(painter = painterResource(R.drawable.home), contentDescription = null,
+                tint = Color.Red ,
+                modifier = Modifier
+                    .size(15.dp)
+                ,
+            )
+            Text(
+                "Trang Chủ",fontSize = 20.sp, fontWeight = FontWeight.SemiBold,
+                color = Color.White,
+                modifier = Modifier
+                    .zIndex(1f)
+            )
+        }
 
         Text(
             text = "Đăng Ký",
@@ -112,8 +131,8 @@ fun SignInScreen(
         )
 
         OutlinedTextField(
-            value = phoneNumber,
-            onValueChange = { phoneNumber = it },
+            value = email,
+            onValueChange = { email = it },
             modifier = Modifier
                 .width(365.dp)
                 .height(65.dp)
@@ -121,15 +140,15 @@ fun SignInScreen(
                 .padding(end = 5.dp),
             leadingIcon = {
                 Image(
-                    painter = painterResource(R.drawable.solar_phone_outline),
+                    painter = painterResource(R.drawable.email),
                     contentDescription = null,
                     modifier = Modifier
                         .size(24.dp)
                         .padding(start = 6.dp)
                 )
             },
-            label = { Text("Số điện thoại", fontSize = 15.sp, fontWeight = FontWeight.SemiBold) },
-            placeholder = { Text("Nhập số điện thoại của bạn") },
+            label = { Text("Email", fontSize = 15.sp, fontWeight = FontWeight.SemiBold) },
+            placeholder = { Text("Nhập email của bạn") },
             shape = RoundedCornerShape(15.dp),
         )
 
@@ -165,7 +184,44 @@ fun SignInScreen(
         )
 
         Button(
-            onClick = {},
+            onClick = {
+                scope.launch {
+                    if (email.isBlank() || password.isBlank()) {
+                        println("Vui lòng nhập đầy đủ Email và Mật khẩu")
+                        Toast.makeText(context, "Vui lòng nhập đầy đủ Email và mật khẩu ", Toast.LENGTH_SHORT).show()
+
+                        return@launch // Thoát khỏi coroutine chứ không phải return
+                    }
+
+                    if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                        println("Email không hợp lệ")
+                        Toast.makeText(context, "Đăng ký không thành công : Email không hợp lệ", Toast.LENGTH_SHORT).show()
+                        return@launch // Thoát khỏi coroutine chứ không phải return
+                    }
+
+                    // Kiểm tra email đã tồn tại chưa
+                    authViewModel.checkIfEmailExists(email) { emailExists ->
+                        if (emailExists) {
+                            println("DEBUG: Email đã tồn tại, sẽ hiện Toast")
+                            Toast.makeText(context, "Email này đã được sử dụng!", Toast.LENGTH_SHORT).show()
+                            emailError = "Email này đã được sử dụng!"
+
+                            return@checkIfEmailExists
+                        } else {
+                            authViewModel.registerWithEmail(email, password) { success, error ->
+                                if (success) {
+                                    navController.navigate(Screen.SignInSuccess.route) {
+                                        popUpTo("SignInScreen") { inclusive = true }
+                                    }
+                                } else {
+                                    println("Đăng ký thất bại: $error")
+                                    Toast.makeText(context, "Đăng ký không thành công: Email này đã tồn tại", Toast.LENGTH_SHORT).show()
+                                }
+                            }
+                        }
+                    }
+                }
+            },
             modifier = Modifier
                 .offset(x = 260.dp, y = 550.dp)
                 .size(width = 127.dp, height = 37.dp)
@@ -182,7 +238,21 @@ fun SignInScreen(
                 .padding(top = 630.dp)
         ) {
             Button(
-                onClick = {},
+                onClick = {
+                    scope.launch {
+                        val signInResult = facebookAuthUiClient.signInWithFacebook()
+
+                        if (signInResult.data != null) {
+
+                            userViewModel.setUser(signInResult.data)
+                        navController.navigate(Screen.SignInSuccess.route) {
+                                popUpTo(Screen.HomePage1.route) { inclusive = true }
+                            }
+                        } else {
+                            println("Facebook sign-in failed: ${signInResult.errorMessage}")
+                        }
+                    }
+                },
                 modifier = Modifier
                     .size(width = 150.dp, height = 49.dp)
                     .border(3.dp, Color.Red, shape = RoundedCornerShape(15.dp)),

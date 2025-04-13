@@ -1,69 +1,108 @@
 package com.example.resqnow.Ui_Ux.theme.Login
 
+import android.R.attr.text
+import android.app.Activity
+import android.widget.Toast
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.IntentSenderRequest
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.material3.Button
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Text
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.icons.filled.VisibilityOff
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
-
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import com.example.resqnow.Data.Api_and_Firebase.FireBaseGoogle.GoogleAuthUiClient
+import com.example.resqnow.Data.Api_and_Firebase.FireBaseGoogle.SignInResult
 import com.example.resqnow.R
 import com.example.resqnow.Components.background
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Visibility
-import androidx.compose.material.icons.filled.VisibilityOff
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.text.withStyle
-import androidx.navigation.NavController
+import com.example.resqnow.Data.Api_and_Firebase.FireBase.FirebaseEmail.AuthRepository
+import com.example.resqnow.Data.Api_and_Firebase.FireBase.FirebaseEmail.AuthViewModel
+import com.example.resqnow.Data.Api_and_Firebase.FireBase.FirebaseEmail.AuthViewModelFactory
+import com.example.resqnow.Data.Api_and_Firebase.FireBase.FirebaseFacebook.FacebookAuthUiClient
+import com.example.resqnow.Data.Api_and_Firebase.FireBaseGoogle.UserViewModel
+import com.example.resqnow.Ui_Ux.theme.Router.Screen
+import com.google.firebase.auth.FirebaseAuth
+import kotlinx.coroutines.launch
 
 @Composable
-fun LoginScreen(navController: NavController) {
+fun LoginScreen(
+    navController: NavController,
+    googleAuthUiClient: GoogleAuthUiClient,
+    facebookAuthUiClient: FacebookAuthUiClient,
+    userViewModel: UserViewModel = viewModel()
+) {
+    var emailError by rememberSaveable { mutableStateOf<String?>(null) }
+    val authRepository = AuthRepository(FirebaseAuth.getInstance())
+    val factory = AuthViewModelFactory(authRepository)
+    val authViewModel: AuthViewModel = viewModel(factory = factory)
+    //LadingIcon
     var passwordVisible by rememberSaveable { mutableStateOf(false) }
-    var phoneNumber by rememberSaveable { mutableStateOf("") }
+    //Ghi nhớ Email
+    var email by rememberSaveable { mutableStateOf("") }
     var password by rememberSaveable { mutableStateOf("") }
+
+    val scope = rememberCoroutineScope()
+    val context = LocalContext.current
+
+    // Trạng thái hiển thị lỗi
+    var showError by remember { mutableStateOf(false) }
+    //Logic hiện thị lỗi
+
+
+    val launcher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.StartIntentSenderForResult()
+    ) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            scope.launch {
+                try {
+                    val signInResult =
+                        googleAuthUiClient.signInWithIntent(result.data ?: return@launch)
+                    if (signInResult.data != null) {
+                        userViewModel.setUser(signInResult.data)
+                        navController.navigate(Screen.HomePage1.route) {
+                            popUpTo(Screen.SignInScreen.route) { inclusive = true }
+                        }
+                    } else {
+                        println("Sign-in failed: ${signInResult.errorMessage}")
+                    }
+                } catch (e: Exception) {
+                    println("Error processing sign-in result: ${e.message}")
+                }
+            }
+        }
+    }
+
 
     Box(
         modifier = Modifier
             .fillMaxWidth()
             .fillMaxHeight()
             .background(background)
-
     ) {
         Image(
             painter = painterResource(R.drawable.top_background1),
@@ -74,16 +113,23 @@ fun LoginScreen(navController: NavController) {
                 .align(Alignment.TopCenter)
                 .height(365.dp)
         )
-        Image(
-            painter = painterResource(R.drawable.home_page),
-            contentDescription = null,
-            modifier = Modifier
-                .size(150.dp)
-                .padding(start = 9.dp, top = 35.dp)
-                .zIndex(1f),
-        )
-
-
+        Row(modifier = Modifier
+            .padding(start = 9.dp, top = 50.dp)
+            .clickable{navController.navigate(Screen.HomePage1.route)},
+        ) {
+            Icon(painter = painterResource(R.drawable.home), contentDescription = null,
+                tint = Color.Red ,
+                modifier = Modifier
+                    .size(15.dp)
+                ,
+            )
+            Text(
+                "Trang Chủ",fontSize = 20.sp, fontWeight = FontWeight.SemiBold,
+                color = Color.White,
+                modifier = Modifier
+                    .zIndex(1f)
+            )
+        }
 
         Text(
             text = "Đăng Nhập",
@@ -93,10 +139,9 @@ fun LoginScreen(navController: NavController) {
                 .padding(top = 297.dp, start = 0.dp)
         )
 
-
         OutlinedTextField(
-            value = phoneNumber,
-            onValueChange = { phoneNumber = it },
+            value = email,
+            onValueChange = { email = it },
             modifier = Modifier
                 .width(365.dp)
                 .height(65.dp)
@@ -104,29 +149,19 @@ fun LoginScreen(navController: NavController) {
                 .padding(end = 5.dp),
             leadingIcon = {
                 Image(
-                    painter = painterResource(R.drawable.solar_phone_outline),
+                    painter = painterResource(R.drawable.email),
                     contentDescription = null,
                     modifier = Modifier
                         .size(24.dp)
                         .padding(start = 6.dp)
                 )
             },
-            label = {
-                Text(
-                    text = "Số điện thoại",
-                    fontSize = 15.sp,
-                    fontWeight = FontWeight.SemiBold
-                )
-            },
-            placeholder = {Text(text = "Nhập số điện thoại của bạn ")},
+            label = { Text("Email", fontSize = 15.sp, fontWeight = FontWeight.SemiBold) },
+            placeholder = { Text("Nhập email của bạn") },
             shape = RoundedCornerShape(15.dp),
         )
 
-        Spacer(modifier = Modifier.width(16.dp))
-
-
         OutlinedTextField(
-
             value = password,
             onValueChange = { password = it },
             modifier = Modifier
@@ -151,61 +186,60 @@ fun LoginScreen(navController: NavController) {
                     )
                 }
             },
-            label = {
-                Text(
-                    text = "Mật khẩu",
-                    fontSize = 15.sp,
-                    fontWeight = FontWeight.SemiBold
-                )
-            },
-            placeholder = {Text(text = "Nhập mật khẩu của bạn ")},
+            label = { Text("Mật khẩu", fontSize = 15.sp, fontWeight = FontWeight.SemiBold) },
+            placeholder = { Text("Nhập mật khẩu của bạn") },
             visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
             shape = RoundedCornerShape(15.dp),
         )
+        if (showError) {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 3.dp)
+                    .offset(y = 550.dp), // Điều chỉnh vị trí thông báo lỗi để không bị che khuất
 
-        var isPasswordIncorrect by rememberSaveable { mutableStateOf(false) }
-//        Text(
-//            text = "Email hoặc mật khẩu không đúng,vui lòng thử lại",
-//            color = Color.Red,
-//            fontSize = 14.sp,
-//            modifier = Modifier
-//                .padding(start = 29.dp, top = 531.dp) // căn chỉnh theo layout của bạn
-//        )
+            ) {
+                Text(
+                    text = "Tài khoản hoặc mật khẩu không đúng",
+                    color = Color.Red,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 13.sp
+                )
+            }
+        }
         Button(
             onClick = {
+                scope.launch {
+                    if (email.isBlank() || password.isBlank()) {
+                        Toast.makeText(context, "Vui lòng nhập đầy đủ Email và mật khẩu", Toast.LENGTH_SHORT).show()
+                        return@launch
+                    }
 
-                if (password == "123456") {
-                    isPasswordIncorrect = false
-                    navController.navigate("LoginSuccess")
+                    if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                        Toast.makeText(context, "Email không hợp lệ", Toast.LENGTH_SHORT).show()
+                        return@launch
+                    }
 
-                }else{
-                    isPasswordIncorrect = true
+                    authViewModel.login(email, password) { success, error ->
+                        if (success) {
+                            navController.navigate(Screen.SignInSuccess.route) {
+                                popUpTo("SignInScreen") { inclusive = true }
+                            }
+                        } else {
+                            showError = true
+                        }
+
+                    }
                 }
             },
-
             modifier = Modifier
-                .offset(x = 260.dp, y = 550.dp)
-                .size(width = 127.dp, height = 37.dp)
+                .offset(x = 250.dp, y = 550.dp)
+                .size(width = 130.dp, height = 37.dp)
                 .clip(RoundedCornerShape(15.dp)),
-            colors = ButtonDefaults.buttonColors(
-                Color(0xFFEF291E) // Màu nền của button
-            )
+            colors = ButtonDefaults.buttonColors(Color(0xFFEF291E))
         ) {
-            Text(text = "Tiếp tục", fontSize = 17.sp, fontWeight = FontWeight.ExtraBold, color = Color.White)
+            Text(text = "Đăng Nhập", fontSize = 16.sp, fontWeight = FontWeight.ExtraBold, color = Color.White)
         }
-
-        //đặt logic đúng-sai mật khẩu
-        if (isPasswordIncorrect) {
-            Text(
-                text = "Số điện thoại hoặc mật khẩu không đúng, vui lòng thử lại",
-                color = Color.Red,
-                fontSize = 14.sp,
-                modifier = Modifier
-                    .padding(start = 29.dp)
-                    .offset(y = 550.dp) // chỉnh sao cho phù hợp layout
-            )
-        }
-
 
         Row(
             horizontalArrangement = Arrangement.Center,
@@ -213,72 +247,69 @@ fun LoginScreen(navController: NavController) {
                 .fillMaxWidth()
                 .padding(top = 630.dp)
         ) {
-            // Facebook button
             Button(
-                onClick = {},
+                onClick = {
+                    scope.launch {
+                        val signInResult = facebookAuthUiClient.signInWithFacebook()
+
+                        if (signInResult.data != null) {
+
+                            userViewModel.setUser(signInResult.data)
+                            navController.navigate(Screen.SignInSuccess.route) {
+                                popUpTo(Screen.HomePage1.route) { inclusive = true }
+                            }
+                        } else {
+                            println("Facebook sign-in failed: ${signInResult.errorMessage}")
+                        }
+                    }
+                },
                 modifier = Modifier
                     .size(width = 150.dp, height = 49.dp)
                     .border(3.dp, Color.Red, shape = RoundedCornerShape(15.dp)),
                 colors = ButtonDefaults.buttonColors(Color(0xFFF5F5DC))
             ) {
                 Row(
-                    modifier = Modifier.fillMaxSize()
-                        .clip(RoundedCornerShape(15.dp)),
+                    modifier = Modifier.fillMaxSize().clip(RoundedCornerShape(15.dp)),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Image(
                         painter = painterResource(R.drawable.logos_facebook),
                         contentDescription = null,
-                        modifier = Modifier
-                            .size(38.dp)
-                            .padding(start = 0.dp)
+                        modifier = Modifier.size(38.dp).padding(start = 0.dp)
                     )
-                    Text(
-                        text = "Facebook",
-                        fontSize = 14.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = Color.Black
-                    )
+                    Text("Facebook", fontSize = 14.sp, fontWeight = FontWeight.Bold, color = Color.Black)
                 }
             }
             Spacer(modifier = Modifier.width(16.dp))
 
-
-
-
-
-
-            // Google button
             Button(
-                onClick = {navController.navigate("SignInScreen")},
+                onClick = {
+                    scope.launch {
+                        val signInIntentSender = googleAuthUiClient.signIn()
+                        launcher.launch(
+                            IntentSenderRequest.Builder(signInIntentSender ?: return@launch).build()
+                        )
+                    }
+                },
                 modifier = Modifier
                     .size(width = 150.dp, height = 49.dp)
                     .border(3.dp, Color.Red, shape = RoundedCornerShape(15.dp)),
                 colors = ButtonDefaults.buttonColors(Color(0xFFF5F5DC))
             ) {
                 Row(
-                    modifier = Modifier.fillMaxSize()
-                        .clip(RoundedCornerShape(15.dp)),
+                    modifier = Modifier.fillMaxSize().clip(RoundedCornerShape(15.dp)),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Image(
                         painter = painterResource(R.drawable.logo_google),
                         contentDescription = null,
-                        modifier = Modifier
-                            .size(39.dp)
-                            .padding(start = 0.dp)
+                        modifier = Modifier.size(39.dp).padding(start = 0.dp)
                     )
-                    Text(
-                        text = "Google",
-                        fontSize = 15.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = Color.Black
-                    )
+                    Text("Google", fontSize = 15.sp, fontWeight = FontWeight.Bold, color = Color.Black)
                 }
             }
         }
 
-        // Register link
         Row(
             modifier = Modifier.fillMaxSize(),
             horizontalArrangement = Arrangement.Center
@@ -295,16 +326,16 @@ fun LoginScreen(navController: NavController) {
                 modifier = Modifier
                     .padding(top = 700.dp)
                     .clickable {
-                        navController.navigate("SignInScreen") // Điều hướng đến SignInScreen
+                        navController.navigate(Screen.SignInScreen.route) // Điều hướng đến SignInScreen
                     }
             )
         }
-        Row(modifier = Modifier.fillMaxSize(),horizontalArrangement = Arrangement.Center) {
-            Text(text = "Quên mật khẩu ?",
+        Row(modifier = Modifier.fillMaxSize(), horizontalArrangement = Arrangement.Center) {
+            Text(
+                text = "Quên mật khẩu?",
                 fontWeight = FontWeight.SemiBold,
                 modifier = Modifier.padding(top = 750.dp)
             )
         }
     }
 }
-

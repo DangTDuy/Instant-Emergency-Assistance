@@ -38,6 +38,17 @@
             </intent-filter>
         </activity>
 
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
+        <meta-data android:name="com.facebook.sdk.ClientToken" android:value="@string/facebook_client_token"/>
+
+
+
+=======
+>>>>>>> cfcab10a0125c08aeada692313bd29ffbaaff774
+>>>>>>> Stashed changes
         <activity android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name" />

@@ -46,7 +46,7 @@ import com.example.resqnow.R
 @Composable
 fun HomePage1(navController: NavController,googleAuthUiClient: GoogleAuthUiClient) {
     val user = googleAuthUiClient.getSignedInUser()
-//    val user = userViewModel.currentUser
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -69,7 +69,7 @@ fun HomePage1(navController: NavController,googleAuthUiClient: GoogleAuthUiClien
                 modifier = Modifier
                     .size(40.dp)
                     .clickable {}
-                    .offset(x = 10.dp)
+                    .padding(start = 5.dp)
             )
             Spacer(modifier = Modifier.width(5.dp))
 
@@ -79,23 +79,24 @@ fun HomePage1(navController: NavController,googleAuthUiClient: GoogleAuthUiClien
 
             Box(
                 modifier = Modifier
-                    .offset(x = 10.dp, y = -5.dp)
-                    .size(width = 100.dp,height = 45.dp)
+
+                    .padding(start = 5.dp)
+                    .size(width = 150.dp,height = 45.dp)
                     .background(brush = gradientBrush, shape = RoundedCornerShape(50.dp))
             ) {
                 if (user != null) {
                     // Nếu đã đăng nhập, hiển thị tên người dùng
                     Text(
-                        text = "${user.name}",
-                        fontSize = 13.sp,
+                        text = user?.name ?: "Email",
+                        fontSize = 15.sp,
                         color = Color.White, fontWeight = FontWeight.ExtraBold,
                         modifier = Modifier.align(Alignment.Center)
                     )
                 } else {
                     // Nếu chưa đăng nhập, hiển thị "Đăng nhập" và cho phép nhấp
                     Text(
-                        text = "Đăng nhập",
-                        fontSize = 13.sp,
+                        text = "Đăng Ký",
+                        fontSize = 15.sp,
                         color = Color.White, fontWeight = FontWeight.ExtraBold,
                         modifier = Modifier
                             .align(Alignment.Center)
