@@ -1,4 +1,4 @@
-package com.example.resqnow.Ui_Ux.theme.Login
+package com.example.resqnow.Ui_Ux.theme.SignIn
 
 import android.app.Activity
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -61,8 +61,9 @@ fun SignInScreen(
                     val signInResult = googleAuthUiClient.signInWithIntent(result.data ?: return@launch)
                     if (signInResult.data != null) {
                         userViewModel.setUser(signInResult.data)
-                        navController.navigate("HomeScreen1") {
-                            popUpTo("SignInScreen") { inclusive = true }
+                        navController.navigate("SignInSuccess") {
+
+                            popUpTo("LoginScreen") { inclusive = true }
                         }
                     } else {
                         println("Sign-in failed: ${signInResult.errorMessage}")
