@@ -28,6 +28,10 @@ import com.facebook.FacebookSdk
 import com.facebook.appevents.AppEventsLogger
 import com.google.android.gms.auth.api.identity.Identity
 import androidx.navigation.compose.*
+import com.example.resqnow.Ui_Ux.theme.Maps.Maps
+import com.google.android.gms.maps.model.*
+
+
 sealed class Screen(val route: String) {
     object ScreenIntro1 : Screen("IntroAppScreen1")
     object ScreenIntro2 : Screen("IntroAppScreen2")
@@ -128,6 +132,8 @@ class MainActivity : ComponentActivity() {
                 )
             }
 
+            composable("Maps") { Maps(navController) }
+
             composable(Screen.LoginSuccess.route) {
                 LoginScreenSuccess(navController)
             }
@@ -159,6 +165,7 @@ class MainActivity : ComponentActivity() {
             composable("LearnFirstAid") { LearnFirstAid(navController) }
             composable("Personalization") { Personalization(navController) }
             composable("EmergencyInstructions") { EmergencyInstructions(navController) }
+
         }
     }
 
