@@ -13,7 +13,7 @@ object UserPreferencesKeys {
     val NAME = stringPreferencesKey("name")
     val PHONE = stringPreferencesKey("phone")
     val SEX = stringPreferencesKey("sex")
-    val AGE = intPreferencesKey("age") // ✅ Đổi từ stringPreferencesKey sang intPreferencesKey
+    val AGE = intPreferencesKey("age")
 }
 
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "user_prefs")
@@ -23,7 +23,7 @@ suspend fun saveUserData(context: Context, name: String, phone: String, sex: Str
         preferences[UserPreferencesKeys.NAME] = name
         preferences[UserPreferencesKeys.PHONE] = phone
         preferences[UserPreferencesKeys.SEX] = sex
-        preferences[UserPreferencesKeys.AGE] = age.toIntOrNull() ?: 0 // ✅ Ép kiểu String -> Int
+        preferences[UserPreferencesKeys.AGE] = age.toIntOrNull() ?: 0
     }
 }
 

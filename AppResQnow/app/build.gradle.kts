@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     id("com.google.gms.google-services")
+    id("kotlin-kapt")
 }
 
 android {
@@ -81,7 +82,7 @@ dependencies {
     implementation("androidx.datastore:datastore-preferences:1.0.0")
 
     // Coil (hiển thị ảnh)
-    implementation("io.coil-kt:coil-compose:2.0.0")
+    implementation("io.coil-kt:coil-compose:2.2.2")
 
     // Firebase
     implementation(platform("com.google.firebase:firebase-bom:33.11.0"))
@@ -96,6 +97,13 @@ dependencies {
 
     // Facebook SDK
     implementation("com.facebook.android:facebook-android-sdk:12.3.0")
+
+    // Room Database
+    implementation("androidx.room:room-runtime:2.6.1")
+    annotationProcessor("androidx.room:room-compiler:2.6.1")
+    kapt("androidx.room:room-compiler:2.6.1")
+    implementation("androidx.room:room-ktx:2.6.1")
+
 
     // Retrofit & Gson
     implementation("com.squareup.retrofit2:retrofit:2.9.0")

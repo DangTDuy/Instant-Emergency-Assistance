@@ -42,6 +42,7 @@ import androidx.navigation.NavController
 import com.example.resqnow.Data.Api_and_Firebase.FireBaseGoogle.GoogleAuthUiClient
 import com.example.resqnow.Data.Api_and_Firebase.FireBaseGoogle.UserViewModel
 import com.example.resqnow.R
+import com.example.resqnow.Ui_Ux.theme.Router.Screen
 
 @Composable
 fun HomePage1(navController: NavController,googleAuthUiClient: GoogleAuthUiClient) {
@@ -355,11 +356,13 @@ fun HomePage1(navController: NavController,googleAuthUiClient: GoogleAuthUiClien
                 contentScale = ContentScale.Fit,
                 modifier = Modifier
                     .size(50.dp)
-                    .clickable {}
+                    .clickable {
+                        navController.navigate("ContactScreen")
+                    }
             )
             Spacer(modifier = Modifier.width(10.dp))
             Image(
-                painter = painterResource(R.drawable.b),
+                painter = painterResource(R.drawable.hospital),
                 contentDescription = "",
                 contentScale = ContentScale.Fit,
                 modifier = Modifier

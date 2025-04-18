@@ -6,6 +6,9 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.resqnow.Data.Api_and_Firebase.FireBase.FirebaseFacebook.FacebookAuthUiClient
 import com.example.resqnow.Data.Api_and_Firebase.FireBaseGoogle.GoogleAuthUiClient
@@ -28,7 +31,13 @@ import com.facebook.FacebookSdk
 import com.facebook.appevents.AppEventsLogger
 import com.google.android.gms.auth.api.identity.Identity
 import androidx.navigation.compose.*
+import com.example.resqnow.Repository.Repository
+import com.example.resqnow.Room.ResqNowDatabase
 import com.example.resqnow.Ui_Ux.theme.Maps.Maps
+import com.example.resqnow.Ui_Ux.theme.contact.CardScreen
+import com.example.resqnow.Ui_Ux.theme.contact.ContactScreen
+
+import com.example.resqnow.viewModel.ContactViewModel
 import com.google.android.gms.maps.model.*
 
 
@@ -47,6 +56,7 @@ sealed class Screen(val route: String) {
     object SignInSuccess : Screen("SignInSuccess")
     object ProfileScreen : Screen("ProfileScreen")
     object ProfileScreenWithoutAccount : Screen("ProfileScreenWithoutAccount")
+
 }
 class MainActivity : ComponentActivity() {
 
@@ -92,6 +102,11 @@ class MainActivity : ComponentActivity() {
     ) {
         val navController = rememberNavController()
         val userViewModel: UserViewModel = viewModel()
+        val context = LocalContext.current
+        val repository = Repository(ResqNowDatabase.getInstance(context))
+        val contactViewModel: ContactViewModel = viewModel(factory = ContactViewModel.ContactViewModelFactory(repository))
+
+        val showDialog = remember { mutableStateOf(false) }
 
         NavHost(navController = navController, startDestination = Screen.ScreenIntro1.route) {
             // Intro Screens
@@ -159,6 +174,19 @@ class MainActivity : ComponentActivity() {
             composable("HomeScreen1") {
                 HomePage1(navController, googleAuthUiClient)
             }
+            // ContactScreen
+            composable("ContactScreen") {
+                ContactScreen(contactViewModel, showDialog, navController)
+            }
+
+            // CardScreen
+            composable("cardScreen/{contactId}") { backStackEntry ->
+                val contactId = backStackEntry.arguments?.getString("contactId")?.toInt()
+                contactId?.let {
+                    CardScreen(navController = navController, viewModel = contactViewModel, contactId = it)
+                }
+            }
+
 
             // Các màn hình khác
             composable("IntroductionGuide") { IntroductionGuide(navController) }
