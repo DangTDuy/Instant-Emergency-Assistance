@@ -8,17 +8,25 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -125,55 +133,91 @@ fun Personalization(navController: NavController){
             )
         }
     }
-    Box(
+    Column(
         modifier = Modifier
-            .fillMaxWidth()
-            .padding(top = 750.dp)
-            .height(80.dp),
-        contentAlignment = Alignment.BottomCenter
+            .fillMaxSize(),
+        verticalArrangement = Arrangement.Bottom
     ) {
-        Row(
+        Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(vertical = 8.dp),
-            horizontalArrangement = Arrangement.SpaceEvenly,
-            verticalAlignment = Alignment.CenterVertically
+                .navigationBarsPadding()
+                .height(80.dp),
+            contentAlignment = Alignment.Center
         ) {
-            Image(
-                painter = painterResource(R.drawable.trangchu),
-                contentDescription = "Trang chủ",
-                contentScale = ContentScale.Fit,
+            Row(
                 modifier = Modifier
-                    .size(140.dp)
-                    .clickable (onClick = {navController.navigate("HomeScreen1")})
-            )
-            Spacer(modifier = Modifier.width(10.dp))
-            Image(
-                painter = painterResource(R.drawable.a),
-                contentDescription = "",
-                contentScale = ContentScale.Fit,
-                modifier = Modifier
-                    .size(50.dp)
-                    .clickable {}
-            )
-            Spacer(modifier = Modifier.width(10.dp))
-            Image(
-                painter = painterResource(R.drawable.b),
-                contentDescription = "",
-                contentScale = ContentScale.Fit,
-                modifier = Modifier
-                    .size(40.dp)
-                    .clickable {}
-            )
-            Spacer(modifier = Modifier.width(10.dp))
-            Image(
-                painter = painterResource(R.drawable.c),
-                contentDescription = "",
-                contentScale = ContentScale.Fit,
-                modifier = Modifier
-                    .size(40.dp)
-                    .clickable {}
-            )
+                    .fillMaxWidth()
+                    .padding(vertical = 8.dp),
+                horizontalArrangement = Arrangement.SpaceEvenly,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                var showDialog by remember { mutableStateOf(false) }
+
+                Image(
+                    painter = painterResource(R.drawable.trangchu),
+                    contentDescription = "Home Page",
+                    contentScale = ContentScale.Fit,
+                    modifier = Modifier
+                        .size(140.dp)
+                        .clickable { showDialog = true }
+                )
+
+                if (showDialog) {
+                    AlertDialog(
+                        onDismissRequest = { showDialog = false },
+                        title = { Text("Xin chào!") },
+                        text = { Text("Bạn đang ở trang chủ.") },
+                        confirmButton = {
+                            TextButton(onClick = { showDialog = false }) {
+                                Text("Đóng")
+                            }
+                        }
+                    )
+                }
+
+                Spacer(modifier = Modifier.width(10.dp))
+                Image(
+                    painter = painterResource(R.drawable.a),
+                    contentDescription = "Contact",
+                    contentScale = ContentScale.Fit,
+                    modifier = Modifier
+                        .size(50.dp)
+                        .clickable {
+                            if (navController.graph.findNode("ContactScreen") != null) {
+                                navController.navigate("ContactScreen")
+                            }
+                        }
+                )
+
+                Spacer(modifier = Modifier.width(10.dp))
+                Image(
+                    painter = painterResource(R.drawable.hospital),
+                    contentDescription = "Maps",
+                    contentScale = ContentScale.Fit,
+                    modifier = Modifier
+                        .size(40.dp)
+                        .clickable {
+                            if (navController.graph.findNode("Maps") != null) {
+                                navController.navigate("Maps")
+                            }
+                        }
+                )
+
+                Spacer(modifier = Modifier.width(10.dp))
+                Image(
+                    painter = painterResource(R.drawable.c),
+                    contentDescription = "Profile",
+                    contentScale = ContentScale.Fit,
+                    modifier = Modifier
+                        .size(40.dp)
+                        .clickable {
+                            if (navController.graph.findNode("ProfileScreen") != null) {
+                                navController.navigate("ProfileScreen")
+                            }
+                        }
+                )
+            }
         }
     }
 }
