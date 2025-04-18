@@ -107,9 +107,10 @@ fun ContactScreen(
         },
         bottomBar = {
             Box(
+                contentAlignment = Alignment.Center,
                 modifier = Modifier
                     .navigationBarsPadding()
-                    .height(90.dp)
+                    .height(100.dp)
                     .background(Color.White)
             ) {
                 Image(
@@ -118,15 +119,21 @@ fun ContactScreen(
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(104.dp)
+                        .height(100.dp)
                 )
-                Row {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 30.dp), // tất cả icon xuống thấp thêm chút
+                    horizontalArrangement = Arrangement.SpaceEvenly,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
                     Image(
                         painter = painterResource(id = R.drawable.home),
                         contentDescription = "Trang chủ",
                         contentScale = ContentScale.Crop,
                         modifier = Modifier
-                            .padding(start = 26.dp, top = 40.dp)
+                            .padding(end = 20.dp)
                             .size(width = 41.dp, height = 39.dp)
                             .clickable{
                                     navController.navigate(Screen.HomePage1.route)
@@ -137,7 +144,7 @@ fun ContactScreen(
                         contentDescription = "Liên hệ",
                         contentScale = ContentScale.Crop,
                         modifier = Modifier
-                            .padding(start = 61.dp, top = 25.dp)
+                            .padding(end =25.dp, bottom = 37.dp)
                             .size(width = 37.dp, height = 32.dp)
 
                     )
@@ -146,7 +153,7 @@ fun ContactScreen(
                         contentDescription = "Bệnh viện",
                         contentScale = ContentScale.Crop,
                         modifier = Modifier
-                            .padding(start = 61.dp, top = 40.dp)
+                            .padding(end  = 30.dp)
                             .size(width = 35.dp, height = 35.dp)
                             .clickable{
                                 ///
@@ -157,7 +164,7 @@ fun ContactScreen(
                         contentDescription = "Tài khoản",
                         contentScale = ContentScale.Crop,
                         modifier = Modifier
-                            .padding(start = 61.dp, top = 40.dp)
+//                            .padding(end = 15.dp, top = 40.dp)
                             .size(width = 35.dp, height = 35.dp)
                             .clickable{
                                 navController.navigate(Screen.ProfileScreen.route)
@@ -364,6 +371,7 @@ fun ContactScreen(
 @Composable
 fun HeadBar() {
     Box(
+        contentAlignment = Alignment.Center,
         modifier = Modifier
             .fillMaxWidth()
             .height(91.dp)
