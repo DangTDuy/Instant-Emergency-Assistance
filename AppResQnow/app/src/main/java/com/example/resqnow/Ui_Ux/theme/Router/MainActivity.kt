@@ -33,6 +33,7 @@ import com.google.android.gms.auth.api.identity.Identity
 import androidx.navigation.compose.*
 import com.example.resqnow.Repository.Repository
 import com.example.resqnow.Room.ResqNowDatabase
+import com.example.resqnow.Ui_Ux.theme.FirstAidGuide.FirstAidGuideScreen
 import com.example.resqnow.Ui_Ux.theme.Maps.Maps
 import com.example.resqnow.Ui_Ux.theme.contact.CardScreen
 import com.example.resqnow.Ui_Ux.theme.contact.ContactScreen
@@ -83,10 +84,11 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             ResQnowTheme {
-                Navigation(
-                    googleAuthUiClient = googleAuthUiClient,
-                    facebookAuthUiClient = facebookAuthUiClient
-                )
+                FirstAidGuideScreen()
+//                Navigation(
+//                    googleAuthUiClient = googleAuthUiClient,
+//                    facebookAuthUiClient = facebookAuthUiClient
+//                )
             }
         }
     }

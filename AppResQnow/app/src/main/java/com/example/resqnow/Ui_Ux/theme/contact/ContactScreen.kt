@@ -395,7 +395,7 @@ fun HeadBar() {
         ) {
             Image(
                 painter = painterResource(id = R.drawable.phone),
-                contentDescription = "Điện thoại",
+                contentDescription = "Điện th   oại",
                 modifier = Modifier.size(30.dp)
             )
             Text(
