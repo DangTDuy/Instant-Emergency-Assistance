@@ -192,11 +192,30 @@ fun MapsContent(navController: NavHostController) {
         }
     }
 
-    Box(modifier = Modifier.fillMaxSize()) {
-        // Content area - Chiếm toàn bộ màn hình, nhưng có padding ở dưới để tránh che khuất bởi thanh điều hướng
+    Column(modifier = Modifier
+        .fillMaxSize()
+        .padding(top = 60.dp) // Thêm padding 60.dp ở trên cùng giống HomeScreen1
+    ) {
+        // Thêm tiêu đề giống như HomeScreen1
+        Row(
+            modifier = Modifier.padding(start = 16.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = "ResQnow",
+                fontSize = 30.sp,
+                fontWeight = FontWeight.Bold
+            )
+            
+            Spacer(modifier = Modifier.weight(1f))
+        }
+        
+        Spacer(modifier = Modifier.height(5.dp))
+        
+        // Content area
         Box(modifier = Modifier
-            .fillMaxSize()
-            .padding(bottom = 80.dp)  // Lưu ý: Phải có padding bottom cho thanh điều hướng
+            .weight(1f)
+            .fillMaxWidth()
         ) {
             when (loadingState) {
                 LoadingState.LOADING -> {
@@ -418,91 +437,84 @@ fun MapsContent(navController: NavHostController) {
             }
         }
         
-        // Navigation Bar - Định vị ở phía dưới màn hình
-        Column(
+        // Navigation Bar - ở cuối Column
+        Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .align(Alignment.BottomCenter),
-            verticalArrangement = Arrangement.Bottom
+                .navigationBarsPadding()
+                .height(80.dp),
+            contentAlignment = Alignment.Center
         ) {
-            Box(
+            Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .navigationBarsPadding()
-                    .height(80.dp),
-                contentAlignment = Alignment.Center
+                    .padding(vertical = 8.dp),
+                horizontalArrangement = Arrangement.SpaceEvenly,
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                Row(
+                var showDialog by remember { mutableStateOf(false) }
+
+                Image(
+                    painter = painterResource(R.drawable.trangchu),
+                    contentDescription = "Home Page",
+                    contentScale = ContentScale.Fit,
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(vertical = 8.dp),
-                    horizontalArrangement = Arrangement.SpaceEvenly,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    var showDialog by remember { mutableStateOf(false) }
+                        .size(140.dp)
+                        .clickable { navController.popBackStack() }
+                )
 
-                    Image(
-                        painter = painterResource(R.drawable.trangchu),
-                        contentDescription = "Home Page",
-                        contentScale = ContentScale.Fit,
-                        modifier = Modifier
-                            .size(140.dp)
-                            .clickable { navController.popBackStack() }
-                    )
+                Spacer(modifier = Modifier.width(10.dp))
+                Image(
+                    painter = painterResource(R.drawable.a),
+                    contentDescription = "Contact",
+                    contentScale = ContentScale.Fit,
+                    modifier = Modifier
+                        .size(50.dp)
+                        .clickable {
+                            if (navController.graph.findNode("ContactScreen") != null) {
+                                navController.navigate("ContactScreen")
+                            }
+                        }
+                )
 
-                    Spacer(modifier = Modifier.width(10.dp))
-                    Image(
-                        painter = painterResource(R.drawable.a),
-                        contentDescription = "Contact",
-                        contentScale = ContentScale.Fit,
-                        modifier = Modifier
-                            .size(50.dp)
-                            .clickable {
-                                if (navController.graph.findNode("ContactScreen") != null) {
-                                    navController.navigate("ContactScreen")
-                                }
+                Spacer(modifier = Modifier.width(10.dp))
+                Image(
+                    painter = painterResource(R.drawable.hospital),
+                    contentDescription = "Maps",
+                    contentScale = ContentScale.Fit,
+                    modifier = Modifier
+                        .size(40.dp)
+                        .clickable {
+                            showDialog = true
+                        }
+                )
+                
+                if (showDialog) {
+                    AlertDialog(
+                        onDismissRequest = { showDialog = false },
+                        title = { Text("Thông báo") },
+                        text = { Text("Bạn đang ở trang Bản đồ.") },
+                        confirmButton = {
+                            TextButton(onClick = { showDialog = false }) {
+                                Text("Đóng")
                             }
-                    )
-
-                    Spacer(modifier = Modifier.width(10.dp))
-                    Image(
-                        painter = painterResource(R.drawable.hospital),
-                        contentDescription = "Maps",
-                        contentScale = ContentScale.Fit,
-                        modifier = Modifier
-                            .size(40.dp)
-                            .clickable {
-                                showDialog = true
-                            }
-                    )
-                    
-                    if (showDialog) {
-                        AlertDialog(
-                            onDismissRequest = { showDialog = false },
-                            title = { Text("Thông báo") },
-                            text = { Text("Bạn đang ở trang Bản đồ.") },
-                            confirmButton = {
-                                TextButton(onClick = { showDialog = false }) {
-                                    Text("Đóng")
-                                }
-                            }
-                        )
-                    }
-
-                    Spacer(modifier = Modifier.width(10.dp))
-                    Image(
-                        painter = painterResource(R.drawable.c),
-                        contentDescription = "Profile",
-                        contentScale = ContentScale.Fit,
-                        modifier = Modifier
-                            .size(40.dp)
-                            .clickable {
-                                if (navController.graph.findNode("ProfileScreen") != null) {
-                                    navController.navigate("ProfileScreen")
-                                }
-                            }
+                        }
                     )
                 }
+
+                Spacer(modifier = Modifier.width(10.dp))
+                Image(
+                    painter = painterResource(R.drawable.c),
+                    contentDescription = "Profile",
+                    contentScale = ContentScale.Fit,
+                    modifier = Modifier
+                        .size(40.dp)
+                        .clickable {
+                            if (navController.graph.findNode("ProfileScreen") != null) {
+                                navController.navigate("ProfileScreen")
+                            }
+                        }
+                )
             }
         }
     }
