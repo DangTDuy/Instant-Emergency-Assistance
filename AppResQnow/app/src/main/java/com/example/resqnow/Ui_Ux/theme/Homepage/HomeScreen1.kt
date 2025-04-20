@@ -39,6 +39,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.resqnow.Data.Api_and_Firebase.FireBaseGoogle.GoogleAuthUiClient
 import com.example.resqnow.R
+import com.example.resqnow.Ui_Ux.theme.Router.Screen
 
 @Composable
 fun HomePage1(navController: NavController, googleAuthUiClient: GoogleAuthUiClient) {
@@ -273,9 +274,10 @@ fun HomePage1(navController: NavController, googleAuthUiClient: GoogleAuthUiClie
                     modifier = Modifier
                         .size(200.dp)
                         .clickable {
-                            if (navController.graph.findNode("EmergencyInstructions") != null) {
-                                navController.navigate("EmergencyInstructions")
-                            }
+//                            if (navController.graph.findNode(Screen.FirstAidGuideScreen.route) != null) {
+//                                navController.navigate(Screen.FirstAidGuideScreen.route)
+//                            }
+                            navController.navigate(Screen.FirstAidGuideScreen.route)
                         }
                 )
 

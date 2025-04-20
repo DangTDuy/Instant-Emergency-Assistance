@@ -57,6 +57,7 @@ sealed class Screen(val route: String) {
     object SignInSuccess : Screen("SignInSuccess")
     object ProfileScreen : Screen("ProfileScreen")
     object ProfileScreenWithoutAccount : Screen("ProfileScreenWithoutAccount")
+    object FirstAidGuideScreen : Screen("FirstAidGuideScreen")
 
 }
 class MainActivity : ComponentActivity() {
@@ -84,11 +85,10 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             ResQnowTheme {
-                FirstAidGuideScreen()
-//                Navigation(
-//                    googleAuthUiClient = googleAuthUiClient,
-//                    facebookAuthUiClient = facebookAuthUiClient
-//                )
+                Navigation(
+                    googleAuthUiClient = googleAuthUiClient,
+                    facebookAuthUiClient = facebookAuthUiClient
+                )
             }
         }
     }
@@ -173,9 +173,14 @@ class MainActivity : ComponentActivity() {
             }
 
             // Homepage
-            composable("HomeScreen1") {
+            composable(Screen.HomePage1.route) {
                 HomePage1(navController, googleAuthUiClient)
             }
+            //FirstAidGuid
+            composable(Screen.FirstAidGuideScreen.route) {
+                FirstAidGuideScreen(navController)
+            }
+
             // ContactScreen
             composable("ContactScreen") {
                 ContactScreen(contactViewModel, showDialog, navController)

@@ -22,6 +22,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 
@@ -33,7 +34,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
+
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -50,8 +51,17 @@ import com.example.resqnow.R
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.text.style.TextAlign
+import androidx.navigation.NavController
+import com.example.resqnow.Components.Snake_NonVenoument
+import com.example.resqnow.Components.Snake_venoument
 import com.example.resqnow.Components.background_firstaid
 import com.example.resqnow.Components.borderBackground
+import com.example.resqnow.Components.brokenArm
+import com.example.resqnow.Components.burn
+import com.example.resqnow.Components.stroke
+import com.example.resqnow.Components.swallow_Poison
 
 
 // Màn hình chức năng  sổ tay sơ cứu
@@ -59,9 +69,7 @@ import com.example.resqnow.Components.borderBackground
 
 
 @Composable
-fun FirstAidGuideScreen(){
-
-
+fun FirstAidGuideScreen(navController: NavController){
     var text by remember { mutableStateOf("") }
     var clear  by remember { mutableStateOf(false) }
 
@@ -91,6 +99,7 @@ fun FirstAidGuideScreen(){
             }
             Spacer(modifier = Modifier.height(5.dp))
             Box(
+
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(120.dp)
@@ -108,6 +117,16 @@ fun FirstAidGuideScreen(){
                     ,modifier = Modifier
                         .padding(start = 45.dp)
                         .size(width = 93.dp, height = 80.dp)
+                )
+                Text(text = "Hướng dẫn\nkhẩn cấp", fontSize = 28.sp,fontWeight = FontWeight.Black
+                    ,textAlign = TextAlign.Center,
+                    color = Color.White,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .align(Alignment.Center)
+                        .padding(start  = 120.dp)
+
+
                 )
             }
 
@@ -151,213 +170,8 @@ fun FirstAidGuideScreen(){
                 }
             )
 
-            //lazycolumn
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(horizontal = 5.dp,vertical = 5.dp)
-                    .background(background_firstaid)
-                    .border(width = 1.dp, color = borderBackground, shape = RoundedCornerShape(15.dp))
-            ){
-                LazyColumn(
-                    modifier = Modifier.padding(10.dp)
-                ) {
-                    //dòng 1
-                    item {
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(vertical = 30.dp),
-                            horizontalArrangement = Arrangement.SpaceBetween
-                        ) {
-                            //Gãy tay (Không hở )
-                            Card(
-                                modifier = Modifier
-                                    .weight(1f)
-                                    .size(width = 110.dp, height = 150.dp)
-                                    .padding(horizontal = 4.dp),
-                                shape = RoundedCornerShape(12.dp)
-                            ) {
-                                Column(
-                                    modifier = Modifier
-                                        .padding(16.dp),
-
-                                ) {
-                                    Image(painter = painterResource(R.drawable.gaytay),contentDescription = "gaytay"
-                                        ,modifier = Modifier
-                                            .size(width = 111.dp, height = 70.dp)
-                                    )
-                                }
-                            }
-
-                            //Đột Quỵ
-                            Card(
-                                modifier = Modifier
-                                    .weight(1f)
-                                    .size(width = 110.dp, height = 150.dp)
-                                    .padding(horizontal = 4.dp),
-                                shape = RoundedCornerShape(12.dp)
-                            ) {
-                                Box(
-                                    modifier = Modifier
-                                        .padding(16.dp),
-                                    contentAlignment = Alignment.Center
-                                ) {
-                                    Text(text = "minato")
-                                }
-                            }
-
-                            //Nuốt chất độc
-                            Card(
-                                modifier = Modifier
-                                    .weight(1f)
-                                    .size(width = 110.dp, height = 150.dp)
-                                    .padding(horizontal = 4.dp),
-                                shape = RoundedCornerShape(12.dp)
-                            ) {
-                                Box(
-                                    modifier = Modifier
-                                        .padding(16.dp),
-                                    contentAlignment = Alignment.Center
-                                ) {
-                                    Text(text = "minato")
-                                }
-                            }
-                        }
-                    }
-
-                    //dòng 2
-                        item{
-                            Row(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(vertical = 4.dp),
-                                horizontalArrangement = Arrangement.SpaceBetween
-                            ) {
-                                //Rắn cắn (có độc)
-                                Card(
-                                    modifier = Modifier
-                                        .weight(1f)
-                                        .size(width = 110.dp, height = 150.dp)
-                                        .padding(horizontal = 4.dp),
-                                    shape = RoundedCornerShape(12.dp)
-                                ) {
-                                    Box(
-                                        modifier = Modifier
-                                            .padding(16.dp),
-                                        contentAlignment = Alignment.Center
-                                    ) {
-                                        Text(text = "Chú bé đàn")
-                                    }
-                                }
-                                //Rắn cắn ( không độc )
-                                Card(
-                                    modifier = Modifier
-                                        .weight(1f)
-                                        .size(width = 110.dp, height = 150.dp)
-                                        .padding(horizontal = 4.dp),
-                                    shape = RoundedCornerShape(12.dp)
-                                ) {
-                                    Box(
-                                        modifier = Modifier
-                                            .padding(16.dp),
-                                        contentAlignment = Alignment.Center
-                                    ) {
-                                        Text(text = "bến tre")
-                                    }
-                                }
-
-                                //Bỏng nhiệt
-                                Card(
-                                    modifier = Modifier
-                                        .weight(1f)
-                                        .size(width = 110.dp, height = 150.dp)
-                                        .padding(horizontal = 4.dp),
-                                    shape = RoundedCornerShape(12.dp)
-                                ) {
-                                    Box(
-                                        modifier = Modifier
-                                            .padding(16.dp),
-                                        contentAlignment = Alignment.Center
-                                    ) {
-                                        Text(text = "trần hà linh")
-                                    }
-                                }
-                            }
-                        }
-
-                    //dòng 3
-                    item{
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(vertical = 30.dp),
-                            horizontalArrangement = Arrangement.SpaceBetween
-                        ) {
-                            //Đuối nước
-                            Card(
-                                modifier = Modifier
-                                    .weight(1f)
-                                    .size(width = 110.dp, height = 150.dp)
-                                    .padding(horizontal = 4.dp),
-                                shape = RoundedCornerShape(12.dp)
-                            ) {
-                                Box(
-                                    modifier = Modifier
-                                        .padding(16.dp),
-                                    contentAlignment = Alignment.Center
-                                ) {
-                                    Text(text = "Chú bé đàn")
-                                }
-                            }
-
-                            //Gãy chân
-                            Card(
-                                modifier = Modifier
-                                    .weight(1f)
-                                    .size(width = 110.dp, height = 150.dp)
-                                    .padding(horizontal = 4.dp),
-                                shape = RoundedCornerShape(12.dp)
-                            ) {
-                                Box(
-                                    modifier = Modifier
-                                        .padding(16.dp),
-                                    contentAlignment = Alignment.Center
-                                ) {
-                                    Text(text = "bến tre")
-                                }
-                            }
-
-                            //Chảy máu
-                            Card(
-                                modifier = Modifier
-                                    .weight(1f)
-                                    .size(width = 110.dp, height = 150.dp)
-                                    .padding(horizontal = 4.dp),
-                                shape = RoundedCornerShape(12.dp)
-                            ) {
-                                Box(
-                                    modifier = Modifier
-                                        .padding(16.dp),
-                                    contentAlignment = Alignment.Center
-                                ) {
-                                    Text(text = "trần hà linh")
-                                }
-                            }
-                        }
-                    }
-                }//end lazyycolumn
-            }
+           LC_FirstAids()
         }
-
     }
 
-}
-
-
-
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun FirstAidGuideScreenPreview(){
-    FirstAidGuideScreen()
 }

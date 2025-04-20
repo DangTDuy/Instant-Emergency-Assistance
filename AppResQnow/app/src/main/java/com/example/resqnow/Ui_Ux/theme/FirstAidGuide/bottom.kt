@@ -23,7 +23,7 @@ fun bottomBar(){
     Box(
         contentAlignment = Alignment.Center,
         modifier = Modifier
-            .navigationBarsPadding()  // Thêm padding để tránh bị che
+            .navigationBarsPadding()
             .fillMaxWidth()
             .height(105.dp)
     ){
