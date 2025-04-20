@@ -17,7 +17,6 @@ import com.example.resqnow.Ui_Ux.theme.*
 import com.example.resqnow.Ui_Ux.theme.common.IntroScreen1
 import com.example.resqnow.Ui_Ux.theme.introApp.*
 import com.example.resqnow.Ui_Ux.theme.outroApp.*
-import com.example.resqnow.Ui_Ux.theme.EmergencyInstructions.EmergencyInstructions
 import com.example.resqnow.Ui_Ux.theme.Login.*
 import com.example.resqnow.Ui_Ux.theme.Profile.*
 import com.example.resqnow.Ui_Ux.theme.Homepage.HomePage1
@@ -199,7 +198,6 @@ class MainActivity : ComponentActivity() {
             composable("IntroductionGuide") { IntroductionGuide(navController) }
             composable("LearnFirstAid") { LearnFirstAid(navController) }
             composable("Personalization") { Personalization(navController) }
-            composable("EmergencyInstructions") { EmergencyInstructions(navController) }
 
         }
     }

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.util.Log
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -22,13 +23,16 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Surface
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
@@ -39,6 +43,7 @@ import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import com.example.resqnow.R
 import com.google.accompanist.permissions.*
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
@@ -75,27 +80,29 @@ fun Maps(navController: NavHostController) {
         }
     }
 
-    if (locationPermissionState.status.isGranted) {
-        MapsContent(navController)
-    } else {
-        Column(
-            Modifier.fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
-        ) {
-            Text(
-                text = "Ứng dụng cần quyền truy cập vị trí để hiển thị bệnh viện gần bạn",
-                modifier = Modifier.padding(16.dp),
-                textAlign = TextAlign.Center,
-                fontWeight = FontWeight.Medium
-            )
-            
-            Button(onClick = {
-                if (!locationPermissionState.status.isGranted) {
-                    locationPermissionState.launchPermissionRequest()
+    Box(modifier = Modifier.fillMaxSize()) {
+        if (locationPermissionState.status.isGranted) {
+            MapsContent(navController)
+        } else {
+            Column(
+                Modifier.fillMaxSize(),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
+                Text(
+                    text = "Ứng dụng cần quyền truy cập vị trí để hiển thị bệnh viện gần bạn",
+                    modifier = Modifier.padding(16.dp),
+                    textAlign = TextAlign.Center,
+                    fontWeight = FontWeight.Medium
+                )
+                
+                Button(onClick = {
+                    if (!locationPermissionState.status.isGranted) {
+                        locationPermissionState.launchPermissionRequest()
+                    }
+                }) {
+                    Text("Cấp quyền vị trí")
                 }
-            }) {
-                Text("Cấp quyền vị trí")
             }
         }
     }
@@ -186,220 +193,315 @@ fun MapsContent(navController: NavHostController) {
     }
 
     Box(modifier = Modifier.fillMaxSize()) {
-        when (loadingState) {
-            LoadingState.LOADING -> {
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .background(Color.White.copy(alpha = 0.8f)),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        CircularProgressIndicator(color = MaterialTheme.colorScheme.primary)
-                        Spacer(modifier = Modifier.height(16.dp))
-                        Text("Đang tìm kiếm bệnh viện gần bạn...", fontWeight = FontWeight.Medium)
-                    }
-                }
-            }
-            
-            LoadingState.SUCCESS -> {
-                GoogleMap(
-                    modifier = Modifier.fillMaxSize(),
-                    cameraPositionState = cameraPositionState,
-                    properties = MapProperties(isMyLocationEnabled = true)
-                ) {
-                    filteredHospitals.forEach { hospital ->
-                        Marker(
-                            state = MarkerState(position = hospital.position),
-                            title = hospital.name,
-                            snippet = "Nhấn để tìm đường",
-                            onClick = {
-                                selectedHospital = hospital
-                                true
-                            }
-                        )
-                    }
-                }
-                
-                // Thanh tìm kiếm ở phía trên cùng
-                Surface(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 16.dp, vertical = 8.dp)
-                        .align(Alignment.TopCenter),
-                    color = Color.White,
-                    shape = RoundedCornerShape(8.dp),
-                    shadowElevation = 4.dp
-                ) {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 8.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        if (searchingPlaces) {
-                            CircularProgressIndicator(
-                                modifier = Modifier
-                                    .size(24.dp)
-                                    .padding(end = 8.dp),
-                                strokeWidth = 2.dp
-                            )
-                        } else {
-                            Icon(
-                                imageVector = Icons.Default.Search,
-                                contentDescription = "Tìm kiếm",
-                                modifier = Modifier.padding(end = 8.dp)
-                            )
-                        }
-                        
-                        OutlinedTextField(
-                            value = searchQuery,
-                            onValueChange = { searchQuery = it },
-                            modifier = Modifier
-                                .weight(1f)
-                                .padding(vertical = 4.dp),
-                            placeholder = { Text("Tìm bệnh viện...") },
-                            singleLine = true,
-                            colors = androidx.compose.material3.TextFieldDefaults.colors(
-                                unfocusedContainerColor = Color.Transparent,
-                                focusedContainerColor = Color.Transparent,
-                                unfocusedIndicatorColor = Color.Transparent,
-                                focusedIndicatorColor = Color.Transparent
-                            ),
-                            keyboardOptions = KeyboardOptions(
-                                imeAction = ImeAction.Search
-                            ),
-                            keyboardActions = KeyboardActions(
-                                onSearch = {
-                                    keyboardController?.hide()
-                                    if (searchQuery.isNotEmpty()) {
-                                        scope.launch {
-                                            searchingPlaces = true
-                                            searchHospitalsByQuery(
-                                                context = context,
-                                                query = searchQuery,
-                                                currentLocation = currentLocation,
-                                                onSuccess = { results ->
-                                                    searchingPlaces = false
-                                                    if (results.isNotEmpty()) {
-                                                        // Nếu có kết quả từ Places API, thêm vào danh sách và hiển thị
-                                                        filteredHospitals.clear()
-                                                        filteredHospitals.addAll(results)
-                                                        
-                                                        // Di chuyển camera đến kết quả đầu tiên
-                                                        cameraPositionState.position = CameraPosition.fromLatLngZoom(
-                                                            results[0].position,
-                                                            14f
-                                                        )
-                                                    } else {
-                                                        // Hiển thị thông báo không tìm thấy
-                                                        showNoHospitalsDialog = true
-                                                    }
-                                                },
-                                                onError = { error ->
-                                                    searchingPlaces = false
-                                                    errorMessage = error
-                                                }
-                                            )
-                                        }
-                                    }
-                                }
-                            )
-                        )
-                        
-                        if (searchQuery.isNotEmpty()) {
-                            IconButton(
-                                onClick = {
-                                    searchQuery = ""
-                                    // Hiển thị lại tất cả bệnh viện gần đó
-                                    filteredHospitals.clear()
-                                    filteredHospitals.addAll(hospitals)
-                                }
-                            ) {
-                                Icon(
-                                    imageVector = Icons.Default.Close,
-                                    contentDescription = "Xóa"
-                                )
-                            }
-                        }
-                    }
-                }
-                
-                // Hiển thị thông tin về số lượng bệnh viện tìm thấy
-                if (filteredHospitals.isNotEmpty()) {
+        // Content area - Chiếm toàn bộ màn hình, nhưng có padding ở dưới để tránh che khuất bởi thanh điều hướng
+        Box(modifier = Modifier
+            .fillMaxSize()
+            .padding(bottom = 80.dp)  // Lưu ý: Phải có padding bottom cho thanh điều hướng
+        ) {
+            when (loadingState) {
+                LoadingState.LOADING -> {
                     Box(
                         modifier = Modifier
-                            .padding(horizontal = 16.dp, vertical = 72.dp)
-                            .background(Color.White.copy(alpha = 0.8f), RoundedCornerShape(4.dp))
-                            .padding(8.dp)
-                            .align(Alignment.TopCenter)
-                            .clickable {
-                                if (filteredHospitals.size == 1) {
-                                    // Nếu chỉ có 1 kết quả, tự động chọn
-                                    selectedHospital = filteredHospitals[0]
+                            .fillMaxSize()
+                            .background(Color.White.copy(alpha = 0.8f)),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                            CircularProgressIndicator(color = MaterialTheme.colorScheme.primary)
+                            Spacer(modifier = Modifier.height(16.dp))
+                            Text("Đang tìm kiếm bệnh viện gần bạn...", fontWeight = FontWeight.Medium)
+                        }
+                    }
+                }
+                
+                LoadingState.SUCCESS -> {
+                    // Google Maps
+                    GoogleMap(
+                        modifier = Modifier.fillMaxSize(),
+                        cameraPositionState = cameraPositionState,
+                        properties = MapProperties(isMyLocationEnabled = true)
+                    ) {
+                        filteredHospitals.forEach { hospital ->
+                            Marker(
+                                state = MarkerState(position = hospital.position),
+                                title = hospital.name,
+                                snippet = "Nhấn để tìm đường",
+                                onClick = {
+                                    selectedHospital = hospital
+                                    true
+                                }
+                            )
+                        }
+                    }
+                    
+                    // Thanh tìm kiếm ở phía trên cùng
+                    Surface(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp, vertical = 8.dp)
+                            .align(Alignment.TopCenter),
+                        color = Color.White,
+                        shape = RoundedCornerShape(8.dp),
+                        shadowElevation = 4.dp
+                    ) {
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 8.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            if (searchingPlaces) {
+                                CircularProgressIndicator(
+                                    modifier = Modifier
+                                        .size(24.dp)
+                                        .padding(end = 8.dp),
+                                    strokeWidth = 2.dp
+                                )
+                            } else {
+                                Icon(
+                                    imageVector = Icons.Default.Search,
+                                    contentDescription = "Tìm kiếm",
+                                    modifier = Modifier.padding(end = 8.dp)
+                                )
+                            }
+                            
+                            OutlinedTextField(
+                                value = searchQuery,
+                                onValueChange = { searchQuery = it },
+                                modifier = Modifier
+                                    .weight(1f)
+                                    .padding(vertical = 4.dp),
+                                placeholder = { Text("Tìm bệnh viện...") },
+                                singleLine = true,
+                                colors = androidx.compose.material3.TextFieldDefaults.colors(
+                                    unfocusedContainerColor = Color.Transparent,
+                                    focusedContainerColor = Color.Transparent,
+                                    unfocusedIndicatorColor = Color.Transparent,
+                                    focusedIndicatorColor = Color.Transparent
+                                ),
+                                keyboardOptions = KeyboardOptions(
+                                    imeAction = ImeAction.Search
+                                ),
+                                keyboardActions = KeyboardActions(
+                                    onSearch = {
+                                        keyboardController?.hide()
+                                        if (searchQuery.isNotEmpty()) {
+                                            scope.launch {
+                                                searchingPlaces = true
+                                                searchHospitalsByQuery(
+                                                    context = context,
+                                                    query = searchQuery,
+                                                    currentLocation = currentLocation,
+                                                    onSuccess = { results ->
+                                                        searchingPlaces = false
+                                                        if (results.isNotEmpty()) {
+                                                            // Nếu có kết quả từ Places API, thêm vào danh sách và hiển thị
+                                                            filteredHospitals.clear()
+                                                            filteredHospitals.addAll(results)
+                                                            
+                                                            // Di chuyển camera đến kết quả đầu tiên
+                                                            cameraPositionState.position = CameraPosition.fromLatLngZoom(
+                                                                results[0].position,
+                                                                14f
+                                                            )
+                                                        } else {
+                                                            // Hiển thị thông báo không tìm thấy
+                                                            showNoHospitalsDialog = true
+                                                        }
+                                                    },
+                                                    onError = { error ->
+                                                        searchingPlaces = false
+                                                        errorMessage = error
+                                                    }
+                                                )
+                                            }
+                                        }
+                                    }
+                                )
+                            )
+                            
+                            if (searchQuery.isNotEmpty()) {
+                                IconButton(
+                                    onClick = {
+                                        searchQuery = ""
+                                        // Hiển thị lại tất cả bệnh viện gần đó
+                                        filteredHospitals.clear()
+                                        filteredHospitals.addAll(hospitals)
+                                    }
+                                ) {
+                                    Icon(
+                                        imageVector = Icons.Default.Close,
+                                        contentDescription = "Xóa"
+                                    )
                                 }
                             }
+                        }
+                    }
+                    
+                    // Hiển thị thông tin về số lượng bệnh viện tìm thấy
+                    if (filteredHospitals.isNotEmpty()) {
+                        Box(
+                            modifier = Modifier
+                                .padding(horizontal = 16.dp, vertical = 72.dp)
+                                .background(Color.White.copy(alpha = 0.8f), RoundedCornerShape(4.dp))
+                                .padding(8.dp)
+                                .align(Alignment.TopCenter)
+                                .clickable {
+                                    if (filteredHospitals.size == 1) {
+                                        // Nếu chỉ có 1 kết quả, tự động chọn
+                                        selectedHospital = filteredHospitals[0]
+                                    }
+                                }
+                        ) {
+                            Text(
+                                text = "Đã tìm thấy ${filteredHospitals.size} bệnh viện",
+                                fontWeight = FontWeight.Medium
+                            )
+                        }
+                    }
+                }
+                
+                LoadingState.ERROR, LoadingState.LOCATION_ERROR -> {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(16.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
                     ) {
                         Text(
-                            text = "Đã tìm thấy ${filteredHospitals.size} bệnh viện",
+                            text = errorMessage,
+                            textAlign = TextAlign.Center,
+                            fontSize = 16.sp,
                             fontWeight = FontWeight.Medium
                         )
+                        
+                        Spacer(modifier = Modifier.height(16.dp))
+                        
+                        Button(onClick = {
+                            loadingState = LoadingState.LOADING
+                            scope.launch {
+                                val fusedLocationClient = LocationServices.getFusedLocationProviderClient(context)
+                                try {
+                                    val location = fusedLocationClient.getCurrentLocation(Priority.PRIORITY_HIGH_ACCURACY, null).await()
+                                    if (location != null) {
+                                        currentLocation = LatLng(location.latitude, location.longitude)
+                                        cameraPositionState.position = CameraPosition.fromLatLngZoom(currentLocation!!, 14f)
+                                        
+                                        fetchNearbyHospitals(
+                                            context = context,
+                                            location = currentLocation!!,
+                                            onSuccess = { nearbyHospitals ->
+                                                hospitals.clear()
+                                                hospitals.addAll(nearbyHospitals)
+                                                filteredHospitals.clear()
+                                                filteredHospitals.addAll(nearbyHospitals)
+                                                loadingState = LoadingState.SUCCESS
+                                            },
+                                            onError = { error ->
+                                                errorMessage = error
+                                                loadingState = LoadingState.ERROR
+                                            }
+                                        )
+                                    } else {
+                                        loadingState = LoadingState.LOCATION_ERROR
+                                    }
+                                } catch (e: Exception) {
+                                    loadingState = LoadingState.LOCATION_ERROR
+                                }
+                            }
+                        }) {
+                            Text("Thử lại")
+                        }
                     }
                 }
             }
-            
-            LoadingState.ERROR, LoadingState.LOCATION_ERROR -> {
-                Column(
+        }
+        
+        // Navigation Bar - Định vị ở phía dưới màn hình
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .align(Alignment.BottomCenter),
+            verticalArrangement = Arrangement.Bottom
+        ) {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .navigationBarsPadding()
+                    .height(80.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                Row(
                     modifier = Modifier
-                        .fillMaxSize()
-                        .padding(16.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
+                        .fillMaxWidth()
+                        .padding(vertical = 8.dp),
+                    horizontalArrangement = Arrangement.SpaceEvenly,
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Text(
-                        text = errorMessage,
-                        textAlign = TextAlign.Center,
-                        fontSize = 16.sp,
-                        fontWeight = FontWeight.Medium
+                    var showDialog by remember { mutableStateOf(false) }
+
+                    Image(
+                        painter = painterResource(R.drawable.trangchu),
+                        contentDescription = "Home Page",
+                        contentScale = ContentScale.Fit,
+                        modifier = Modifier
+                            .size(140.dp)
+                            .clickable { navController.popBackStack() }
+                    )
+
+                    Spacer(modifier = Modifier.width(10.dp))
+                    Image(
+                        painter = painterResource(R.drawable.a),
+                        contentDescription = "Contact",
+                        contentScale = ContentScale.Fit,
+                        modifier = Modifier
+                            .size(50.dp)
+                            .clickable {
+                                if (navController.graph.findNode("ContactScreen") != null) {
+                                    navController.navigate("ContactScreen")
+                                }
+                            }
+                    )
+
+                    Spacer(modifier = Modifier.width(10.dp))
+                    Image(
+                        painter = painterResource(R.drawable.hospital),
+                        contentDescription = "Maps",
+                        contentScale = ContentScale.Fit,
+                        modifier = Modifier
+                            .size(40.dp)
+                            .clickable {
+                                showDialog = true
+                            }
                     )
                     
-                    Spacer(modifier = Modifier.height(16.dp))
-                    
-                    Button(onClick = {
-                        loadingState = LoadingState.LOADING
-                        scope.launch {
-                            val fusedLocationClient = LocationServices.getFusedLocationProviderClient(context)
-                            try {
-                                val location = fusedLocationClient.getCurrentLocation(Priority.PRIORITY_HIGH_ACCURACY, null).await()
-                                if (location != null) {
-                                    currentLocation = LatLng(location.latitude, location.longitude)
-                                    cameraPositionState.position = CameraPosition.fromLatLngZoom(currentLocation!!, 14f)
-                                    
-                                    fetchNearbyHospitals(
-                                        context = context,
-                                        location = currentLocation!!,
-                                        onSuccess = { nearbyHospitals ->
-                                            hospitals.clear()
-                                            hospitals.addAll(nearbyHospitals)
-                                            filteredHospitals.clear()
-                                            filteredHospitals.addAll(nearbyHospitals)
-                                            loadingState = LoadingState.SUCCESS
-                                        },
-                                        onError = { error ->
-                                            errorMessage = error
-                                            loadingState = LoadingState.ERROR
-                                        }
-                                    )
-                                } else {
-                                    loadingState = LoadingState.LOCATION_ERROR
+                    if (showDialog) {
+                        AlertDialog(
+                            onDismissRequest = { showDialog = false },
+                            title = { Text("Thông báo") },
+                            text = { Text("Bạn đang ở trang Bản đồ.") },
+                            confirmButton = {
+                                TextButton(onClick = { showDialog = false }) {
+                                    Text("Đóng")
                                 }
-                            } catch (e: Exception) {
-                                loadingState = LoadingState.LOCATION_ERROR
                             }
-                        }
-                    }) {
-                        Text("Thử lại")
+                        )
                     }
+
+                    Spacer(modifier = Modifier.width(10.dp))
+                    Image(
+                        painter = painterResource(R.drawable.c),
+                        contentDescription = "Profile",
+                        contentScale = ContentScale.Fit,
+                        modifier = Modifier
+                            .size(40.dp)
+                            .clickable {
+                                if (navController.graph.findNode("ProfileScreen") != null) {
+                                    navController.navigate("ProfileScreen")
+                                }
+                            }
+                    )
                 }
             }
         }
