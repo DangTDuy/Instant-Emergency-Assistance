@@ -1,4 +1,4 @@
-package com.example.resqnow.Room
+package com.example.resqnow.Room.DB_Contact
 
 
 import android.content.Context
@@ -6,9 +6,11 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
+
 @Database(entities = [ContactEntity::class], version = 4, exportSchema = false)
 abstract  class ResqNowDatabase : RoomDatabase(){
     abstract fun contactDao(): ContactDao
+
     companion object{
         @Volatile
         private var INSTANCE: ResqNowDatabase? = null

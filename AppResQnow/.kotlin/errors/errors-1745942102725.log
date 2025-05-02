@@ -1,0 +1,602 @@
+kotlin version: 2.0.21
+error message: org.jetbrains.kotlin.backend.common.BackendException: Backend Internal error: Exception during IR lowering
+File being compiled: D:/Instant-Emergency-Assistance/AppResQnow/app/src/main/java/com/example/resqnow/Components/ConfigVideo.kt
+The root cause java.lang.RuntimeException was thrown at: org.jetbrains.kotlin.backend.jvm.codegen.FunctionCodegen.generate(FunctionCodegen.kt:47)
+	at org.jetbrains.kotlin.backend.common.CodegenUtil.reportBackendException(CodegenUtil.kt:253)
+	at org.jetbrains.kotlin.backend.common.CodegenUtil.reportBackendException$default(CodegenUtil.kt:236)
+	at org.jetbrains.kotlin.backend.common.phaser.PerformByIrFilePhase.invokeSequential(performByIrFile.kt:65)
+	at org.jetbrains.kotlin.backend.common.phaser.PerformByIrFilePhase.invoke(performByIrFile.kt:52)
+	at org.jetbrains.kotlin.backend.common.phaser.PerformByIrFilePhase.invoke(performByIrFile.kt:38)
+	at org.jetbrains.kotlin.backend.common.phaser.NamedCompilerPhase.phaseBody(CompilerPhase.kt:166)
+	at org.jetbrains.kotlin.backend.common.phaser.AbstractNamedCompilerPhase.invoke(CompilerPhase.kt:113)
+	at org.jetbrains.kotlin.backend.common.phaser.CompositePhase.invoke(PhaseBuilders.kt:27)
+	at org.jetbrains.kotlin.backend.common.phaser.CompositePhase.invoke(PhaseBuilders.kt:14)
+	at org.jetbrains.kotlin.backend.common.phaser.NamedCompilerPhase.phaseBody(CompilerPhase.kt:166)
+	at org.jetbrains.kotlin.backend.common.phaser.AbstractNamedCompilerPhase.invoke(CompilerPhase.kt:113)
+	at org.jetbrains.kotlin.backend.common.phaser.CompilerPhaseKt.invokeToplevel(CompilerPhase.kt:62)
+	at org.jetbrains.kotlin.backend.jvm.JvmIrCodegenFactory.invokeCodegen(JvmIrCodegenFactory.kt:371)
+	at org.jetbrains.kotlin.codegen.CodegenFactory.generateModule(CodegenFactory.kt:47)
+	at org.jetbrains.kotlin.backend.jvm.JvmIrCodegenFactory.generateModuleInFrontendIRMode(JvmIrCodegenFactory.kt:433)
+	at org.jetbrains.kotlin.cli.jvm.compiler.pipeline.JvmCompilerPipelineKt.generateCodeFromIr(jvmCompilerPipeline.kt:246)
+	at org.jetbrains.kotlin.cli.jvm.compiler.pipeline.JvmCompilerPipelineKt.compileModulesUsingFrontendIrAndLightTree(jvmCompilerPipeline.kt:142)
+	at org.jetbrains.kotlin.cli.jvm.K2JVMCompiler.doExecute(K2JVMCompiler.kt:148)
+	at org.jetbrains.kotlin.cli.jvm.K2JVMCompiler.doExecute(K2JVMCompiler.kt:43)
+	at org.jetbrains.kotlin.cli.common.CLICompiler.execImpl(CLICompiler.kt:103)
+	at org.jetbrains.kotlin.cli.common.CLICompiler.execImpl(CLICompiler.kt:49)
+	at org.jetbrains.kotlin.cli.common.CLITool.exec(CLITool.kt:101)
+	at org.jetbrains.kotlin.incremental.IncrementalJvmCompilerRunner.runCompiler(IncrementalJvmCompilerRunner.kt:464)
+	at org.jetbrains.kotlin.incremental.IncrementalJvmCompilerRunner.runCompiler(IncrementalJvmCompilerRunner.kt:73)
+	at org.jetbrains.kotlin.incremental.IncrementalCompilerRunner.doCompile(IncrementalCompilerRunner.kt:506)
+	at org.jetbrains.kotlin.incremental.IncrementalCompilerRunner.compileImpl(IncrementalCompilerRunner.kt:423)
+	at org.jetbrains.kotlin.incremental.IncrementalCompilerRunner.tryCompileIncrementally$lambda$9$compile(IncrementalCompilerRunner.kt:249)
+	at org.jetbrains.kotlin.incremental.IncrementalCompilerRunner.tryCompileIncrementally(IncrementalCompilerRunner.kt:267)
+	at org.jetbrains.kotlin.incremental.IncrementalCompilerRunner.compile(IncrementalCompilerRunner.kt:120)
+	at org.jetbrains.kotlin.daemon.CompileServiceImplBase.execIncrementalCompiler(CompileServiceImpl.kt:675)
+	at org.jetbrains.kotlin.daemon.CompileServiceImplBase.access$execIncrementalCompiler(CompileServiceImpl.kt:92)
+	at org.jetbrains.kotlin.daemon.CompileServiceImpl.compile(CompileServiceImpl.kt:1660)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(Unknown Source)
+	at java.base/java.lang.reflect.Method.invoke(Unknown Source)
+	at java.rmi/sun.rmi.server.UnicastServerRef.dispatch(Unknown Source)
+	at java.rmi/sun.rmi.transport.Transport$1.run(Unknown Source)
+	at java.rmi/sun.rmi.transport.Transport$1.run(Unknown Source)
+	at java.base/java.security.AccessController.doPrivileged(Unknown Source)
+	at java.rmi/sun.rmi.transport.Transport.serviceCall(Unknown Source)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport.handleMessages(Unknown Source)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run0(Unknown Source)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.lambda$run$0(Unknown Source)
+	at java.base/java.security.AccessController.doPrivileged(Unknown Source)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run(Unknown Source)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.base/java.lang.Thread.run(Unknown Source)
+Caused by: java.lang.RuntimeException: Exception while generating code for:
+FUN name:VideoPlayerFromRaw visibility:public modality:FINAL <> (context:android.content.Context, rawResId:kotlin.Int, modifier:androidx.compose.ui.Modifier?, $composer:androidx.compose.runtime.Composer?, $changed:kotlin.Int, $default:kotlin.Int) returnType:kotlin.Unit
+  annotations:
+    Composable
+    ComposableTarget(applier = "androidx.compose.ui.UiComposable")
+  VALUE_PARAMETER name:context index:0 type:android.content.Context
+  VALUE_PARAMETER name:rawResId index:1 type:kotlin.Int
+  VALUE_PARAMETER name:modifier index:2 type:androidx.compose.ui.Modifier? [assignable]
+  VALUE_PARAMETER name:$composer index:3 type:androidx.compose.runtime.Composer? [assignable]
+  VALUE_PARAMETER name:$changed index:4 type:kotlin.Int
+  VALUE_PARAMETER MASK_FOR_DEFAULT_FUNCTION name:$default index:5 type:kotlin.Int
+  BLOCK_BODY
+    BLOCK type=kotlin.Unit origin=null
+      SET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw' type=kotlin.Unit origin=null
+        CALL 'public abstract fun startRestartGroup (key: kotlin.Int): androidx.compose.runtime.Composer declared in androidx.compose.runtime.Composer' type=androidx.compose.runtime.Composer origin=null
+          $this: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw' type=androidx.compose.runtime.Composer? origin=null
+          key: CONST Int type=kotlin.Int value=-1749010404
+      CALL 'public final fun sourceInformation (composer: androidx.compose.runtime.Composer, sourceInformation: kotlin.String): kotlin.Unit declared in androidx.compose.runtime.ComposerKt' type=kotlin.Unit origin=null
+        composer: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw' type=androidx.compose.runtime.Composer? origin=null
+        sourceInformation: CONST String type=kotlin.String value="C(VideoPlayerFromRaw)P(!1,2)23@678L47,26@803L251,26@778L276,35@1091L134,34@1060L200:ConfigVideo.kt#e6r6s0"
+    VAR name:$dirty type:kotlin.Int [val]
+      GET_VAR '$changed: kotlin.Int declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw' type=kotlin.Int origin=null
+    WHEN type=kotlin.Unit origin=IF
+      BRANCH
+        if: CALL 'public final fun not (): kotlin.Boolean [operator] declared in kotlin.Boolean' type=kotlin.Boolean origin=null
+          $this: CALL 'public final fun EQEQ (arg0: kotlin.Any?, arg1: kotlin.Any?): kotlin.Boolean declared in kotlin.internal.ir' type=kotlin.Boolean origin=null
+            arg0: CALL 'public final fun and (other: kotlin.Int): kotlin.Int [infix] declared in kotlin.Int' type=kotlin.Int origin=null
+              $this: GET_VAR '$default: kotlin.Int declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw' type=kotlin.Int origin=null
+              other: CONST Int type=kotlin.Int value=1
+            arg1: CONST Int type=kotlin.Int value=0
+        then: SET_VAR 'val $dirty: kotlin.Int [val] declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw' type=kotlin.Unit origin=null
+          CALL 'public final fun or (other: kotlin.Int): kotlin.Int [infix] declared in kotlin.Int' type=kotlin.Int origin=null
+            $this: GET_VAR 'val $dirty: kotlin.Int [val] declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw' type=kotlin.Int origin=null
+            other: CONST Int type=kotlin.Int value=6
+      BRANCH
+        if: CALL 'public final fun EQEQ (arg0: kotlin.Any?, arg1: kotlin.Any?): kotlin.Boolean declared in kotlin.internal.ir' type=kotlin.Boolean origin=null
+          arg0: CALL 'public final fun and (other: kotlin.Int): kotlin.Int [infix] declared in kotlin.Int' type=kotlin.Int origin=null
+            $this: GET_VAR '$changed: kotlin.Int declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw' type=kotlin.Int origin=null
+            other: CONST Int type=kotlin.Int value=6
+          arg1: CONST Int type=kotlin.Int value=0
+        then: SET_VAR 'val $dirty: kotlin.Int [val] declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw' type=kotlin.Unit origin=null
+          CALL 'public final fun or (other: kotlin.Int): kotlin.Int [infix] declared in kotlin.Int' type=kotlin.Int origin=null
+            $this: GET_VAR 'val $dirty: kotlin.Int [val] declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw' type=kotlin.Int origin=null
+            other: WHEN type=kotlin.Int origin=IF
+              BRANCH
+                if: CALL 'public open fun changedInstance (value: kotlin.Any?): kotlin.Boolean declared in androidx.compose.runtime.Composer' type=kotlin.Boolean origin=null
+                  $this: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw' type=androidx.compose.runtime.Composer? origin=null
+                  value: GET_VAR 'context: android.content.Context declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw' type=android.content.Context origin=null
+                then: CONST Int type=kotlin.Int value=4
+              BRANCH
+                if: CONST Boolean type=kotlin.Boolean value=true
+                then: CONST Int type=kotlin.Int value=2
+    WHEN type=kotlin.Unit origin=IF
+      BRANCH
+        if: CALL 'public final fun not (): kotlin.Boolean [operator] declared in kotlin.Boolean' type=kotlin.Boolean origin=null
+          $this: CALL 'public final fun EQEQ (arg0: kotlin.Any?, arg1: kotlin.Any?): kotlin.Boolean declared in kotlin.internal.ir' type=kotlin.Boolean origin=null
+            arg0: CALL 'public final fun and (other: kotlin.Int): kotlin.Int [infix] declared in kotlin.Int' type=kotlin.Int origin=null
+              $this: GET_VAR '$default: kotlin.Int declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw' type=kotlin.Int origin=null
+              other: CONST Int type=kotlin.Int value=2
+            arg1: CONST Int type=kotlin.Int value=0
+        then: SET_VAR 'val $dirty: kotlin.Int [val] declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw' type=kotlin.Unit origin=null
+          CALL 'public final fun or (other: kotlin.Int): kotlin.Int [infix] declared in kotlin.Int' type=kotlin.Int origin=null
+            $this: GET_VAR 'val $dirty: kotlin.Int [val] declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw' type=kotlin.Int origin=null
+            other: CONST Int type=kotlin.Int value=48
+      BRANCH
+        if: CALL 'public final fun EQEQ (arg0: kotlin.Any?, arg1: kotlin.Any?): kotlin.Boolean declared in kotlin.internal.ir' type=kotlin.Boolean origin=null
+          arg0: CALL 'public final fun and (other: kotlin.Int): kotlin.Int [infix] declared in kotlin.Int' type=kotlin.Int origin=null
+            $this: GET_VAR '$changed: kotlin.Int declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw' type=kotlin.Int origin=null
+            other: CONST Int type=kotlin.Int value=48
+          arg1: CONST Int type=kotlin.Int value=0
+        then: SET_VAR 'val $dirty: kotlin.Int [val] declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw' type=kotlin.Unit origin=null
+          CALL 'public final fun or (other: kotlin.Int): kotlin.Int [infix] declared in kotlin.Int' type=kotlin.Int origin=null
+            $this: GET_VAR 'val $dirty: kotlin.Int [val] declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw' type=kotlin.Int origin=null
+            other: WHEN type=kotlin.Int origin=IF
+              BRANCH
+                if: CALL 'public open fun changed (value: kotlin.Int): kotlin.Boolean declared in androidx.compose.runtime.Composer' type=kotlin.Boolean origin=null
+                  $this: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw' type=androidx.compose.runtime.Composer? origin=null
+                  value: GET_VAR 'rawResId: kotlin.Int declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw' type=kotlin.Int origin=null
+                then: CONST Int type=kotlin.Int value=32
+              BRANCH
+                if: CONST Boolean type=kotlin.Boolean value=true
+                then: CONST Int type=kotlin.Int value=16
+    WHEN type=kotlin.Unit origin=IF
+      BRANCH
+        if: CALL 'public final fun not (): kotlin.Boolean [operator] declared in kotlin.Boolean' type=kotlin.Boolean origin=null
+          $this: CALL 'public final fun EQEQ (arg0: kotlin.Any?, arg1: kotlin.Any?): kotlin.Boolean declared in kotlin.internal.ir' type=kotlin.Boolean origin=null
+            arg0: CALL 'public final fun and (other: kotlin.Int): kotlin.Int [infix] declared in kotlin.Int' type=kotlin.Int origin=null
+              $this: GET_VAR '$default: kotlin.Int declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw' type=kotlin.Int origin=null
+              other: CONST Int type=kotlin.Int value=4
+            arg1: CONST Int type=kotlin.Int value=0
+        then: SET_VAR 'val $dirty: kotlin.Int [val] declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw' type=kotlin.Unit origin=null
+          CALL 'public final fun or (other: kotlin.Int): kotlin.Int [infix] declared in kotlin.Int' type=kotlin.Int origin=null
+            $this: GET_VAR 'val $dirty: kotlin.Int [val] declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw' type=kotlin.Int origin=null
+            other: CONST Int type=kotlin.Int value=384
+      BRANCH
+        if: CALL 'public final fun EQEQ (arg0: kotlin.Any?, arg1: kotlin.Any?): kotlin.Boolean declared in kotlin.internal.ir' type=kotlin.Boolean origin=null
+          arg0: CALL 'public final fun and (other: kotlin.Int): kotlin.Int [infix] declared in kotlin.Int' type=kotlin.Int origin=null
+            $this: GET_VAR '$changed: kotlin.Int declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw' type=kotlin.Int origin=null
+            other: CONST Int type=kotlin.Int value=384
+          arg1: CONST Int type=kotlin.Int value=0
+        then: SET_VAR 'val $dirty: kotlin.Int [val] declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw' type=kotlin.Unit origin=null
+          CALL 'public final fun or (other: kotlin.Int): kotlin.Int [infix] declared in kotlin.Int' type=kotlin.Int origin=null
+            $this: GET_VAR 'val $dirty: kotlin.Int [val] declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw' type=kotlin.Int origin=null
+            other: WHEN type=kotlin.Int origin=IF
+              BRANCH
+                if: CALL 'public abstract fun changed (value: kotlin.Any?): kotlin.Boolean declared in androidx.compose.runtime.Composer' type=kotlin.Boolean origin=null
+                  $this: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw' type=androidx.compose.runtime.Composer? origin=null
+                  value: GET_VAR 'modifier: androidx.compose.ui.Modifier? [assignable] declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw' type=androidx.compose.ui.Modifier? origin=null
+                then: CONST Int type=kotlin.Int value=256
+              BRANCH
+                if: CONST Boolean type=kotlin.Boolean value=true
+                then: CONST Int type=kotlin.Int value=128
+    WHEN type=kotlin.Unit origin=IF
+      BRANCH
+        if: CALL 'public final fun OROR (arg0: kotlin.Boolean, arg1: kotlin.Boolean): kotlin.Boolean declared in kotlin.internal.ir' type=kotlin.Boolean origin=null
+          arg0: CALL 'public final fun not (): kotlin.Boolean [operator] declared in kotlin.Boolean' type=kotlin.Boolean origin=null
+            $this: CALL 'public final fun EQEQ (arg0: kotlin.Any?, arg1: kotlin.Any?): kotlin.Boolean declared in kotlin.internal.ir' type=kotlin.Boolean origin=null
+              arg0: CALL 'public final fun and (other: kotlin.Int): kotlin.Int [infix] declared in kotlin.Int' type=kotlin.Int origin=null
+                $this: GET_VAR 'val $dirty: kotlin.Int [val] declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw' type=kotlin.Int origin=null
+                other: CONST Int type=kotlin.Int value=147
+              arg1: CONST Int type=kotlin.Int value=146
+          arg1: CALL 'public final fun not (): kotlin.Boolean [operator] declared in kotlin.Boolean' type=kotlin.Boolean origin=null
+            $this: CALL 'public abstract fun <get-skipping> (): kotlin.Boolean declared in androidx.compose.runtime.Composer' type=kotlin.Boolean origin=null
+              $this: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw' type=androidx.compose.runtime.Composer? origin=null
+        then: BLOCK type=kotlin.Unit origin=null
+          WHEN type=kotlin.Unit origin=IF
+            BRANCH
+              if: CALL 'public final fun not (): kotlin.Boolean [operator] declared in kotlin.Boolean' type=kotlin.Boolean origin=null
+                $this: CALL 'public final fun EQEQ (arg0: kotlin.Any?, arg1: kotlin.Any?): kotlin.Boolean declared in kotlin.internal.ir' type=kotlin.Boolean origin=null
+                  arg0: CALL 'public final fun and (other: kotlin.Int): kotlin.Int [infix] declared in kotlin.Int' type=kotlin.Int origin=null
+                    $this: GET_VAR '$default: kotlin.Int declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw' type=kotlin.Int origin=null
+                    other: CONST Int type=kotlin.Int value=4
+                  arg1: CONST Int type=kotlin.Int value=0
+              then: SET_VAR 'modifier: androidx.compose.ui.Modifier? [assignable] declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw' type=kotlin.Unit origin=null
+                GET_FIELD 'FIELD FIELD_FOR_OBJECT_INSTANCE name:Companion type:androidx.compose.ui.Modifier.Companion visibility:public [final,static] declared in androidx.compose.ui.Modifier' type=androidx.compose.ui.Modifier.Companion origin=null
+          WHEN type=kotlin.Unit origin=IF
+            BRANCH
+              if: CALL 'public final fun isTraceInProgress (): kotlin.Boolean declared in androidx.compose.runtime.ComposerKt' type=kotlin.Boolean origin=null
+              then: CALL 'public final fun traceEventStart (key: kotlin.Int, dirty1: kotlin.Int, dirty2: kotlin.Int, info: kotlin.String): kotlin.Unit declared in androidx.compose.runtime.ComposerKt' type=kotlin.Unit origin=null
+                key: CONST Int type=kotlin.Int value=-1749010404
+                dirty1: GET_VAR 'val $dirty: kotlin.Int [val] declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw' type=kotlin.Int origin=null
+                dirty2: CONST Int type=kotlin.Int value=-1
+                info: CONST String type=kotlin.String value="com.example.resqnow.Components.VideoPlayerFromRaw (ConfigVideo.kt:22)"
+          VAR name:player type:androidx.media3.exoplayer.ExoPlayer [val]
+            BLOCK type=androidx.media3.exoplayer.ExoPlayer origin=null
+              VAR IR_TEMPORARY_VARIABLE name:tmp0 type:kotlin.Any? [val]
+                BLOCK type=@[EnhancedNullability] androidx.media3.exoplayer.ExoPlayer origin=null
+                  BLOCK type=kotlin.Unit origin=null
+                    CALL 'public abstract fun startReplaceGroup (key: kotlin.Int): kotlin.Unit declared in androidx.compose.runtime.Composer' type=kotlin.Unit origin=null
+                      $this: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw' type=androidx.compose.runtime.Composer? origin=null
+                      key: CONST Int type=kotlin.Int value=1316546063
+                    CALL 'public final fun sourceInformation (composer: androidx.compose.runtime.Composer, sourceInformation: kotlin.String): kotlin.Unit declared in androidx.compose.runtime.ComposerKt' type=kotlin.Unit origin=null
+                      composer: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw' type=androidx.compose.runtime.Composer? origin=null
+                      sourceInformation: CONST String type=kotlin.String value="CC(remember):ConfigVideo.kt#9igjgp"
+                  VAR IR_TEMPORARY_VARIABLE name:tmp0_group type:@[EnhancedNullability] androidx.media3.exoplayer.ExoPlayer [val]
+                    CALL 'public final fun cache <T> (invalid: kotlin.Boolean, block: @[DisallowComposableCalls] kotlin.Function0<T of androidx.compose.runtime.ComposerKt.cache>): T of androidx.compose.runtime.ComposerKt.cache [inline] declared in androidx.compose.runtime.ComposerKt' type=@[EnhancedNullability] androidx.media3.exoplayer.ExoPlayer origin=null
+                      <T>: @[EnhancedNullability] androidx.media3.exoplayer.ExoPlayer
+                      $receiver: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw' type=androidx.compose.runtime.Composer? origin=null
+                      invalid: CONST Boolean type=kotlin.Boolean value=false
+                      block: BLOCK type=kotlin.Function0<@[EnhancedNullability] androidx.media3.exoplayer.ExoPlayer> origin=LAMBDA
+                        COMPOSITE type=kotlin.Unit origin=null
+                        FUNCTION_REFERENCE 'private final fun VideoPlayerFromRaw$lambda$0 ($context: android.content.Context): @[EnhancedNullability] androidx.media3.exoplayer.ExoPlayer declared in com.example.resqnow.Components.ConfigVideoKt' type=kotlin.Function0<@[EnhancedNullability] androidx.media3.exoplayer.ExoPlayer> origin=INLINE_LAMBDA reflectionTarget=null
+                          $context: GET_VAR 'context: android.content.Context declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw' type=android.content.Context origin=null
+                  CALL 'public abstract fun endReplaceGroup (): kotlin.Unit declared in androidx.compose.runtime.Composer' type=kotlin.Unit origin=null
+                    $this: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw' type=androidx.compose.runtime.Composer? origin=null
+                  GET_VAR 'val tmp0_group: @[EnhancedNullability] androidx.media3.exoplayer.ExoPlayer [val] declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw' type=@[EnhancedNullability] androidx.media3.exoplayer.ExoPlayer origin=null
+              CALL 'public final fun checkNotNull (object: kotlin.Any?): kotlin.Unit declared in kotlin.jvm.internal.Intrinsics' type=kotlin.Unit origin=null
+                object: GET_VAR 'val tmp0: kotlin.Any? [val] declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw' type=kotlin.Any? origin=null
+              GET_VAR 'val tmp0: kotlin.Any? [val] declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw' type=kotlin.Any? origin=null
+          CALL 'public final fun LaunchedEffect (key1: kotlin.Any?, block: @[ExtensionFunctionType] kotlin.coroutines.SuspendFunction1<kotlinx.coroutines.CoroutineScope, kotlin.Unit>, $composer: androidx.compose.runtime.Composer?, $changed: kotlin.Int): kotlin.Unit declared in androidx.compose.runtime.EffectsKt' type=kotlin.Unit origin=null
+            key1: GET_VAR 'rawResId: kotlin.Int declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw' type=kotlin.Int origin=null
+            block: BLOCK type=@[ExtensionFunctionType] kotlin.coroutines.SuspendFunction1<kotlinx.coroutines.CoroutineScope, kotlin.Unit> origin=null
+              BLOCK type=kotlin.Unit origin=null
+                CALL 'public abstract fun startReplaceGroup (key: kotlin.Int): kotlin.Unit declared in androidx.compose.runtime.Composer' type=kotlin.Unit origin=null
+                  $this: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw' type=androidx.compose.runtime.Composer? origin=null
+                  key: CONST Int type=kotlin.Int value=1316550267
+                CALL 'public final fun sourceInformation (composer: androidx.compose.runtime.Composer, sourceInformation: kotlin.String): kotlin.Unit declared in androidx.compose.runtime.ComposerKt' type=kotlin.Unit origin=null
+                  composer: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw' type=androidx.compose.runtime.Composer? origin=null
+                  sourceInformation: CONST String type=kotlin.String value="CC(remember):ConfigVideo.kt#9igjgp"
+              VAR IR_TEMPORARY_VARIABLE name:tmp1_group type:@[ExtensionFunctionType] kotlin.coroutines.SuspendFunction1<kotlinx.coroutines.CoroutineScope, kotlin.Unit> [val]
+                CALL 'public final fun cache <T> (invalid: kotlin.Boolean, block: @[DisallowComposableCalls] kotlin.Function0<T of androidx.compose.runtime.ComposerKt.cache>): T of androidx.compose.runtime.ComposerKt.cache [inline] declared in androidx.compose.runtime.ComposerKt' type=@[ExtensionFunctionType] kotlin.coroutines.SuspendFunction1<kotlinx.coroutines.CoroutineScope, kotlin.Unit> origin=null
+                  <T>: @[ExtensionFunctionType] kotlin.coroutines.SuspendFunction1<kotlinx.coroutines.CoroutineScope, kotlin.Unit>
+                  $receiver: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw' type=androidx.compose.runtime.Composer? origin=null
+                  invalid: CALL 'public final fun or (other: kotlin.Boolean): kotlin.Boolean [infix] declared in kotlin.Boolean' type=kotlin.Boolean origin=null
+                    $this: CALL 'public final fun or (other: kotlin.Boolean): kotlin.Boolean [infix] declared in kotlin.Boolean' type=kotlin.Boolean origin=null
+                      $this: CALL 'public open fun changedInstance (value: kotlin.Any?): kotlin.Boolean declared in androidx.compose.runtime.Composer' type=kotlin.Boolean origin=null
+                        $this: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw' type=androidx.compose.runtime.Composer? origin=null
+                        value: GET_VAR 'context: android.content.Context declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw' type=android.content.Context origin=null
+                      other: CALL 'public final fun EQEQ (arg0: kotlin.Any?, arg1: kotlin.Any?): kotlin.Boolean declared in kotlin.internal.ir' type=kotlin.Boolean origin=null
+                        arg0: CALL 'public final fun and (other: kotlin.Int): kotlin.Int [infix] declared in kotlin.Int' type=kotlin.Int origin=null
+                          $this: GET_VAR 'val $dirty: kotlin.Int [val] declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw' type=kotlin.Int origin=null
+                          other: CONST Int type=kotlin.Int value=112
+                        arg1: CONST Int type=kotlin.Int value=32
+                    other: CALL 'public open fun changedInstance (value: kotlin.Any?): kotlin.Boolean declared in androidx.compose.runtime.Composer' type=kotlin.Boolean origin=null
+                      $this: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw' type=androidx.compose.runtime.Composer? origin=null
+                      value: GET_VAR 'val player: androidx.media3.exoplayer.ExoPlayer [val] declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw' type=androidx.media3.exoplayer.ExoPlayer origin=null
+                  block: BLOCK type=kotlin.Function0<@[ExtensionFunctionType] kotlin.coroutines.SuspendFunction1<kotlinx.coroutines.CoroutineScope, kotlin.Unit>> origin=LAMBDA
+                    COMPOSITE type=kotlin.Unit origin=null
+                    FUNCTION_REFERENCE 'private final fun VideoPlayerFromRaw$lambda$1 ($context: android.content.Context, $rawResId: kotlin.Int, $player: androidx.media3.exoplayer.ExoPlayer): @[ExtensionFunctionType] kotlin.coroutines.SuspendFunction1<kotlinx.coroutines.CoroutineScope, kotlin.Unit> declared in com.example.resqnow.Components.ConfigVideoKt' type=kotlin.Function0<@[ExtensionFunctionType] kotlin.coroutines.SuspendFunction1<kotlinx.coroutines.CoroutineScope, kotlin.Unit>> origin=INLINE_LAMBDA reflectionTarget=null
+                      $context: GET_VAR 'context: android.content.Context declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw' type=android.content.Context origin=null
+                      $rawResId: GET_VAR 'rawResId: kotlin.Int declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw' type=kotlin.Int origin=null
+                      $player: GET_VAR 'val player: androidx.media3.exoplayer.ExoPlayer [val] declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw' type=androidx.media3.exoplayer.ExoPlayer origin=null
+              CALL 'public abstract fun endReplaceGroup (): kotlin.Unit declared in androidx.compose.runtime.Composer' type=kotlin.Unit origin=null
+                $this: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw' type=androidx.compose.runtime.Composer? origin=null
+              GET_VAR 'val tmp1_group: @[ExtensionFunctionType] kotlin.coroutines.SuspendFunction1<kotlinx.coroutines.CoroutineScope, kotlin.Unit> [val] declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw' type=@[ExtensionFunctionType] kotlin.coroutines.SuspendFunction1<kotlinx.coroutines.CoroutineScope, kotlin.Unit> origin=null
+            $composer: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw' type=androidx.compose.runtime.Composer? origin=null
+            $changed: CALL 'public final fun and (other: kotlin.Int): kotlin.Int [infix] declared in kotlin.Int' type=kotlin.Int origin=null
+              $this: CONST Int type=kotlin.Int value=14
+              other: CALL 'public final fun shr (bitCount: kotlin.Int): kotlin.Int [infix] declared in kotlin.Int' type=kotlin.Int origin=null
+                $this: GET_VAR 'val $dirty: kotlin.Int [val] declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw' type=kotlin.Int origin=null
+                bitCount: CONST Int type=kotlin.Int value=3
+          CALL 'public final fun AndroidView <T> (factory: kotlin.Function1<android.content.Context, T of androidx.compose.ui.viewinterop.AndroidView_androidKt.AndroidView>, modifier: androidx.compose.ui.Modifier?, update: kotlin.Function1<T of androidx.compose.ui.viewinterop.AndroidView_androidKt.AndroidView, kotlin.Unit>?, $composer: androidx.compose.runtime.Composer?, $changed: kotlin.Int, $default: kotlin.Int): kotlin.Unit declared in androidx.compose.ui.viewinterop.AndroidView_androidKt' type=kotlin.Unit origin=null
+            <T>: androidx.media3.ui.PlayerView
+            factory: BLOCK type=kotlin.Function1<android.content.Context, androidx.media3.ui.PlayerView> origin=null
+              BLOCK type=kotlin.Unit origin=null
+                CALL 'public abstract fun startReplaceGroup (key: kotlin.Int): kotlin.Unit declared in androidx.compose.runtime.Composer' type=kotlin.Unit origin=null
+                  $this: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw' type=androidx.compose.runtime.Composer? origin=null
+                  key: CONST Int type=kotlin.Int value=1316559366
+                CALL 'public final fun sourceInformation (composer: androidx.compose.runtime.Composer, sourceInformation: kotlin.String): kotlin.Unit declared in androidx.compose.runtime.ComposerKt' type=kotlin.Unit origin=null
+                  composer: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw' type=androidx.compose.runtime.Composer? origin=null
+                  sourceInformation: CONST String type=kotlin.String value="CC(remember):ConfigVideo.kt#9igjgp"
+              VAR IR_TEMPORARY_VARIABLE name:tmp2_group type:kotlin.Function1<android.content.Context, androidx.media3.ui.PlayerView> [val]
+                CALL 'public final fun cache <T> (invalid: kotlin.Boolean, block: @[DisallowComposableCalls] kotlin.Function0<T of androidx.compose.runtime.ComposerKt.cache>): T of androidx.compose.runtime.ComposerKt.cache [inline] declared in androidx.compose.runtime.ComposerKt' type=kotlin.Function1<android.content.Context, androidx.media3.ui.PlayerView> origin=null
+                  <T>: kotlin.Function1<android.content.Context, androidx.media3.ui.PlayerView>
+                  $receiver: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw' type=androidx.compose.runtime.Composer? origin=null
+                  invalid: CALL 'public open fun changedInstance (value: kotlin.Any?): kotlin.Boolean declared in androidx.compose.runtime.Composer' type=kotlin.Boolean origin=null
+                    $this: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw' type=androidx.compose.runtime.Composer? origin=null
+                    value: GET_VAR 'val player: androidx.media3.exoplayer.ExoPlayer [val] declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw' type=androidx.media3.exoplayer.ExoPlayer origin=null
+                  block: BLOCK type=kotlin.Function0<kotlin.Function1<android.content.Context, androidx.media3.ui.PlayerView>> origin=LAMBDA
+                    COMPOSITE type=kotlin.Unit origin=null
+                    FUNCTION_REFERENCE 'private final fun VideoPlayerFromRaw$lambda$4 ($player: androidx.media3.exoplayer.ExoPlayer): kotlin.Function1<android.content.Context, androidx.media3.ui.PlayerView> declared in com.example.resqnow.Components.ConfigVideoKt' type=kotlin.Function0<kotlin.Function1<android.content.Context, androidx.media3.ui.PlayerView>> origin=INLINE_LAMBDA reflectionTarget=null
+                      $player: GET_VAR 'val player: androidx.media3.exoplayer.ExoPlayer [val] declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw' type=androidx.media3.exoplayer.ExoPlayer origin=null
+              CALL 'public abstract fun endReplaceGroup (): kotlin.Unit declared in androidx.compose.runtime.Composer' type=kotlin.Unit origin=null
+                $this: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw' type=androidx.compose.runtime.Composer? origin=null
+              GET_VAR 'val tmp2_group: kotlin.Function1<android.content.Context, androidx.media3.ui.PlayerView> [val] declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw' type=kotlin.Function1<android.content.Context, androidx.media3.ui.PlayerView> origin=null
+            modifier: GET_VAR 'modifier: androidx.compose.ui.Modifier? [assignable] declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw' type=androidx.compose.ui.Modifier origin=null
+            update: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+              CONST Null type=kotlin.Nothing? value=null
+            $composer: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw' type=androidx.compose.runtime.Composer? origin=null
+            $changed: CALL 'public final fun and (other: kotlin.Int): kotlin.Int [infix] declared in kotlin.Int' type=kotlin.Int origin=null
+              $this: CONST Int type=kotlin.Int value=112
+              other: CALL 'public final fun shr (bitCount: kotlin.Int): kotlin.Int [infix] declared in kotlin.Int' type=kotlin.Int origin=null
+                $this: GET_VAR 'val $dirty: kotlin.Int [val] declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw' type=kotlin.Int origin=null
+                bitCount: CONST Int type=kotlin.Int value=3
+            $default: CONST Int type=kotlin.Int value=4
+          WHEN type=kotlin.Unit origin=IF
+            BRANCH
+              if: CALL 'public final fun isTraceInProgress (): kotlin.Boolean declared in androidx.compose.runtime.ComposerKt' type=kotlin.Boolean origin=null
+              then: CALL 'public final fun traceEventEnd (): kotlin.Unit declared in androidx.compose.runtime.ComposerKt' type=kotlin.Unit origin=null
+      BRANCH
+        if: CONST Boolean type=kotlin.Boolean value=true
+        then: CALL 'public abstract fun skipToGroupEnd (): kotlin.Unit declared in androidx.compose.runtime.Composer' type=kotlin.Unit origin=null
+          $this: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw' type=androidx.compose.runtime.Composer? origin=null
+    BLOCK type=kotlin.Unit origin=null
+      BLOCK type=kotlin.Unit origin=FOLDED_SAFE_CALL
+        WHEN type=kotlin.Unit origin=FOLDED_SAFE_CALL
+          BRANCH
+            if: COMPOSITE type=kotlin.Boolean origin=null
+              VAR IR_TEMPORARY_VARIABLE name:tmp3_safe_receiver type:androidx.compose.runtime.ScopeUpdateScope? [val]
+                CALL 'public abstract fun endRestartGroup (): androidx.compose.runtime.ScopeUpdateScope? declared in androidx.compose.runtime.Composer' type=androidx.compose.runtime.ScopeUpdateScope? origin=null
+                  $this: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw' type=androidx.compose.runtime.Composer? origin=null
+              CALL 'public final fun not (): kotlin.Boolean [operator] declared in kotlin.Boolean' type=kotlin.Boolean origin=null
+                $this: CALL 'public final fun EQEQ (arg0: kotlin.Any?, arg1: kotlin.Any?): kotlin.Boolean declared in kotlin.internal.ir' type=kotlin.Boolean origin=null
+                  arg0: GET_VAR 'val tmp3_safe_receiver: androidx.compose.runtime.ScopeUpdateScope? [val] declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw' type=androidx.compose.runtime.ScopeUpdateScope? origin=null
+                  arg1: CONST Null type=kotlin.Nothing? value=null
+            then: CALL 'public abstract fun updateScope (block: kotlin.Function2<androidx.compose.runtime.Composer, kotlin.Int, kotlin.Unit>): kotlin.Unit declared in androidx.compose.runtime.ScopeUpdateScope' type=kotlin.Unit origin=null
+              $this: GET_VAR 'val tmp3_safe_receiver: androidx.compose.runtime.ScopeUpdateScope? [val] declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw' type=androidx.compose.runtime.ScopeUpdateScope? origin=null
+              block: BLOCK type=kotlin.Function2<androidx.compose.runtime.Composer?, kotlin.Int, kotlin.Unit> origin=LAMBDA
+                COMPOSITE type=kotlin.Unit origin=null
+                CALL 'public final fun <jvm-indy> <T> (dynamicCall: T of kotlin.jvm.internal.<jvm-indy>, bootstrapMethodHandle: kotlin.Any, vararg bootstrapMethodArguments: kotlin.Any): T of kotlin.jvm.internal.<jvm-indy> declared in kotlin.jvm.internal' type=kotlin.Function2<androidx.compose.runtime.Composer?, kotlin.Int, kotlin.Unit> origin=null
+                  <T>: kotlin.Function2<androidx.compose.runtime.Composer?, kotlin.Int, kotlin.Unit>
+                  dynamicCall: CALL 'public final fun invoke (p0: android.content.Context, p1: kotlin.Int, p2: androidx.compose.ui.Modifier?, p3: kotlin.Int, p4: kotlin.Int): kotlin.Function2<androidx.compose.runtime.Composer?, kotlin.Int, kotlin.Unit> declared in kotlin.jvm.internal.invokeDynamic' type=kotlin.Function2<androidx.compose.runtime.Composer?, kotlin.Int, kotlin.Unit> origin=null
+                    p0: GET_VAR 'context: android.content.Context declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw' type=android.content.Context origin=null
+                    p1: GET_VAR 'rawResId: kotlin.Int declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw' type=kotlin.Int origin=null
+                    p2: GET_VAR 'modifier: androidx.compose.ui.Modifier? [assignable] declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw' type=androidx.compose.ui.Modifier? origin=null
+                    p3: GET_VAR '$changed: kotlin.Int declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw' type=kotlin.Int origin=null
+                    p4: GET_VAR '$default: kotlin.Int declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw' type=kotlin.Int origin=null
+                  bootstrapMethodHandle: CALL 'public final fun <jvm-method-handle> (tag: kotlin.Int, owner: kotlin.String, name: kotlin.String, descriptor: kotlin.String, isInterface: kotlin.Boolean): kotlin.Any declared in kotlin.jvm.internal' type=kotlin.Any origin=null
+                    tag: CONST Int type=kotlin.Int value=6
+                    owner: CONST String type=kotlin.String value="java/lang/invoke/LambdaMetafactory"
+                    name: CONST String type=kotlin.String value="metafactory"
+                    descriptor: CONST String type=kotlin.String value="(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;"
+                    isInterface: CONST Boolean type=kotlin.Boolean value=false
+                  bootstrapMethodArguments: VARARG type=kotlin.Array<kotlin.Any> varargElementType=kotlin.Any
+                    CALL 'public final fun <jvm-original-method-type> (method: kotlin.Any): kotlin.Any declared in kotlin.jvm.internal' type=kotlin.Any origin=null
+                      method: RAW_FUNCTION_REFERENCE 'public abstract fun invoke (p1: P1 of kotlin.Function2, p2: P2 of kotlin.Function2): R of kotlin.Function2 [operator] declared in kotlin.Function2' type=kotlin.Any
+                    RAW_FUNCTION_REFERENCE 'private final fun VideoPlayerFromRaw$lambda$5 ($context: android.content.Context, $rawResId: kotlin.Int, $modifier: androidx.compose.ui.Modifier?, $$changed: kotlin.Int, $$default: kotlin.Int, $composer: androidx.compose.runtime.Composer?, $force: kotlin.Int): kotlin.Unit? declared in com.example.resqnow.Components.ConfigVideoKt' type=kotlin.Any
+                    CALL 'public final fun <jvm-original-method-type> (method: kotlin.Any): kotlin.Any declared in kotlin.jvm.internal' type=kotlin.Any origin=null
+                      method: RAW_FUNCTION_REFERENCE 'public abstract fun invoke (p1: androidx.compose.runtime.Composer?, p2: kotlin.Int?): kotlin.Unit? [fake_override,operator] declared in kotlin.jvm.internal.invokeDynamic.<fake>' type=kotlin.Any
+          BRANCH
+            if: CONST Boolean type=kotlin.Boolean value=true
+            then: CONST Null type=kotlin.Any? value=null
+
+	at org.jetbrains.kotlin.backend.jvm.codegen.FunctionCodegen.generate(FunctionCodegen.kt:47)
+	at org.jetbrains.kotlin.backend.jvm.codegen.FunctionCodegen.generate$default(FunctionCodegen.kt:40)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ClassCodegen.generateMethodNode(ClassCodegen.kt:406)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ClassCodegen.generateMethod(ClassCodegen.kt:423)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ClassCodegen.generate(ClassCodegen.kt:168)
+	at org.jetbrains.kotlin.backend.jvm.FileCodegen.lower(JvmPhases.kt:39)
+	at org.jetbrains.kotlin.backend.common.phaser.PhaseFactoriesKt.createFilePhase$lambda$4(PhaseFactories.kt:71)
+	at org.jetbrains.kotlin.backend.common.phaser.PhaseBuildersKt$createSimpleNamedCompilerPhase$1.phaseBody(PhaseBuilders.kt:69)
+	at org.jetbrains.kotlin.backend.common.phaser.SimpleNamedCompilerPhase.phaseBody(CompilerPhase.kt:226)
+	at org.jetbrains.kotlin.backend.common.phaser.AbstractNamedCompilerPhase.invoke(CompilerPhase.kt:113)
+	at org.jetbrains.kotlin.backend.common.phaser.PerformByIrFilePhase.invokeSequential(performByIrFile.kt:62)
+	... 44 more
+Caused by: java.lang.RuntimeException: Exception while generating code for:
+FUN INLINE_LAMBDA name:VideoPlayerFromRaw$lambda$1 visibility:private modality:FINAL <> ($context:android.content.Context, $rawResId:kotlin.Int, $player:androidx.media3.exoplayer.ExoPlayer) returnType:@[ExtensionFunctionType] kotlin.coroutines.SuspendFunction1<kotlinx.coroutines.CoroutineScope, kotlin.Unit>
+  VALUE_PARAMETER BOUND_VALUE_PARAMETER name:$context index:0 type:android.content.Context
+  VALUE_PARAMETER BOUND_VALUE_PARAMETER name:$rawResId index:1 type:kotlin.Int
+  VALUE_PARAMETER BOUND_VALUE_PARAMETER name:$player index:2 type:androidx.media3.exoplayer.ExoPlayer
+  BLOCK_BODY
+    VAR name:$i$a$-cache-ConfigVideoKt$VideoPlayerFromRaw$1 type:kotlin.Int [val]
+      CONST Int type=kotlin.Int value=0
+    RETURN type=kotlin.Nothing from='private final fun VideoPlayerFromRaw$lambda$1 ($context: android.content.Context, $rawResId: kotlin.Int, $player: androidx.media3.exoplayer.ExoPlayer): @[ExtensionFunctionType] kotlin.coroutines.SuspendFunction1<kotlinx.coroutines.CoroutineScope, kotlin.Unit> declared in com.example.resqnow.Components.ConfigVideoKt'
+      BLOCK type=com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided> origin=null
+        CLASS SUSPEND_LAMBDA CLASS name:<no name provided> modality:FINAL visibility:public/*package*/ superTypes:[kotlin.coroutines.jvm.internal.SuspendLambda; kotlin.jvm.functions.Function2<kotlinx.coroutines.CoroutineScope, kotlin.coroutines.Continuation<kotlin.Unit>?, kotlin.Any?>]
+          $this: VALUE_PARAMETER INSTANCE_RECEIVER name:<this> type:com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided>
+          FIELD name:label type:kotlin.Int visibility:public/*package*/
+          CONSTRUCTOR SUSPEND_LAMBDA visibility:public/*package*/ <> ($context:android.content.Context, $rawResId:kotlin.Int, $player:androidx.media3.exoplayer.ExoPlayer, $completion:kotlin.coroutines.Continuation<com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided>>?) returnType:com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided> [primary]
+            VALUE_PARAMETER BOUND_VALUE_PARAMETER name:$context index:0 type:android.content.Context
+            VALUE_PARAMETER BOUND_VALUE_PARAMETER name:$rawResId index:1 type:kotlin.Int
+            VALUE_PARAMETER BOUND_VALUE_PARAMETER name:$player index:2 type:androidx.media3.exoplayer.ExoPlayer
+            VALUE_PARAMETER name:$completion index:3 type:kotlin.coroutines.Continuation<com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided>>?
+            BLOCK_BODY
+              SET_FIELD 'FIELD FIELD_FOR_CAPTURED_VALUE name:$context type:android.content.Context visibility:public/*package*/ [final] declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided>' type=kotlin.Unit origin=INITIALIZER_OF_FIELD_FOR_CAPTURED_VALUE
+                receiver: GET_VAR '<this>: com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided> declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided>' type=com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided> origin=null
+                value: GET_VAR '$context: android.content.Context declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided>.<init>' type=android.content.Context origin=null
+              SET_FIELD 'FIELD FIELD_FOR_CAPTURED_VALUE name:$rawResId type:kotlin.Int visibility:public/*package*/ [final] declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided>' type=kotlin.Unit origin=INITIALIZER_OF_FIELD_FOR_CAPTURED_VALUE
+                receiver: GET_VAR '<this>: com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided> declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided>' type=com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided> origin=null
+                value: GET_VAR '$rawResId: kotlin.Int declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided>.<init>' type=kotlin.Int origin=null
+              SET_FIELD 'FIELD FIELD_FOR_CAPTURED_VALUE name:$player type:androidx.media3.exoplayer.ExoPlayer visibility:public/*package*/ [final] declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided>' type=kotlin.Unit origin=INITIALIZER_OF_FIELD_FOR_CAPTURED_VALUE
+                receiver: GET_VAR '<this>: com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided> declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided>' type=com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided> origin=null
+                value: GET_VAR '$player: androidx.media3.exoplayer.ExoPlayer declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided>.<init>' type=androidx.media3.exoplayer.ExoPlayer origin=null
+              DELEGATING_CONSTRUCTOR_CALL 'public constructor <init> (arity: kotlin.Int, $completion: kotlin.coroutines.Continuation<kotlin.Any?>?) declared in kotlin.coroutines.jvm.internal.SuspendLambda'
+                arity: CONST Int type=kotlin.Int value=2
+                $completion: GET_VAR '$completion: kotlin.coroutines.Continuation<com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided>>? declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided>.<init>' type=kotlin.coroutines.Continuation<com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided>>? origin=null
+              BLOCK type=kotlin.Unit origin=null
+          FUN name:invokeSuspend visibility:public modality:FINAL <> ($this:com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided>, $result:kotlin.Result<kotlin.Any?>) returnType:kotlin.Any?
+            overridden:
+              protected abstract fun invokeSuspend ($result: kotlin.Result<kotlin.Any?>): kotlin.Any? declared in kotlin.coroutines.jvm.internal.SuspendLambda
+            $this: VALUE_PARAMETER INSTANCE_RECEIVER name:<this> type:com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided>
+            VALUE_PARAMETER name:$result index:0 type:kotlin.Result<kotlin.Any?>
+            BLOCK_BODY
+              VAR name:mediaItem type:androidx.media3.common.MediaItem [val]
+                BLOCK type=androidx.media3.common.MediaItem origin=null
+                  VAR IR_TEMPORARY_VARIABLE name:tmp0 type:kotlin.Any? [val]
+                    CALL 'public open fun fromUri (p0: @[EnhancedNullability] kotlin.String): @[EnhancedNullability] androidx.media3.common.MediaItem declared in androidx.media3.common.MediaItem' type=@[EnhancedNullability] androidx.media3.common.MediaItem origin=null
+                      p0: STRING_CONCATENATION type=kotlin.String
+                        CONST String type=kotlin.String value="android.resource://"
+                        CALL 'public abstract fun getPackageName (): @[FlexibleNullability] kotlin.String? declared in android.content.Context' type=@[FlexibleNullability] kotlin.String? origin=GET_PROPERTY
+                          $this: GET_FIELD 'FIELD FIELD_FOR_CAPTURED_VALUE name:$context type:android.content.Context visibility:public/*package*/ [final] declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided>' type=android.content.Context origin=null
+                            receiver: GET_VAR '<this>: com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided> declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided>.invokeSuspend' type=com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided> origin=null
+                        CONST String type=kotlin.String value="/"
+                        GET_FIELD 'FIELD FIELD_FOR_CAPTURED_VALUE name:$rawResId type:kotlin.Int visibility:public/*package*/ [final] declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided>' type=kotlin.Int origin=null
+                          receiver: GET_VAR '<this>: com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided> declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided>.invokeSuspend' type=com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided> origin=null
+                  CALL 'public final fun checkNotNullExpressionValue (value: kotlin.Any?, expression: kotlin.String): kotlin.Unit declared in kotlin.jvm.internal.Intrinsics' type=kotlin.Unit origin=null
+                    value: GET_VAR 'val tmp0: kotlin.Any? [val] declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided>.invokeSuspend' type=kotlin.Any? origin=null
+                    expression: CONST String type=kotlin.String value="fromUri(...)"
+                  GET_VAR 'val tmp0: kotlin.Any? [val] declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided>.invokeSuspend' type=kotlin.Any? origin=null
+              CALL 'public abstract fun setMediaItem (p0: @[EnhancedNullability] androidx.media3.common.MediaItem): kotlin.Unit [fake_override] declared in androidx.media3.exoplayer.ExoPlayer' type=kotlin.Unit origin=null
+                $this: GET_FIELD 'FIELD FIELD_FOR_CAPTURED_VALUE name:$player type:androidx.media3.exoplayer.ExoPlayer visibility:public/*package*/ [final] declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided>' type=androidx.media3.exoplayer.ExoPlayer origin=null
+                  receiver: GET_VAR '<this>: com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided> declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided>.invokeSuspend' type=com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided> origin=null
+                p0: GET_VAR 'val mediaItem: androidx.media3.common.MediaItem [val] declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided>.invokeSuspend' type=androidx.media3.common.MediaItem origin=null
+              CALL 'public abstract fun prepare (): kotlin.Unit [fake_override] declared in androidx.media3.exoplayer.ExoPlayer' type=kotlin.Unit origin=null
+                $this: GET_FIELD 'FIELD FIELD_FOR_CAPTURED_VALUE name:$player type:androidx.media3.exoplayer.ExoPlayer visibility:public/*package*/ [final] declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided>' type=androidx.media3.exoplayer.ExoPlayer origin=null
+                  receiver: GET_VAR '<this>: com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided> declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided>.invokeSuspend' type=com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided> origin=null
+              CALL 'public abstract fun setPlayWhenReady (p0: kotlin.Boolean): kotlin.Unit [fake_override] declared in androidx.media3.exoplayer.ExoPlayer' type=kotlin.Unit origin=EQ
+                $this: GET_FIELD 'FIELD FIELD_FOR_CAPTURED_VALUE name:$player type:androidx.media3.exoplayer.ExoPlayer visibility:public/*package*/ [final] declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided>' type=androidx.media3.exoplayer.ExoPlayer origin=null
+                  receiver: GET_VAR '<this>: com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided> declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided>.invokeSuspend' type=com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided> origin=null
+                p0: CONST Boolean type=kotlin.Boolean value=true
+              SET_FIELD 'FIELD IR_EXTERNAL_JAVA_DECLARATION_STUB name:repeatMode type:kotlin.Int visibility:public [final,static] declared in android.R.attr' type=kotlin.Unit superQualifierSymbol=android.R.attr origin=EQ
+                value: CONST Int type=kotlin.Int value=2
+          FUN name:create visibility:public modality:FINAL <> ($this:com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided>, value:kotlin.Any?, $completion:kotlin.coroutines.Continuation<kotlin.Nothing>) returnType:kotlin.coroutines.Continuation<kotlin.Unit>
+            overridden:
+              public open fun create (value: kotlin.Any?, $completion: kotlin.coroutines.Continuation<kotlin.Nothing>): kotlin.coroutines.Continuation<kotlin.Unit> declared in kotlin.coroutines.jvm.internal.SuspendLambda
+            $this: VALUE_PARAMETER INSTANCE_RECEIVER name:<this> type:com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided>
+            VALUE_PARAMETER name:value index:0 type:kotlin.Any?
+            VALUE_PARAMETER name:$completion index:1 type:kotlin.coroutines.Continuation<kotlin.Nothing>
+            BLOCK_BODY
+              RETURN type=kotlin.Nothing from='public final fun create (value: kotlin.Any?, $completion: kotlin.coroutines.Continuation<kotlin.Nothing>): kotlin.coroutines.Continuation<kotlin.Unit> declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided>'
+                CONSTRUCTOR_CALL 'public/*package*/ constructor <init> ($context: android.content.Context, $rawResId: kotlin.Int, $player: androidx.media3.exoplayer.ExoPlayer, $completion: kotlin.coroutines.Continuation<com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided>>?) [primary] declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided>' type=com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided> origin=null
+                  $context: GET_FIELD 'FIELD FIELD_FOR_CAPTURED_VALUE name:$context type:android.content.Context visibility:public/*package*/ [final] declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided>' type=android.content.Context origin=null
+                    receiver: GET_VAR '<this>: com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided> declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided>.create' type=com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided> origin=null
+                  $rawResId: GET_FIELD 'FIELD FIELD_FOR_CAPTURED_VALUE name:$rawResId type:kotlin.Int visibility:public/*package*/ [final] declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided>' type=kotlin.Int origin=null
+                    receiver: GET_VAR '<this>: com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided> declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided>.create' type=com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided> origin=null
+                  $player: GET_FIELD 'FIELD FIELD_FOR_CAPTURED_VALUE name:$player type:androidx.media3.exoplayer.ExoPlayer visibility:public/*package*/ [final] declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided>' type=androidx.media3.exoplayer.ExoPlayer origin=null
+                    receiver: GET_VAR '<this>: com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided> declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided>.create' type=com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided> origin=null
+                  $completion: GET_VAR '$completion: kotlin.coroutines.Continuation<kotlin.Nothing> declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided>.create' type=kotlin.coroutines.Continuation<kotlin.Nothing> origin=null
+          FUN name:invoke visibility:public modality:FINAL <> ($this:com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided>, p1:kotlinx.coroutines.CoroutineScope, p2:kotlin.coroutines.Continuation<kotlin.Unit>?) returnType:kotlin.Any?
+            overridden:
+              public abstract fun invoke (p1: P1 of kotlin.jvm.functions.Function2, p2: P2 of kotlin.jvm.functions.Function2): R of kotlin.jvm.functions.Function2 declared in kotlin.jvm.functions.Function2
+            $this: VALUE_PARAMETER INSTANCE_RECEIVER name:<this> type:com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided>
+            VALUE_PARAMETER name:p1 index:0 type:kotlinx.coroutines.CoroutineScope
+            VALUE_PARAMETER name:p2 index:1 type:kotlin.coroutines.Continuation<kotlin.Unit>?
+            BLOCK_BODY
+              RETURN type=kotlin.Nothing from='public final fun invoke (p1: kotlinx.coroutines.CoroutineScope, p2: kotlin.coroutines.Continuation<kotlin.Unit>?): kotlin.Any? declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided>'
+                CALL 'public final fun invokeSuspend ($result: kotlin.Result<kotlin.Any?>): kotlin.Any? declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided>' type=kotlin.Any? origin=null
+                  $this: TYPE_OP type=com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided> origin=IMPLICIT_CAST typeOperand=com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided>
+                    CALL 'public final fun create (value: kotlin.Any?, $completion: kotlin.coroutines.Continuation<kotlin.Nothing>): kotlin.coroutines.Continuation<kotlin.Unit> declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided>' type=kotlin.coroutines.Continuation<kotlin.Unit> origin=null
+                      $this: GET_VAR '<this>: com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided> declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided>.invoke' type=com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided> origin=null
+                      value: GET_VAR 'p1: kotlinx.coroutines.CoroutineScope declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided>.invoke' type=kotlinx.coroutines.CoroutineScope origin=null
+                      $completion: GET_VAR 'p2: kotlin.coroutines.Continuation<kotlin.Unit>? declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided>.invoke' type=kotlin.coroutines.Continuation<kotlin.Unit>? origin=null
+                  $result: CALL 'public final fun <unsafe-coerce> <T, R> (v: T of kotlin.jvm.internal.<unsafe-coerce>): R of kotlin.jvm.internal.<unsafe-coerce> declared in kotlin.jvm.internal' type=kotlin.Result<kotlin.Any?> origin=null
+                    <T>: kotlin.Any?
+                    <R>: kotlin.Result<kotlin.Any?>
+                    v: GET_FIELD 'FIELD FIELD_FOR_OBJECT_INSTANCE name:INSTANCE type:kotlin.Unit visibility:public [final,static] declared in kotlin.Unit' type=kotlin.Unit origin=null
+          FIELD FIELD_FOR_CAPTURED_VALUE name:$context type:android.content.Context visibility:public/*package*/ [final]
+          FIELD FIELD_FOR_CAPTURED_VALUE name:$rawResId type:kotlin.Int visibility:public/*package*/ [final]
+          FIELD FIELD_FOR_CAPTURED_VALUE name:$player type:androidx.media3.exoplayer.ExoPlayer visibility:public/*package*/ [final]
+          FUN BRIDGE name:invoke visibility:public modality:OPEN <> ($this:com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided>, p1:kotlin.Any?, p2:kotlin.Any?) returnType:kotlin.Any?
+            $this: VALUE_PARAMETER INSTANCE_RECEIVER name:<this> type:com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided>
+            VALUE_PARAMETER BRIDGE name:p1 index:0 type:kotlin.Any?
+            VALUE_PARAMETER BRIDGE name:p2 index:1 type:kotlin.Any?
+            EXPRESSION_BODY
+              RETURN type=kotlin.Nothing from='public open fun invoke (p1: kotlin.Any?, p2: kotlin.Any?): kotlin.Any? declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided>'
+                CALL 'public final fun invoke (p1: kotlinx.coroutines.CoroutineScope, p2: kotlin.coroutines.Continuation<kotlin.Unit>?): kotlin.Any? declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided>' type=kotlin.Any? origin=BRIDGE_DELEGATION
+                  $this: GET_VAR '<this>: com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided> declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided>.invoke' type=com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided> origin=null
+                  p1: TYPE_OP type=kotlinx.coroutines.CoroutineScope origin=IMPLICIT_CAST typeOperand=kotlinx.coroutines.CoroutineScope
+                    GET_VAR 'p1: kotlin.Any? declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided>.invoke' type=kotlin.Any? origin=null
+                  p2: TYPE_OP type=kotlin.coroutines.Continuation<*> origin=IMPLICIT_CAST typeOperand=kotlin.coroutines.Continuation<*>
+                    GET_VAR 'p2: kotlin.Any? declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided>.invoke' type=kotlin.Any? origin=null
+        CONSTRUCTOR_CALL 'public/*package*/ constructor <init> ($context: android.content.Context, $rawResId: kotlin.Int, $player: androidx.media3.exoplayer.ExoPlayer, $completion: kotlin.coroutines.Continuation<com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided>>?) [primary] declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided>' type=com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided> origin=null
+          $context: GET_VAR '$context: android.content.Context declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1' type=android.content.Context origin=null
+          $rawResId: GET_VAR '$rawResId: kotlin.Int declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1' type=kotlin.Int origin=null
+          $player: GET_VAR '$player: androidx.media3.exoplayer.ExoPlayer declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1' type=androidx.media3.exoplayer.ExoPlayer origin=null
+          $completion: CONST Null type=kotlin.Nothing? value=null
+
+	at org.jetbrains.kotlin.backend.jvm.codegen.FunctionCodegen.generate(FunctionCodegen.kt:47)
+	at org.jetbrains.kotlin.backend.jvm.codegen.IrSourceCompilerForInline.generateLambdaBody(IrSourceCompilerForInline.kt:67)
+	at org.jetbrains.kotlin.codegen.inline.ExpressionLambda.generateLambdaBody(LambdaInfo.kt:72)
+	at org.jetbrains.kotlin.backend.jvm.codegen.IrInlineCodegen.genValueAndPut(IrInlineCodegen.kt:100)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitCall$handleParameter(ExpressionCodegen.kt:616)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitCall(ExpressionCodegen.kt:644)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitCall(ExpressionCodegen.kt:138)
+	at org.jetbrains.kotlin.ir.expressions.IrCall.accept(IrCall.kt:24)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitVariable(ExpressionCodegen.kt:790)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitVariable(ExpressionCodegen.kt:138)
+	at org.jetbrains.kotlin.ir.declarations.IrVariable.accept(IrVariable.kt:36)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitStatementContainer(ExpressionCodegen.kt:579)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitContainerExpression(ExpressionCodegen.kt:593)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitContainerExpression(ExpressionCodegen.kt:138)
+	at org.jetbrains.kotlin.ir.visitors.IrElementVisitor$DefaultImpls.visitBlock(IrElementVisitor.kt:122)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitBlock(ExpressionCodegen.kt:413)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitBlock(ExpressionCodegen.kt:138)
+	at org.jetbrains.kotlin.ir.expressions.IrBlock.accept(IrBlock.kt:18)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.gen(ExpressionCodegen.kt:217)
+	at org.jetbrains.kotlin.backend.jvm.codegen.IrCallGenerator.genValueAndPut(IrCallGenerator.kt:48)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitCall$handleParameter(ExpressionCodegen.kt:616)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitCall(ExpressionCodegen.kt:644)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitCall(ExpressionCodegen.kt:138)
+	at org.jetbrains.kotlin.ir.expressions.IrCall.accept(IrCall.kt:24)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitStatementContainer(ExpressionCodegen.kt:579)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitContainerExpression(ExpressionCodegen.kt:593)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitContainerExpression(ExpressionCodegen.kt:138)
+	at org.jetbrains.kotlin.ir.visitors.IrElementVisitor$DefaultImpls.visitBlock(IrElementVisitor.kt:122)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitBlock(ExpressionCodegen.kt:413)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitBlock(ExpressionCodegen.kt:138)
+	at org.jetbrains.kotlin.ir.expressions.IrBlock.accept(IrBlock.kt:18)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitWhen(ExpressionCodegen.kt:1101)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitWhen(ExpressionCodegen.kt:138)
+	at org.jetbrains.kotlin.ir.expressions.IrWhen.accept(IrWhen.kt:24)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitStatementContainer(ExpressionCodegen.kt:579)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitBlockBody(ExpressionCodegen.kt:584)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitBlockBody(ExpressionCodegen.kt:138)
+	at org.jetbrains.kotlin.ir.expressions.IrBlockBody.accept(IrBlockBody.kt:20)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.generate(ExpressionCodegen.kt:240)
+	at org.jetbrains.kotlin.backend.jvm.codegen.FunctionCodegen.doGenerate(FunctionCodegen.kt:123)
+	at org.jetbrains.kotlin.backend.jvm.codegen.FunctionCodegen.generate(FunctionCodegen.kt:44)
+	... 54 more
+Caused by: java.lang.RuntimeException: Exception while generating code for:
+FUN name:invokeSuspend visibility:public modality:FINAL <> ($this:com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided>, $result:kotlin.Result<kotlin.Any?>) returnType:kotlin.Any?
+  overridden:
+    protected abstract fun invokeSuspend ($result: kotlin.Result<kotlin.Any?>): kotlin.Any? declared in kotlin.coroutines.jvm.internal.SuspendLambda
+  $this: VALUE_PARAMETER INSTANCE_RECEIVER name:<this> type:com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided>
+  VALUE_PARAMETER name:$result index:0 type:kotlin.Result<kotlin.Any?>
+  BLOCK_BODY
+    VAR name:mediaItem type:androidx.media3.common.MediaItem [val]
+      BLOCK type=androidx.media3.common.MediaItem origin=null
+        VAR IR_TEMPORARY_VARIABLE name:tmp0 type:kotlin.Any? [val]
+          CALL 'public open fun fromUri (p0: @[EnhancedNullability] kotlin.String): @[EnhancedNullability] androidx.media3.common.MediaItem declared in androidx.media3.common.MediaItem' type=@[EnhancedNullability] androidx.media3.common.MediaItem origin=null
+            p0: STRING_CONCATENATION type=kotlin.String
+              CONST String type=kotlin.String value="android.resource://"
+              CALL 'public abstract fun getPackageName (): @[FlexibleNullability] kotlin.String? declared in android.content.Context' type=@[FlexibleNullability] kotlin.String? origin=GET_PROPERTY
+                $this: GET_FIELD 'FIELD FIELD_FOR_CAPTURED_VALUE name:$context type:android.content.Context visibility:public/*package*/ [final] declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided>' type=android.content.Context origin=null
+                  receiver: GET_VAR '<this>: com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided> declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided>.invokeSuspend' type=com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided> origin=null
+              CONST String type=kotlin.String value="/"
+              GET_FIELD 'FIELD FIELD_FOR_CAPTURED_VALUE name:$rawResId type:kotlin.Int visibility:public/*package*/ [final] declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided>' type=kotlin.Int origin=null
+                receiver: GET_VAR '<this>: com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided> declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided>.invokeSuspend' type=com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided> origin=null
+        CALL 'public final fun checkNotNullExpressionValue (value: kotlin.Any?, expression: kotlin.String): kotlin.Unit declared in kotlin.jvm.internal.Intrinsics' type=kotlin.Unit origin=null
+          value: GET_VAR 'val tmp0: kotlin.Any? [val] declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided>.invokeSuspend' type=kotlin.Any? origin=null
+          expression: CONST String type=kotlin.String value="fromUri(...)"
+        GET_VAR 'val tmp0: kotlin.Any? [val] declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided>.invokeSuspend' type=kotlin.Any? origin=null
+    CALL 'public abstract fun setMediaItem (p0: @[EnhancedNullability] androidx.media3.common.MediaItem): kotlin.Unit [fake_override] declared in androidx.media3.exoplayer.ExoPlayer' type=kotlin.Unit origin=null
+      $this: GET_FIELD 'FIELD FIELD_FOR_CAPTURED_VALUE name:$player type:androidx.media3.exoplayer.ExoPlayer visibility:public/*package*/ [final] declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided>' type=androidx.media3.exoplayer.ExoPlayer origin=null
+        receiver: GET_VAR '<this>: com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided> declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided>.invokeSuspend' type=com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided> origin=null
+      p0: GET_VAR 'val mediaItem: androidx.media3.common.MediaItem [val] declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided>.invokeSuspend' type=androidx.media3.common.MediaItem origin=null
+    CALL 'public abstract fun prepare (): kotlin.Unit [fake_override] declared in androidx.media3.exoplayer.ExoPlayer' type=kotlin.Unit origin=null
+      $this: GET_FIELD 'FIELD FIELD_FOR_CAPTURED_VALUE name:$player type:androidx.media3.exoplayer.ExoPlayer visibility:public/*package*/ [final] declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided>' type=androidx.media3.exoplayer.ExoPlayer origin=null
+        receiver: GET_VAR '<this>: com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided> declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided>.invokeSuspend' type=com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided> origin=null
+    CALL 'public abstract fun setPlayWhenReady (p0: kotlin.Boolean): kotlin.Unit [fake_override] declared in androidx.media3.exoplayer.ExoPlayer' type=kotlin.Unit origin=EQ
+      $this: GET_FIELD 'FIELD FIELD_FOR_CAPTURED_VALUE name:$player type:androidx.media3.exoplayer.ExoPlayer visibility:public/*package*/ [final] declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided>' type=androidx.media3.exoplayer.ExoPlayer origin=null
+        receiver: GET_VAR '<this>: com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided> declared in com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided>.invokeSuspend' type=com.example.resqnow.Components.ConfigVideoKt.VideoPlayerFromRaw$lambda$1.<no name provided> origin=null
+      p0: CONST Boolean type=kotlin.Boolean value=true
+    SET_FIELD 'FIELD IR_EXTERNAL_JAVA_DECLARATION_STUB name:repeatMode type:kotlin.Int visibility:public [final,static] declared in android.R.attr' type=kotlin.Unit superQualifierSymbol=android.R.attr origin=EQ
+      value: CONST Int type=kotlin.Int value=2
+
+	at org.jetbrains.kotlin.backend.jvm.codegen.FunctionCodegen.generate(FunctionCodegen.kt:47)
+	at org.jetbrains.kotlin.backend.jvm.codegen.FunctionCodegen.generate$default(FunctionCodegen.kt:40)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ClassCodegen.generateMethodNode(ClassCodegen.kt:406)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ClassCodegen.generateMethod(ClassCodegen.kt:423)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ClassCodegen.generate(ClassCodegen.kt:168)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitClass(ExpressionCodegen.kt:1000)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitClass(ExpressionCodegen.kt:138)
+	at org.jetbrains.kotlin.ir.declarations.IrClass.accept(IrClass.kt:72)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitStatementContainer(ExpressionCodegen.kt:579)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitContainerExpression(ExpressionCodegen.kt:593)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitContainerExpression(ExpressionCodegen.kt:138)
+	at org.jetbrains.kotlin.ir.visitors.IrElementVisitor$DefaultImpls.visitBlock(IrElementVisitor.kt:122)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitBlock(ExpressionCodegen.kt:413)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitBlock(ExpressionCodegen.kt:138)
+	at org.jetbrains.kotlin.ir.expressions.IrBlock.accept(IrBlock.kt:18)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitReturn(ExpressionCodegen.kt:1051)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitReturn(ExpressionCodegen.kt:138)
+	at org.jetbrains.kotlin.ir.expressions.IrReturn.accept(IrReturn.kt:24)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitStatementContainer(ExpressionCodegen.kt:579)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitBlockBody(ExpressionCodegen.kt:584)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitBlockBody(ExpressionCodegen.kt:138)
+	at org.jetbrains.kotlin.ir.expressions.IrBlockBody.accept(IrBlockBody.kt:20)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.generate(ExpressionCodegen.kt:240)
+	at org.jetbrains.kotlin.backend.jvm.codegen.FunctionCodegen.doGenerate(FunctionCodegen.kt:123)
+	at org.jetbrains.kotlin.backend.jvm.codegen.FunctionCodegen.generate(FunctionCodegen.kt:44)
+	... 94 more
+Caused by: java.lang.AssertionError: access of const val: SET_FIELD 'FIELD IR_EXTERNAL_JAVA_DECLARATION_STUB name:repeatMode type:kotlin.Int visibility:public [final,static] declared in android.R.attr' type=kotlin.Unit superQualifierSymbol=android.R.attr origin=EQ
+  value: CONST Int type=kotlin.Int value=2
+
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitFieldAccess(ExpressionCodegen.kt:861)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitFieldAccess(ExpressionCodegen.kt:138)
+	at org.jetbrains.kotlin.ir.visitors.IrElementVisitor$DefaultImpls.visitSetField(IrElementVisitor.kt:206)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitSetField(ExpressionCodegen.kt:908)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitSetField(ExpressionCodegen.kt:138)
+	at org.jetbrains.kotlin.ir.expressions.IrSetField.accept(IrSetField.kt:21)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitStatementContainer(ExpressionCodegen.kt:579)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitBlockBody(ExpressionCodegen.kt:584)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitBlockBody(ExpressionCodegen.kt:138)
+	at org.jetbrains.kotlin.ir.expressions.IrBlockBody.accept(IrBlockBody.kt:20)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.generate(ExpressionCodegen.kt:240)
+	at org.jetbrains.kotlin.backend.jvm.codegen.FunctionCodegen.doGenerate(FunctionCodegen.kt:123)
+	at org.jetbrains.kotlin.backend.jvm.codegen.FunctionCodegen.generate(FunctionCodegen.kt:44)
+	... 118 more
+
+

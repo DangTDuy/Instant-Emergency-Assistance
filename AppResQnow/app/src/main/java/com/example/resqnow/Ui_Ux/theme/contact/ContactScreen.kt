@@ -6,7 +6,6 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -53,10 +52,9 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.resqnow.R
-import com.example.resqnow.Room.ContactEntity
+import com.example.resqnow.Room.DB_Contact.ContactEntity
 import com.example.resqnow.viewModel.ContactViewModel
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.ripple.rememberRipple
 import com.example.resqnow.Ui_Ux.theme.Router.Screen
 import com.google.firebase.auth.FirebaseAuth
 

@@ -1,4 +1,4 @@
-package com.example.resqnow.Room
+package com.example.resqnow.Room.DB_Contact
 
 
 import androidx.room.Dao

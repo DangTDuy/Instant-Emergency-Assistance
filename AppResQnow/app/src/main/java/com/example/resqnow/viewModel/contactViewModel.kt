@@ -5,8 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.resqnow.Repository.Repository
-import com.example.resqnow.Room.ContactDao
-import com.example.resqnow.Room.ContactEntity
+import com.example.resqnow.Room.DB_Contact.ContactEntity
 import kotlinx.coroutines.flow.Flow
 
 import kotlinx.coroutines.launch

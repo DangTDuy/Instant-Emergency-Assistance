@@ -1,4 +1,4 @@
-package com.example.resqnow.Ui_Ux.theme.FirstAidGuide
+package com.example.resqnow.Ui_Ux.theme.FirstAidGuide.MenuFirstAidGuide
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -16,10 +16,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.resqnow.R
+import com.example.resqnow.Ui_Ux.theme.Router.Screen
+
 
 @Composable
-fun bottomBar(){
+fun bottomBar(navController: NavController){
     Box(
         contentAlignment = Alignment.Center,
         modifier = Modifier
@@ -39,12 +42,13 @@ fun bottomBar(){
 
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
-            IconButton(onClick = {}
+            IconButton(onClick = {navController.navigate(Screen.HomePage1.route)}
                 ,modifier = Modifier
                     .padding(top =  20.dp)
                     .size(60.dp)
             ) {
                 Image(
+                    alignment = Alignment.Center,
                     painter = painterResource(id = R.drawable.home),
                     contentDescription = "Logo",
                     modifier = Modifier
@@ -52,13 +56,15 @@ fun bottomBar(){
 
                 )
             }
-            IconButton(onClick = {}
+            IconButton(onClick = {navController.navigate(Screen.ContactScreen.route)}
                 ,modifier = Modifier
                     .padding(top = 40.dp)
                     .size(60.dp)
             ) {
+
                 Image(painter = painterResource(id = R.drawable.a), contentDescription = "Logo"
-                    , modifier = Modifier
+                        ,alignment = Alignment.Center,
+                    modifier = Modifier
                         .size(width = 37.dp, height = 32.dp)
                 )
             }
@@ -68,16 +74,18 @@ fun bottomBar(){
                     .size(60.dp)
             ) {
                 Image(painter = painterResource(id = R.drawable.hospital), contentDescription = "Logo"
+                    ,alignment = Alignment.Center
                     ,modifier = Modifier
                         .size(width = 35.dp, height = 35.dp)
                 )
             }
-            IconButton(onClick = {}
+            IconButton(onClick = {Screen.ProfileScreen.route}
                 ,modifier = Modifier
                     .padding(top = 40.dp)
                     .size(60.dp)
             ) {
                 Image(painter = painterResource(id = R.drawable.c), contentDescription = "Logo"
+                    ,alignment = Alignment.Center
                     ,modifier = Modifier
                         .size(width = 35.dp, height = 35.dp)
                 )

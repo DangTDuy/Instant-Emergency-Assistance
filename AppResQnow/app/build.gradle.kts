@@ -106,6 +106,10 @@ dependencies {
     kapt("androidx.room:room-compiler:2.6.1")
     implementation("androidx.room:room-ktx:2.6.1")
 
+    //Video mp4 player
+    implementation ("androidx.media3:media3-exoplayer:1.6.1")
+    implementation ("androidx.media3:media3-ui:1.6.1")
+
 
     // Retrofit & Gson
     implementation("com.squareup.retrofit2:retrofit:2.9.0")

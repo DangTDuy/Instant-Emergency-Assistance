@@ -30,15 +30,27 @@ import com.facebook.FacebookSdk
 import com.facebook.appevents.AppEventsLogger
 import com.google.android.gms.auth.api.identity.Identity
 import androidx.navigation.compose.*
+import com.example.resqnow.Components.swallow_Poison
 import com.example.resqnow.Repository.Repository
-import com.example.resqnow.Room.ResqNowDatabase
-import com.example.resqnow.Ui_Ux.theme.FirstAidGuide.FirstAidGuideScreen
+import com.example.resqnow.Room.DB_Contact.ResqNowDatabase
+import com.example.resqnow.Ui_Ux.theme.FirstAidGuide.Food_poisoning.poisoning
+import com.example.resqnow.Ui_Ux.theme.FirstAidGuide.MenuFirstAidGuide.FirstAidGuideScreen
+import com.example.resqnow.Ui_Ux.theme.FirstAidGuide.MenuFirstAidGuide.LC_FirstAids
+import com.example.resqnow.Ui_Ux.theme.FirstAidGuide.brokenArm.brokenArm1
+import com.example.resqnow.Ui_Ux.theme.FirstAidGuide.nonVenomous_snake.nonVenomus_Snake
+import com.example.resqnow.Ui_Ux.theme.FirstAidGuide.stroke.Stroke
+import com.example.resqnow.Ui_Ux.theme.FirstAidGuide.stroke.signsOfStroke
+import com.example.resqnow.Ui_Ux.theme.FirstAidGuide.thermal_burn.burn
+import com.example.resqnow.Ui_Ux.theme.FirstAidGuide.venomous_snake.venomus_Snake
 import com.example.resqnow.Ui_Ux.theme.Maps.Maps
+
+import com.example.resqnow.Ui_Ux.theme.Router.Screen.venomous_Snake
+
+
 import com.example.resqnow.Ui_Ux.theme.contact.CardScreen
 import com.example.resqnow.Ui_Ux.theme.contact.ContactScreen
 
 import com.example.resqnow.viewModel.ContactViewModel
-import com.google.android.gms.maps.model.*
 
 
 sealed class Screen(val route: String) {
@@ -56,7 +68,19 @@ sealed class Screen(val route: String) {
     object SignInSuccess : Screen("SignInSuccess")
     object ProfileScreen : Screen("ProfileScreen")
     object ProfileScreenWithoutAccount : Screen("ProfileScreenWithoutAccount")
+    //FirstAidGuide
     object FirstAidGuideScreen : Screen("FirstAidGuideScreen")
+    object LC_FirstAids : Screen("LC_FirstAids")
+    //Contact
+    object ContactScreen : Screen("ContactScreen")
+    //Case FOr FirstAIdGUide
+    object brokenArmFirstAid1 : Screen("brokenArm1")
+    object signsOfStroke : Screen("signsOfStroke")
+    object Stroke : Screen("Stroke")
+    object venomous_Snake : Screen("venomus_Snake")
+    object burn : Screen("burn")
+    object poisoning : Screen("poisoning")
+    object nonVenomus_Snake : Screen("nonVenomus_Snake")
 
 }
 class MainActivity : ComponentActivity() {
@@ -88,7 +112,10 @@ class MainActivity : ComponentActivity() {
                     googleAuthUiClient = googleAuthUiClient,
                     facebookAuthUiClient = facebookAuthUiClient
                 )
+
             }
+
+
         }
     }
 
@@ -175,13 +202,33 @@ class MainActivity : ComponentActivity() {
             composable(Screen.HomePage1.route) {
                 HomePage1(navController, googleAuthUiClient)
             }
-            //FirstAidGuid
+            //================FirstAidGuide=================
             composable(Screen.FirstAidGuideScreen.route) {
-                FirstAidGuideScreen(navController)
+                FirstAidGuideScreen(navController, viewModel = viewModel())
+            }
+            composable(Screen.LC_FirstAids.route) {
+                LC_FirstAids(viewModel = viewModel(), searchText = "",navController)
             }
 
+            //brokenArm
+            composable(Screen.brokenArmFirstAid1.route){ brokenArm1(navController) }
+            //stroke
+
+                composable(Screen.signsOfStroke.route) { signsOfStroke(navController) }
+                composable(Screen.Stroke.route) { Stroke(navController) }
+
+            //Food_posoning
+            composable(Screen.poisoning.route) { poisoning(navController) }
+            //venomous_Snake
+            composable(Screen.venomous_Snake.route) { venomus_Snake(navController) }
+            //nonvenomous_Snake
+            composable(Screen.nonVenomus_Snake.route) { nonVenomus_Snake(navController) }
+            //bủn
+            composable(Screen.burn.route) { burn(navController) }
+
+
             // ContactScreen
-            composable("ContactScreen") {
+            composable(Screen.ContactScreen.route) {
                 ContactScreen(contactViewModel, showDialog, navController)
             }
 
@@ -194,12 +241,15 @@ class MainActivity : ComponentActivity() {
             }
 
 
+
             // Các màn hình khác
             composable("IntroductionGuide") { IntroductionGuide(navController) }
             composable("LearnFirstAid") { LearnFirstAid(navController) }
             composable("Personalization") { Personalization(navController) }
 
         }
+
+
     }
 
 }
