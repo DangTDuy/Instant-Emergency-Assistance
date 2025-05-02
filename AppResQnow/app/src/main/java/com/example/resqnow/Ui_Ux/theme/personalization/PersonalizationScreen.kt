@@ -34,7 +34,9 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -49,87 +51,48 @@ fun Personalization(navController: NavController){
             .padding(top = 60.dp)
     ) {
         Row(
-            modifier = Modifier.padding(start = 16.dp)
+            modifier = Modifier
+                .fillMaxWidth()
         ) {
             Text(
                 text = "ResQnow",
-                fontSize = 30.sp,
-                fontWeight = FontWeight.Bold
-            )
+                fontSize = 25.sp,
+                fontStyle = FontStyle.Italic,
+                fontWeight = FontWeight.Black
+            );
 
-            Spacer(modifier = Modifier.width(80.dp))
-
-            Image(
-                painter = painterResource(R.drawable.kinhlup),
-                contentDescription = "Search",
-                modifier = Modifier
-                    .size(40.dp)
-                    .clickable {}
-                    .offset(x = 10.dp)
-            )
-            Spacer(modifier = Modifier.width(5.dp))
-
-            val gradientBrush = Brush.linearGradient(
-                colors = listOf(Color(0xFFFA382D), Color(0xFF94211A))
-            )
-
-            Box(
-                modifier = Modifier
-                    .offset(x = 10.dp, y = -5.dp)
-                    .background(brush = gradientBrush, shape = RoundedCornerShape(50.dp))
-            ) {
-                Button(
-                    onClick = { navController.navigate("SignupScreen") },
-                    colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
-                    modifier = Modifier
-                        .size(width = 127.dp, height = 45.dp)
-                        .clip(RoundedCornerShape(15.dp))
-                ) {
-                    Text(
-                        text = "Đăng Nhập",
-                        fontSize = 14.sp,
-                        color = Color.White
-                    )
-                }
-            }
         }
-        Spacer(modifier = Modifier.height(20.dp))
-
+        Spacer(modifier = Modifier.height(5.dp))
         Box(
+
             modifier = Modifier
                 .fillMaxWidth()
-                .height(630.dp)
-        ) {
-            Image(
-                painter = painterResource(R.drawable.nen),
-                contentDescription = "bg",
+                .height(120.dp)
+        ){
+
+            Image(painter = painterResource(id = R.drawable.headbar_firstaid), contentDescription = "Logo"
+
+                ,contentScale = ContentScale.Crop,
                 modifier = Modifier
-                    .height(200.dp)
-                    .width(500.dp)
+                    .padding(top = 20.dp)
+                    .fillMaxWidth()
+                    .height( 90.27.dp)
             )
-            Text(
-                text = "Cá nhân hóa",
-                fontSize = 30.sp,
-                fontWeight = FontWeight.Bold,
+            Image(painter = painterResource(id = R.drawable.canhanhoaicon), contentDescription = "Logo"
+                ,alignment = Alignment.Center
+                ,modifier = Modifier
+                    .padding(start = 57.dp)
+                    .size(width = 93.dp, height = 80.dp)
+            )
+            Text(text = "Cá nhân hóa", fontSize = 28.sp,fontWeight = FontWeight.Black
+                ,textAlign = TextAlign.Center,
                 color = Color.White,
-                modifier = Modifier.padding(start = 210.dp, top = 70.dp)
-            )
-            Image(
-                painter = painterResource(R.drawable.nen1),
-                contentDescription = "ảnh",
-                contentScale = ContentScale.FillWidth,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = 200.dp)
-                    .height(430.dp)
-            )
-            Image(
-                painter = painterResource(R.drawable.canhanhoaicon),
-                contentDescription = "ảnh",
-                modifier = Modifier
-                    .padding(end = 160.dp)
-                    .height(180.dp)
-                    .width(230.dp)
+                    .align(Alignment.Center)
+                    .padding(start  = 120.dp)
+
+
             )
         }
     }

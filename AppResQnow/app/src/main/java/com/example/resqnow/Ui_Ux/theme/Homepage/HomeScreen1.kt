@@ -315,6 +315,8 @@ fun HomePage1(navController: NavController, googleAuthUiClient: GoogleAuthUiClie
                         }
                 )
                 Spacer(modifier = Modifier.width(20.dp))
+                var showDialog by remember { mutableStateOf(false) }
+
                 Image(
                     painter = painterResource(R.drawable.canhanhoa),
                     contentDescription = "Personalization",
@@ -322,11 +324,29 @@ fun HomePage1(navController: NavController, googleAuthUiClient: GoogleAuthUiClie
                         .offset(y = 20.dp)
                         .size(190.dp)
                         .clickable {
-                            if (navController.graph.findNode("Personalization") != null) {
-                                navController.navigate("Personalization")
+                            if (user == null) {
+                                showDialog = true
+                            } else {
+                                if (navController.graph.findNode("Personalization") != null) {
+                                    navController.navigate("Personalization")
+                                }
                             }
                         }
                 )
+
+                if (showDialog) {
+                    AlertDialog(
+                        onDismissRequest = { showDialog = false },
+                        title = { Text("Xin chào!") },
+                        text = { Text("Bạn cần đăng ký tài khoản để sử dụng tính năng.") },
+                        confirmButton = {
+                            TextButton(onClick = { showDialog = false }) {
+                                Text("Đóng")
+                            }
+                        }
+                    )
+                }
+
             }
         }
     }
