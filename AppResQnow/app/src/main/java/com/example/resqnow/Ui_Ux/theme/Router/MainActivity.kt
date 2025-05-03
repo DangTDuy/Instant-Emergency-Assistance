@@ -6,8 +6,10 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.resqnow.Data.Api_and_Firebase.FireBase.FirebaseFacebook.FacebookAuthUiClient
@@ -49,9 +51,14 @@ import com.example.resqnow.Ui_Ux.theme.Router.Screen.venomous_Snake
 
 import com.example.resqnow.Ui_Ux.theme.contact.CardScreen
 import com.example.resqnow.Ui_Ux.theme.contact.ContactScreen
+import com.example.resqnow.Ui_Ux.theme.personalization.ChildScreen
+import com.example.resqnow.Ui_Ux.theme.personalization.MiddleAgeScreen
+import com.example.resqnow.Ui_Ux.theme.personalization.SeniorScreen
+import com.example.resqnow.Ui_Ux.theme.personalization.YoungAdultScreen
 
 import com.example.resqnow.viewModel.ContactViewModel
-
+import com.example.resqnow.Data.Api_and_Firebase.DataStore.readUserData
+import kotlinx.coroutines.launch
 
 sealed class Screen(val route: String) {
     object ScreenIntro1 : Screen("IntroAppScreen1")
@@ -245,7 +252,13 @@ class MainActivity : ComponentActivity() {
             // Các màn hình khác
             composable("IntroductionGuide") { IntroductionGuide(navController) }
             composable("LearnFirstAid") { LearnFirstAid(navController) }
-            composable("Personalization") { Personalization(navController) }
+            composable("Personalization") {
+                Personalization(navController)
+            }
+            composable("ChildScreen") { ChildScreen(navController) }
+            composable("YoungAdultScreen") { YoungAdultScreen(navController) }
+            composable("MiddleAgeScreen") { MiddleAgeScreen(navController) }
+            composable("SeniorScreen") { SeniorScreen(navController) }
 
         }
 

@@ -53,36 +53,38 @@ import com.google.maps.android.compose.*
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import org.json.JSONObject
-
-// Data class để lưu thông tin bệnh viện
-data class Hospital(
-    val position: LatLng,
-    val name: String,
-    val placeId: String,
-    val vicinity: String = ""
-)
-
-// Enum class cho trạng thái tải
-enum class LoadingState {
-    LOADING, SUCCESS, ERROR, LOCATION_ERROR
-}
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
 fun Maps(navController: NavHostController) {
     val locationPermissionState = rememberPermissionState(android.Manifest.permission.ACCESS_FINE_LOCATION)
     var permissionRequested by remember { mutableStateOf(false) }
+    val context = LocalContext.current
+    val viewModel: MapsViewModel = viewModel(factory = object : ViewModelProvider.Factory {
+        override fun <T : ViewModel> create(modelClass: Class<T>): T {
+            if (modelClass.isAssignableFrom(MapsViewModel::class.java)) {
+                @Suppress("UNCHECKED_CAST")
+                return MapsViewModel(context) as T
+            }
+            throw IllegalArgumentException("Unknown ViewModel class")
+        }
+    })
 
     LaunchedEffect(Unit) {
         if (!locationPermissionState.status.isGranted && !permissionRequested) {
             locationPermissionState.launchPermissionRequest()
             permissionRequested = true
+        } else if (locationPermissionState.status.isGranted) {
+            viewModel.fetchLocationAndHospitals()
         }
     }
 
     Box(modifier = Modifier.fillMaxSize()) {
         if (locationPermissionState.status.isGranted) {
-            MapsContent(navController)
+            MapsContent(navController, viewModel)
         } else {
             Column(
                 Modifier.fillMaxSize(),
@@ -95,7 +97,6 @@ fun Maps(navController: NavHostController) {
                     textAlign = TextAlign.Center,
                     fontWeight = FontWeight.Medium
                 )
-                
                 Button(onClick = {
                     if (!locationPermissionState.status.isGranted) {
                         locationPermissionState.launchPermissionRequest()
@@ -111,92 +112,31 @@ fun Maps(navController: NavHostController) {
 @OptIn(ExperimentalComposeUiApi::class)
 @SuppressLint("MissingPermission")
 @Composable
-fun MapsContent(navController: NavHostController) {
+fun MapsContent(navController: NavHostController, viewModel: MapsViewModel) {
     val context = LocalContext.current
-    val hospitals = remember { mutableStateListOf<Hospital>() }
-    val filteredHospitals = remember { mutableStateListOf<Hospital>() }
+    val hospitals by viewModel.hospitals.collectAsState()
+    val filteredHospitals by viewModel.filteredHospitals.collectAsState()
+    val loadingState by viewModel.loadingState.collectAsState()
+    val showNoHospitalsDialog by viewModel.showNoHospitalsDialog.collectAsState()
+    val selectedHospital by viewModel.selectedHospital.collectAsState()
+    val currentLocation by viewModel.currentLocation.collectAsState()
+    val errorMessage by viewModel.errorMessage.collectAsState()
+    val searchingPlaces by viewModel.searchingPlaces.collectAsState()
+    val searchQuery by viewModel.searchQuery.collectAsState()
     val cameraPositionState = rememberCameraPositionState()
-    var loadingState by remember { mutableStateOf(LoadingState.LOADING) }
-    var showNoHospitalsDialog by remember { mutableStateOf(false) }
-    var selectedHospital by remember { mutableStateOf<Hospital?>(null) }
-    var currentLocation by remember { mutableStateOf<LatLng?>(null) }
-    var errorMessage by remember { mutableStateOf("") }
-    val scope = rememberCoroutineScope()
-    
-    // Trạng thái cho thanh tìm kiếm
-    var searchQuery by remember { mutableStateOf("") }
-    var isSearching by remember { mutableStateOf(false) }
     val keyboardController = LocalSoftwareKeyboardController.current
-    
-    // Thêm trạng thái cho việc tìm kiếm theo Places API
-    var searchingPlaces by remember { mutableStateOf(false) }
-    
-    LaunchedEffect(Unit) {
-        try {
-            val fusedLocationClient = LocationServices.getFusedLocationProviderClient(context)
-            
-            try {
-                val location = fusedLocationClient.getCurrentLocation(Priority.PRIORITY_HIGH_ACCURACY, null).await()
-                if (location != null) {
-                    val currentLatLng = LatLng(location.latitude, location.longitude)
-                    currentLocation = currentLatLng
-                    cameraPositionState.position = CameraPosition.fromLatLngZoom(currentLatLng, 14f)
-                    
-                    fetchNearbyHospitals(
-                        context = context, 
-                        location = currentLatLng,
-                        onSuccess = { nearbyHospitals ->
-                            hospitals.clear()
-                            hospitals.addAll(nearbyHospitals)
-                            filteredHospitals.clear()
-                            filteredHospitals.addAll(nearbyHospitals)
-                            loadingState = if (hospitals.isEmpty()) {
-                                showNoHospitalsDialog = true
-                                LoadingState.SUCCESS
-                            } else {
-                                LoadingState.SUCCESS
-                            }
-                        },
-                        onError = { error ->
-                            errorMessage = error
-                            loadingState = LoadingState.ERROR
-                        }
-                    )
-                } else {
-                    loadingState = LoadingState.LOCATION_ERROR
-                    errorMessage = "Không thể lấy vị trí của bạn. Vui lòng kiểm tra GPS đã bật."
-                }
-            } catch (e: Exception) {
-                loadingState = LoadingState.LOCATION_ERROR
-                errorMessage = "Không thể truy cập vị trí: ${e.localizedMessage}"
-            }
-        } catch (e: Exception) {
-            loadingState = LoadingState.ERROR
-            errorMessage = "Đã xảy ra lỗi: ${e.localizedMessage}"
-        }
-    }
-    
-    // Hiệu ứng khi thay đổi truy vấn tìm kiếm
-    LaunchedEffect(searchQuery) {
-        if (searchQuery.isEmpty()) {
-            // Nếu truy vấn trống, hiển thị tất cả bệnh viện
-            filteredHospitals.clear()
-            filteredHospitals.addAll(hospitals)
-        } else {
-            // Lọc dựa trên tên hoặc địa chỉ
-            filteredHospitals.clear()
-            filteredHospitals.addAll(hospitals.filter { hospital ->
-                hospital.name.contains(searchQuery, ignoreCase = true) ||
-                hospital.vicinity.contains(searchQuery, ignoreCase = true)
-            })
+
+    // Khi có vị trí mới, cập nhật camera
+    LaunchedEffect(currentLocation) {
+        currentLocation?.let {
+            cameraPositionState.position = CameraPosition.fromLatLngZoom(it, 14f)
         }
     }
 
     Column(modifier = Modifier
         .fillMaxSize()
-        .padding(top = 60.dp) // Thêm padding 60.dp ở trên cùng giống HomeScreen1
+        .padding(top = 60.dp)
     ) {
-        // Thêm tiêu đề giống như HomeScreen1
         Row(
             modifier = Modifier.padding(start = 16.dp),
             verticalAlignment = Alignment.CenterVertically
@@ -206,13 +146,9 @@ fun MapsContent(navController: NavHostController) {
                 fontSize = 30.sp,
                 fontWeight = FontWeight.Bold
             )
-            
             Spacer(modifier = Modifier.weight(1f))
         }
-        
         Spacer(modifier = Modifier.height(5.dp))
-        
-        // Content area
         Box(modifier = Modifier
             .weight(1f)
             .fillMaxWidth()
@@ -232,9 +168,7 @@ fun MapsContent(navController: NavHostController) {
                         }
                     }
                 }
-                
                 LoadingState.SUCCESS -> {
-                    // Google Maps
                     GoogleMap(
                         modifier = Modifier.fillMaxSize(),
                         cameraPositionState = cameraPositionState,
@@ -246,14 +180,12 @@ fun MapsContent(navController: NavHostController) {
                                 title = hospital.name,
                                 snippet = "Nhấn để tìm đường",
                                 onClick = {
-                                    selectedHospital = hospital
+                                    viewModel.setSelectedHospital(hospital)
                                     true
                                 }
                             )
                         }
                     }
-                    
-                    // Thanh tìm kiếm ở phía trên cùng
                     Surface(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -283,10 +215,9 @@ fun MapsContent(navController: NavHostController) {
                                     modifier = Modifier.padding(end = 8.dp)
                                 )
                             }
-                            
                             OutlinedTextField(
                                 value = searchQuery,
-                                onValueChange = { searchQuery = it },
+                                onValueChange = { viewModel.setSearchQuery(it) },
                                 modifier = Modifier
                                     .weight(1f)
                                     .padding(vertical = 4.dp),
@@ -305,48 +236,14 @@ fun MapsContent(navController: NavHostController) {
                                     onSearch = {
                                         keyboardController?.hide()
                                         if (searchQuery.isNotEmpty()) {
-                                            scope.launch {
-                                                searchingPlaces = true
-                                                searchHospitalsByQuery(
-                                                    context = context,
-                                                    query = searchQuery,
-                                                    currentLocation = currentLocation,
-                                                    onSuccess = { results ->
-                                                        searchingPlaces = false
-                                                        if (results.isNotEmpty()) {
-                                                            // Nếu có kết quả từ Places API, thêm vào danh sách và hiển thị
-                                                            filteredHospitals.clear()
-                                                            filteredHospitals.addAll(results)
-                                                            
-                                                            // Di chuyển camera đến kết quả đầu tiên
-                                                            cameraPositionState.position = CameraPosition.fromLatLngZoom(
-                                                                results[0].position,
-                                                                14f
-                                                            )
-                                                        } else {
-                                                            // Hiển thị thông báo không tìm thấy
-                                                            showNoHospitalsDialog = true
-                                                        }
-                                                    },
-                                                    onError = { error ->
-                                                        searchingPlaces = false
-                                                        errorMessage = error
-                                                    }
-                                                )
-                                            }
+                                            viewModel.searchHospitalsByQuery(searchQuery)
                                         }
                                     }
                                 )
                             )
-                            
                             if (searchQuery.isNotEmpty()) {
                                 IconButton(
-                                    onClick = {
-                                        searchQuery = ""
-                                        // Hiển thị lại tất cả bệnh viện gần đó
-                                        filteredHospitals.clear()
-                                        filteredHospitals.addAll(hospitals)
-                                    }
+                                    onClick = { viewModel.setSearchQuery("") }
                                 ) {
                                     Icon(
                                         imageVector = Icons.Default.Close,
@@ -356,8 +253,6 @@ fun MapsContent(navController: NavHostController) {
                             }
                         }
                     }
-                    
-                    // Hiển thị thông tin về số lượng bệnh viện tìm thấy
                     if (filteredHospitals.isNotEmpty()) {
                         Box(
                             modifier = Modifier
@@ -367,8 +262,7 @@ fun MapsContent(navController: NavHostController) {
                                 .align(Alignment.TopCenter)
                                 .clickable {
                                     if (filteredHospitals.size == 1) {
-                                        // Nếu chỉ có 1 kết quả, tự động chọn
-                                        selectedHospital = filteredHospitals[0]
+                                        viewModel.setSelectedHospital(filteredHospitals[0])
                                     }
                                 }
                         ) {
@@ -379,7 +273,6 @@ fun MapsContent(navController: NavHostController) {
                         }
                     }
                 }
-                
                 LoadingState.ERROR, LoadingState.LOCATION_ERROR -> {
                     Column(
                         modifier = Modifier
@@ -394,50 +287,15 @@ fun MapsContent(navController: NavHostController) {
                             fontSize = 16.sp,
                             fontWeight = FontWeight.Medium
                         )
-                        
                         Spacer(modifier = Modifier.height(16.dp))
-                        
-                        Button(onClick = {
-                            loadingState = LoadingState.LOADING
-                            scope.launch {
-                                val fusedLocationClient = LocationServices.getFusedLocationProviderClient(context)
-                                try {
-                                    val location = fusedLocationClient.getCurrentLocation(Priority.PRIORITY_HIGH_ACCURACY, null).await()
-                                    if (location != null) {
-                                        currentLocation = LatLng(location.latitude, location.longitude)
-                                        cameraPositionState.position = CameraPosition.fromLatLngZoom(currentLocation!!, 14f)
-                                        
-                                        fetchNearbyHospitals(
-                                            context = context,
-                                            location = currentLocation!!,
-                                            onSuccess = { nearbyHospitals ->
-                                                hospitals.clear()
-                                                hospitals.addAll(nearbyHospitals)
-                                                filteredHospitals.clear()
-                                                filteredHospitals.addAll(nearbyHospitals)
-                                                loadingState = LoadingState.SUCCESS
-                                            },
-                                            onError = { error ->
-                                                errorMessage = error
-                                                loadingState = LoadingState.ERROR
-                                            }
-                                        )
-                                    } else {
-                                        loadingState = LoadingState.LOCATION_ERROR
-                                    }
-                                } catch (e: Exception) {
-                                    loadingState = LoadingState.LOCATION_ERROR
-                                }
-                            }
-                        }) {
+                        Button(onClick = { viewModel.fetchLocationAndHospitals() }) {
                             Text("Thử lại")
                         }
                     }
                 }
             }
         }
-        
-        // Navigation Bar - ở cuối Column
+        // Navigation Bar giữ nguyên
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -518,25 +376,23 @@ fun MapsContent(navController: NavHostController) {
             }
         }
     }
-
     // Dialog chọn hành động khi click vào bệnh viện
     selectedHospital?.let { hospital ->
         AlertDialog(
-            onDismissRequest = { selectedHospital = null },
+            onDismissRequest = { viewModel.setSelectedHospital(null) },
             title = { Text(hospital.name, fontWeight = FontWeight.Bold) },
-            text = { 
+            text = {
                 Column {
                     if (hospital.vicinity.isNotEmpty()) {
                         Text("Địa chỉ: ${hospital.vicinity}")
                         Spacer(modifier = Modifier.height(8.dp))
                     }
-                    Text("Bạn muốn tìm đường đến bệnh viện này?") 
+                    Text("Bạn muốn tìm đường đến bệnh viện này?")
                 }
             },
             confirmButton = {
                 Button(onClick = {
                     currentLocation?.let { current ->
-                        // Mở Google Maps với hướng dẫn đường đi
                         val uri = Uri.parse(
                             "google.navigation:q=${hospital.position.latitude},${hospital.position.longitude}&mode=d"
                         )
@@ -545,7 +401,6 @@ fun MapsContent(navController: NavHostController) {
                         try {
                             context.startActivity(intent)
                         } catch (e: Exception) {
-                            // Fallback nếu không có Google Maps
                             val browserUri = Uri.parse(
                                 "https://www.google.com/maps/dir/?api=1&destination=${hospital.position.latitude},${hospital.position.longitude}"
                             )
@@ -553,159 +408,28 @@ fun MapsContent(navController: NavHostController) {
                             context.startActivity(browserIntent)
                         }
                     }
-                    selectedHospital = null
+                    viewModel.setSelectedHospital(null)
                 }) {
                     Text("Tìm đường")
                 }
             },
             dismissButton = {
-                Button(onClick = { selectedHospital = null }) {
+                Button(onClick = { viewModel.setSelectedHospital(null) }) {
                     Text("Hủy")
                 }
             }
         )
     }
-
     if (showNoHospitalsDialog) {
         AlertDialog(
-            onDismissRequest = { showNoHospitalsDialog = false },
+            onDismissRequest = { viewModel.setShowNoHospitalsDialog(false) },
             title = { Text("Không có bệnh viện gần đây") },
             text = { Text("Chúng tôi không thể tìm thấy bệnh viện phù hợp với yêu cầu tìm kiếm của bạn.") },
             confirmButton = {
-                Button(onClick = { showNoHospitalsDialog = false }) {
+                Button(onClick = { viewModel.setShowNoHospitalsDialog(false) }) {
                     Text("Đóng")
                 }
             }
         )
     }
-}
-
-// Hàm tách riêng để lấy dữ liệu bệnh viện gần đó
-private fun fetchNearbyHospitals(
-    context: android.content.Context,
-    location: LatLng,
-    onSuccess: (List<Hospital>) -> Unit,
-    onError: (String) -> Unit
-) {
-    // Sử dụng API key cố định thay vì BuildConfig
-    val apiKey = "AIzaSyAsL_GBsnfBifXu9CKSVGMxPKHq8sbiJek"
-    
-    val url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json" +
-            "?location=${location.latitude},${location.longitude}" +
-            "&radius=3000" +
-            "&type=hospital" +
-            "&key=$apiKey"
-
-    val queue = Volley.newRequestQueue(context)
-    val hospitalsList = mutableListOf<Hospital>()
-    
-    val request = object : StringRequest(
-        Request.Method.GET, url,
-        Response.Listener { response ->
-            try {
-                val json = JSONObject(response)
-                val results = json.getJSONArray("results")
-                
-                for (i in 0 until results.length()) {
-                    val place = results.getJSONObject(i)
-                    val loc = place.getJSONObject("geometry").getJSONObject("location")
-                    val lat = loc.getDouble("lat")
-                    val lng = loc.getDouble("lng")
-                    val name = place.getString("name")
-                    val placeId = place.getString("place_id")
-                    val vicinity = if (place.has("vicinity")) place.getString("vicinity") else ""
-                    
-                    hospitalsList.add(Hospital(LatLng(lat, lng), name, placeId, vicinity))
-                }
-                
-                onSuccess(hospitalsList)
-            } catch (e: Exception) {
-                onError("Không thể xử lý dữ liệu: ${e.localizedMessage}")
-                Log.e("JSON_ERROR", "Error parsing JSON: ${e.message}")
-            }
-        },
-        Response.ErrorListener { error ->
-            onError("Lỗi kết nối: ${error.message ?: "Không thể kết nối đến máy chủ"}")
-            Log.e("API_ERROR", error.toString())
-        }
-    ) {
-        override fun getHeaders(): MutableMap<String, String> {
-            val headers = HashMap<String, String>()
-            headers["User-Agent"] = "ResQnow Android App"
-            return headers
-        }
-    }
-    
-    request.setShouldCache(false)
-    queue.add(request)
-}
-
-// Hàm mới để tìm kiếm bệnh viện bằng query
-private fun searchHospitalsByQuery(
-    context: android.content.Context,
-    query: String,
-    currentLocation: LatLng?,
-    onSuccess: (List<Hospital>) -> Unit,
-    onError: (String) -> Unit
-) {
-    val apiKey = "AIzaSyAsL_GBsnfBifXu9CKSVGMxPKHq8sbiJek"
-    
-    // Tạo URL cho tìm kiếm text
-    val locationParam = if (currentLocation != null) 
-        "&location=${currentLocation.latitude},${currentLocation.longitude}&radius=10000"
-    else 
-        ""
-    
-    val url = "https://maps.googleapis.com/maps/api/place/textsearch/json" +
-            "?query=hospital+$query" +
-            locationParam +
-            "&type=hospital" +
-            "&key=$apiKey"
-    
-    val queue = Volley.newRequestQueue(context)
-    val hospitalsList = mutableListOf<Hospital>()
-    
-    val request = object : StringRequest(
-        Request.Method.GET, url,
-        Response.Listener { response ->
-            try {
-                val json = JSONObject(response)
-                val results = json.getJSONArray("results")
-                
-                for (i in 0 until results.length()) {
-                    val place = results.getJSONObject(i)
-                    val loc = place.getJSONObject("geometry").getJSONObject("location")
-                    val lat = loc.getDouble("lat")
-                    val lng = loc.getDouble("lng")
-                    val name = place.getString("name")
-                    val placeId = place.getString("place_id")
-                    val vicinity = if (place.has("formatted_address")) 
-                                    place.getString("formatted_address") 
-                                  else if (place.has("vicinity"))
-                                    place.getString("vicinity")
-                                  else ""
-                    
-                    hospitalsList.add(Hospital(LatLng(lat, lng), name, placeId, vicinity))
-                }
-                
-                onSuccess(hospitalsList)
-            } catch (e: Exception) {
-                onError("Không thể xử lý dữ liệu tìm kiếm: ${e.localizedMessage}")
-                Log.e("JSON_ERROR", "Error parsing JSON search: ${e.message}")
-            }
-        },
-        Response.ErrorListener { error ->
-            onError("Lỗi kết nối tìm kiếm: ${error.message ?: "Không thể kết nối đến máy chủ"}")
-            Log.e("API_ERROR", "Search error: ${error.toString()}")
-        }
-    ) {
-        override fun getHeaders(): MutableMap<String, String> {
-            val headers = HashMap<String, String>()
-            headers["User-Agent"] = "ResQnow Android App"
-            return headers
-        }
-    }
-    
-    request.setShouldCache(false)
-    queue.add(request)
 }
