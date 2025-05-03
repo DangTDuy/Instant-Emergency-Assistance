@@ -1,4 +1,4 @@
-package com.example.resqnow.Ui_Ux.theme.personalization
+package com.example.resqnow.Ui_Ux.theme.personalization.Child
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -16,24 +16,94 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.resqnow.Data.Api_and_Firebase.DataStore.readUserData
 import com.example.resqnow.R
 
 @Composable
-fun YoungAdultScreen(navController: NavController) {
+fun ChildScreen(navController: NavController) {
+    val context = LocalContext.current
+    val ageState = remember { mutableStateOf("") }
+
+    LaunchedEffect(Unit) {
+        val userData = readUserData(context)
+        ageState.value = userData.age
+    }
+
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 60.dp)
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+        ) {
+            Text(
+                text = "ResQnow",
+                fontSize = 25.sp,
+                fontStyle = FontStyle.Italic,
+                fontWeight = FontWeight.Black
+            );
+
+        }
+        Spacer(modifier = Modifier.height(5.dp))
+        Box(
+
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(120.dp)
+        ){
+
+            Image(painter = painterResource(id = R.drawable.headbar_firstaid), contentDescription = "Logo"
+
+                ,contentScale = ContentScale.Crop,
+                modifier = Modifier
+                    .padding(top = 20.dp)
+                    .fillMaxWidth()
+                    .height( 90.27.dp)
+            )
+            Image(painter = painterResource(id = R.drawable.canhanhoaicon), contentDescription = "Logo"
+                ,alignment = Alignment.Center
+                ,modifier = Modifier
+                    .padding(start = 57.dp)
+                    .size(width = 93.dp, height = 80.dp)
+            )
+            Text(text = "Độ tuổi hiện tại của bạn ${ageState.value}",
+                fontSize = 18.sp,
+                textAlign = TextAlign.Center,
+                color = Color.White,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .align(Alignment.Center)
+                    .padding(start  = 120.dp)
+            )
+        }
+        Text(
+            text = "Thay đổi",
+            fontSize = 24.sp,
+            fontWeight = FontWeight.Bold,
+            modifier = Modifier.padding(16.dp)
+        )
+    }
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Text("Màn hình cho tuổi 18-35", fontSize = 24.sp, fontWeight = FontWeight.Bold)
+        Text("Màn hình cho tuổi 0-17", fontSize = 24.sp, fontWeight = FontWeight.Bold)
     }
     Column(
         modifier = Modifier
@@ -110,3 +180,8 @@ fun YoungAdultScreen(navController: NavController) {
         }
     }
 }
+
+
+
+
+

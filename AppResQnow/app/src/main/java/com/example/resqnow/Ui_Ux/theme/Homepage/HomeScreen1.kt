@@ -20,6 +20,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Text
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -40,10 +41,29 @@ import androidx.navigation.NavController
 import com.example.resqnow.Data.Api_and_Firebase.FireBaseGoogle.GoogleAuthUiClient
 import com.example.resqnow.R
 import com.example.resqnow.Ui_Ux.theme.Router.Screen
+import kotlinx.coroutines.delay
+import java.util.Calendar
+
 
 @Composable
 fun HomePage1(navController: NavController, googleAuthUiClient: GoogleAuthUiClient) {
     val user = googleAuthUiClient.getSignedInUser()
+    //real time
+    var currentTime by remember { mutableStateOf(Calendar.getInstance()) }
+    // Cập nhật mỗi giây
+    LaunchedEffect(Unit) {
+        while (true) {
+            currentTime = Calendar.getInstance()
+            delay(1000)
+        }
+    }
+
+    val hour = currentTime.get(Calendar.HOUR_OF_DAY)
+    val minute = currentTime.get(Calendar.MINUTE)
+    val second = currentTime.get(Calendar.SECOND)
+    var day = currentTime.get(Calendar.DAY_OF_MONTH)
+    var month = currentTime.get(Calendar.MONTH) + 1
+    var year = currentTime.get(Calendar.YEAR)
 
     Column(
         modifier = Modifier
@@ -79,9 +99,10 @@ fun HomePage1(navController: NavController, googleAuthUiClient: GoogleAuthUiClie
 
             Box(
                 modifier = Modifier
-                    .padding(start = 5.dp)
-                    .size(width = 150.dp, height = 45.dp)
-                    .background(brush = gradientBrush, shape = RoundedCornerShape(50.dp))
+                    .padding(horizontal = 5.dp)
+                    .size(width = 300.dp, height = 50.dp)
+                    .background(brush = gradientBrush, shape = RoundedCornerShape(20.dp))
+                ,contentAlignment = Alignment.Center
             ) {
                 if (user != null) {
                     Text(
@@ -127,13 +148,21 @@ fun HomePage1(navController: NavController, googleAuthUiClient: GoogleAuthUiClie
                     .padding(top = 20.dp)
                     .fillMaxWidth()
             ) {
-                Text(
-                    text = "14:00, Ngày 24 tháng 08",
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier.padding(start = 16.dp)
-                )
-
+                Column() {
+                    Text(
+                        text = "Ngày $day/$month/$year",
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier.padding(start = 16.dp)
+                    )
+                    Spacer(modifier = Modifier.height(2.dp))
+                    Text(
+                        text = "$hour giờ , $minute phút, $second giây",
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier.padding(start = 16.dp)
+                    )
+                }
                 Spacer(modifier = Modifier.width(50.dp))
 
                 Text(

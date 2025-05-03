@@ -3,6 +3,8 @@ package com.example.resqnow.Ui_Ux.theme.Profile
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -10,6 +12,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -21,6 +24,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -37,18 +41,104 @@ import androidx.navigation.NavController
 import com.example.resqnow.Components.LightPink
 import com.example.resqnow.Components.Text_color
 import com.example.resqnow.R
-
+import com.example.resqnow.Ui_Ux.theme.Router.Screen
 
 
 @Composable
-fun ProfileScreenWithoutAccount(navController: NavController? = null){
-    Column(
+fun ProfileScreenWithoutAccount(navController: NavController) {
+    Scaffold(
+        bottomBar = {
+            Box(
+                contentAlignment = Alignment.Center,
+                modifier = Modifier
+                    .navigationBarsPadding()
+                    .padding(top = 10.dp)
+                    .fillMaxWidth()
+                    .height(110.dp)
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.new_nav_bar),
+                    contentDescription = "Logo",
+                    modifier = Modifier
+                        .fillMaxSize()
+                )
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp),
+                    horizontalArrangement = Arrangement.SpaceEvenly,
+                    verticalAlignment = Alignment.CenterVertically
 
-        modifier = Modifier
-            .fillMaxSize()
-            .background(color = Color.White)
-            .padding(top = 38.dp)
-    ){
+                ) {
+                    IconButton(
+                        onClick = { navController.navigate(Screen.HomePage1.route) },
+                        modifier = Modifier
+                            .padding(top = 40.dp)
+                            .size(60.dp)
+                    ) {
+                        Box(
+                            modifier = Modifier.fillMaxSize(),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Image(
+                                painter = painterResource(id = R.drawable.home),
+                                contentDescription = "Logo",
+                                modifier = Modifier.size(41.dp, 39.dp)
+                            )
+                        }
+                    }
+                    IconButton(onClick = { navController.navigate(Screen.ContactScreen.route) },
+                        modifier = Modifier
+                            .padding(top = 40.dp)
+                            .size(60.dp)
+                    ) {
+
+                        Image(
+                            painter = painterResource(id = R.drawable.a),
+                            contentDescription = "Logo",
+                            alignment = Alignment.Center,
+                            modifier = Modifier
+                                .size(width = 37.dp, height = 32.dp)
+                        )
+                    }
+                    IconButton(onClick = {}, modifier = Modifier
+                        .padding(top = 40.dp)
+                        .size(60.dp)
+                    ) {
+                        Image(
+                            painter = painterResource(id = R.drawable.hospital),
+                            contentDescription = "Logo",
+                            alignment = Alignment.Center,
+                            modifier = Modifier
+                                .size(width = 35.dp, height = 35.dp)
+                        )
+                    }
+                    IconButton(onClick = { Screen.ProfileScreen.route }, modifier = Modifier
+
+                        .size(60.dp)
+                    ) {
+                        Image(
+                            painter = painterResource(id = R.drawable.c),
+                            contentDescription = "Logo",
+                            alignment = Alignment.Center,
+                            modifier = Modifier
+                                .size(width = 35.dp, height = 35.dp)
+                        )
+                    }
+                }
+
+            }
+        }
+
+    ) { paddingValues ->
+        Column(
+
+            modifier = Modifier
+                .fillMaxSize()
+                .background(color = Color.White)
+                .padding(paddingValues)
+                .padding(top = 38.dp)
+        ) {
             Box() {
                 Image(
                     painter = painterResource(R.drawable.profile_top_background),
@@ -64,6 +154,7 @@ fun ProfileScreenWithoutAccount(navController: NavController? = null){
                             modifier = Modifier
                                 .size(44.dp)
                                 .padding(top = 15.dp)
+                                .clickable { navController.navigate(Screen.HomePage1.route) }
                         )
                     }
                     Text(
@@ -83,7 +174,7 @@ fun ProfileScreenWithoutAccount(navController: NavController? = null){
                         .size(width = 250.dp, height = 81.dp)
                 ) {
                     Button(
-                        onClick = {},
+                        onClick = {navController.navigate(Screen.SignInScreen.route)},
                         colors = ButtonDefaults.buttonColors(LightPink),
                         modifier = Modifier
                             .padding(start = 58.dp, top = 16.dp)
@@ -136,7 +227,7 @@ fun ProfileScreenWithoutAccount(navController: NavController? = null){
                 modifier = Modifier
                     .padding(start = 5.dp, top = 2.dp)
             )
-        Spacer(modifier = Modifier.height(10.dp))
+            Spacer(modifier = Modifier.height(10.dp))
 
             Box(modifier = Modifier.fillMaxWidth()) {
                 Box(
@@ -144,7 +235,7 @@ fun ProfileScreenWithoutAccount(navController: NavController? = null){
                         .size(width = 320.dp, height = 350.dp)
                         .padding(start = 78.dp, top = 25.dp)
                         .border(
-                            width = 1.dp,
+                            width = 3.dp,
                             color = Color.Black,
                             shape = RoundedCornerShape(15.dp)
                         )
@@ -235,108 +326,50 @@ fun ProfileScreenWithoutAccount(navController: NavController? = null){
                     }
                 }
 
-        }
-//
-//        //Đăng xuất
-//        Column (modifier = Modifier.fillMaxWidth()){
-//            Button(
-//                onClick = {},
-//                colors = ButtonDefaults.buttonColors(Color.White),
-//                modifier = Modifier
-//                    .align(Alignment.CenterHorizontally)
-//                    .padding(top = 17.dp)
-//                    .border(width = 1.dp, color = Color.Red, shape = RoundedCornerShape(5.dp))
-//                    .size(width = 150.dp, height = 35.dp)
-//            ) {
-//                Row(
-//                    verticalAlignment = Alignment.CenterVertically,
-//                    modifier = Modifier.fillMaxSize(),
-//                ) {
-//                    Image(
-//                        painter = painterResource(id = R.drawable.logout),
-//                        contentDescription = "Đăng xuất",
-//                        modifier = Modifier
-//                            .size(14.dp)
-//                            .weight(1f)
-//                    )
-//                    Text(
-//                        text = "Đăng xuất",
-//                        fontSize = 15.sp,
-//                        fontWeight = FontWeight.Bold,
-//                        color = Color.Red,
-//                        modifier = Modifier
-//                            .weight(3f)
-//                            .padding(start = 1.dp)
-//                    )
-//                }
-//            }
-//        }
-        Row() {
-            Column() {
-                Text(
-                    text = "Cá Nhân Hóa", fontSize = 18.sp, fontWeight = FontWeight.Black,
-                    modifier = Modifier
-                        .padding(start = 29.dp, top = 20.dp)
-                )
-                Text(
-                    text = "Tra cứu các loại bệnh theo độ tuổi của bạn",
-                    fontSize = 13.sp,
-                    fontWeight = FontWeight.ExtraBold,
-                    modifier = Modifier
-                        .padding(start = 29.dp, top = 5.dp)
-                )
             }
 
-                Image(
-                    painter = painterResource(id = R.drawable.icon_personal),
-                    contentDescription = "Cá nhân hóa",
-                    modifier = Modifier
-                        .padding(start = 45.dp, top = 20.dp)
-                        .size(44.dp)
-                        .border(width = 2.dp, color = Color.Red, shape = RoundedCornerShape(5.dp))
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceEvenly,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Column() {
+                    Text(
+                        text = "Cá Nhân Hóa", fontSize = 18.sp, fontWeight = FontWeight.Black,
+                        modifier = Modifier
+                            .padding(start = 29.dp, top = 20.dp)
+                    )
+                    Text(
+                        text = "Tra cứu các loại bệnh theo độ tuổi của bạn",
+                        fontSize = 13.sp,
+                        fontWeight = FontWeight.ExtraBold,
+                        modifier = Modifier
+                            .padding(start = 29.dp, top = 5.dp)
+                    )
+                }
+                Spacer(modifier = Modifier.width(20.dp))
+                Column(
 
+                ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.icon_personal),
+                        contentDescription = "Cá nhân hóa", modifier = Modifier
+                            .padding(horizontal = 5.dp)
+                            .size(44.dp)
+                            .border(
+                                width = 2.dp,
+                                color = Color.Red,
+                                shape = RoundedCornerShape(5.dp)
+                            )
+                            .align(Alignment.CenterHorizontally)
 
-                )
-
-
-        }
-        Box(){
-            Image(painter = painterResource(id = R.drawable.new_nav_bar), contentDescription = "navbar"
-                , modifier = Modifier
-                    .padding(top = 20.dp,start = 0.dp, end = 0.dp)
-                    .size(width = 600.dp, height = 120.dp)
-            )
-            Row(){
-               Image(painter = painterResource(id = R.drawable.home), contentDescription = "home",
-                   modifier = Modifier
-                       .padding(start = 9.dp, top = 78.dp)
-                       .size(width = 39.dp , height = 37.dp)
-                   )
-                Image(painter = painterResource(id = R.drawable.a), contentDescription = "home",
-                    modifier = Modifier
-                        .padding(start = 70.dp, top = 78.dp)
-                        .size(width = 39.dp , height = 37.dp)
-                )
-                Image(painter = painterResource(id = R.drawable.hospital), contentDescription = "home",
-                    modifier = Modifier
-                        .padding(start = 60.dp, top = 78.dp)
-                        .size(width = 37.dp , height = 35.dp)
-                )
-                Image(painter = painterResource(id = R.drawable.c), contentDescription = "home",
-                    modifier = Modifier
-                        .padding(start = 47.dp, top = 65.dp)
-                        .size(width = 39.dp , height = 37.dp)
-                )
-
+                    )
+                }
             }
+
         }
     }
-}
 
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun PreviewIntroScreen3() {
-    ProfileScreenWithoutAccount()
 }
-
 

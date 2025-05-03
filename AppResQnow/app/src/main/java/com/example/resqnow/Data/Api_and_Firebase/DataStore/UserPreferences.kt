@@ -33,7 +33,7 @@ suspend fun readUserData(context: Context): UserData {
         name = prefs[UserPreferencesKeys.NAME] ?: "",
         phone = prefs[UserPreferencesKeys.PHONE] ?: "",
         sex = prefs[UserPreferencesKeys.SEX] ?: "",
-        age = prefs[UserPreferencesKeys.AGE]?.toString() ?: "" // ✅ Đọc Int rồi chuyển về String
+        age = prefs[UserPreferencesKeys.AGE]?.toString() ?: ""
     )
 }
 suspend fun clearUserData(context: Context) {
