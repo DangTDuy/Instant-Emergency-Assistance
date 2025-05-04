@@ -96,15 +96,55 @@ fun ChildScreen(navController: NavController) {
             )
         }
     }
-    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 165.dp)
+    ) {
         Image(
             painter = painterResource(id = R.drawable.thieunien),
             contentDescription = "thieunien",
             modifier = Modifier
                 .size(width = 200.dp, height = 150.dp)
-            
+                .align(Alignment.CenterHorizontally)
+        )
+        Text(
+            text = "Các bệnh lý hay mắc phải",
+            fontSize = 19.sp,
+            fontWeight = FontWeight.Black,
+            modifier = Modifier
+                .padding(start = 16.dp)
+        )
+        Spacer(modifier = Modifier.height(5.dp))
+        Image(
+            painter = painterResource(id = R.drawable.benhhaymacphai),
+            contentDescription = "",
+            modifier = Modifier
+                .size(width = 370.dp, height = 170.dp)
+                .align(Alignment.CenterHorizontally)
+
+        )
+
+        Spacer(modifier = Modifier.height(20.dp))
+
+        Text(
+            text = "Phương pháp phòng bệnh",
+            fontSize = 19.sp,
+            fontWeight = FontWeight.Black,
+            modifier = Modifier
+                .padding(start = 16.dp)
+        )
+        Spacer(modifier = Modifier.height(5.dp))
+        Image(
+            painter = painterResource(id = R.drawable.phuongphapphongbenh),
+            contentDescription = "",
+            modifier = Modifier
+                .size(width = 370.dp, height = 170.dp)
+                .align(Alignment.CenterHorizontally)
         )
     }
+
 
     Column(
         modifier = Modifier

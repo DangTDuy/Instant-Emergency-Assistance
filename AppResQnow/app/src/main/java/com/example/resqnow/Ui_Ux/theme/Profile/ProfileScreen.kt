@@ -116,9 +116,6 @@
                         .navigationBarsPadding()
                         .fillMaxWidth()
                         .height(110.dp)
-
-
-
                 ) {
                     Image(
                         painter = painterResource(id = R.drawable.new_nav_bar),
