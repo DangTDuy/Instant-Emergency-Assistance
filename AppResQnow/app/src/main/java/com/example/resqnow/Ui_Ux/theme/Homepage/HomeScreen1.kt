@@ -47,6 +47,7 @@ import java.util.Calendar
 import androidx.compose.animation.Crossfade
 import androidx.compose.animation.*
 import androidx.compose.animation.core.tween
+import androidx.compose.ui.text.style.TextAlign
 
 val gradientBrush = Brush.linearGradient(
     colors = listOf(Color(0xFFFA382D), Color(0xFF94211A))
@@ -155,9 +156,13 @@ fun HomePage1(navController: NavController, googleAuthUiClient: GoogleAuthUiClie
             Row(
                 modifier = Modifier
                     .padding(top = 20.dp)
-                    .fillMaxWidth()
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                Column() {
+                Column(
+                    modifier = Modifier
+                        .weight(1f)
+                ) {
                     Text(
                         text = "Ngày $day/$month/$year",
                         fontSize = 14.sp,
@@ -172,7 +177,6 @@ fun HomePage1(navController: NavController, googleAuthUiClient: GoogleAuthUiClie
                         modifier = Modifier.padding(start = 16.dp)
                     )
                 }
-                Spacer(modifier = Modifier.width(50.dp))
 
                 Text(
                     text = "LH:0808.555.555",
@@ -180,18 +184,26 @@ fun HomePage1(navController: NavController, googleAuthUiClient: GoogleAuthUiClie
                     fontWeight = FontWeight.Medium,
                     modifier = Modifier
                         .weight(1f)
+                        .padding(end = 16.dp),
+                    textAlign = TextAlign.End
                 )
             }
 
-            Row(modifier = Modifier.padding(top = 50.dp, start = 270.dp)) {
+
+            Row(
+                modifier = Modifier
+                    .padding(top = 50.dp, end = 16.dp)
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.End
+            ) {
                 Image(
                     painter = painterResource(R.drawable.facebook),
                     contentDescription = "Facebook Icon",
                     modifier = Modifier
                         .clickable {}
                         .size(30.dp)
-
                 )
+                Spacer(modifier = Modifier.width(3.dp))
                 Image(
                     painter = painterResource(R.drawable.tiktok),
                     contentDescription = "TikTok Icon",
@@ -199,6 +211,7 @@ fun HomePage1(navController: NavController, googleAuthUiClient: GoogleAuthUiClie
                         .clickable {}
                         .size(30.dp)
                 )
+                Spacer(modifier = Modifier.width(3.dp))
                 Image(
                     painter = painterResource(R.drawable.instagram),
                     contentDescription = "Instagram Icon",
@@ -207,6 +220,7 @@ fun HomePage1(navController: NavController, googleAuthUiClient: GoogleAuthUiClie
                         .size(30.dp)
                 )
             }
+
 
             val images = listOf(R.drawable.hinh1, R.drawable.hinh2)
             var currentImageIndex by remember { mutableStateOf(0) }
@@ -312,22 +326,23 @@ fun HomePage1(navController: NavController, googleAuthUiClient: GoogleAuthUiClie
 
         Box(
             modifier = Modifier
-                .offset(y = -30.dp)
+                .offset(y = -60.dp)
                 .fillMaxWidth()
         ) {
             Image(
                 painter = painterResource(R.drawable.bg1),
-                contentDescription = "Feature Background",
+                contentDescription = "Background",
                 modifier = Modifier
                     .fillMaxWidth()
-                    .size(500.dp),
+                    .offset(y = 34.dp)
+                    .size(470.dp),
                 contentScale = ContentScale.FillBounds
             )
 
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .offset(y = 40.dp)
+                    .offset(y = 20.dp)
                     .padding(horizontal = 16.dp),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
@@ -363,14 +378,14 @@ fun HomePage1(navController: NavController, googleAuthUiClient: GoogleAuthUiClie
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .offset(y = 240.dp)
+                    .offset(y = 230.dp)
                     .padding(horizontal = 16.dp)
             ) {
                 Image(
                     painter = painterResource(R.drawable.gioithieu),
                     contentDescription = "Introduction Guide",
                     modifier = Modifier
-                        .size(180.dp)
+                        .size(190.dp)
                         .clickable {
                             if (navController.graph.findNode("IntroductionGuide") != null) {
                                 navController.navigate("IntroductionGuide")
@@ -385,7 +400,7 @@ fun HomePage1(navController: NavController, googleAuthUiClient: GoogleAuthUiClie
                     contentDescription = "Personalization",
                     modifier = Modifier
                         .offset(y = 20.dp)
-                        .size(190.dp)
+                        .size(200.dp)
                         .clickable {
                             if (user == null) {
                                 showDialog = true
