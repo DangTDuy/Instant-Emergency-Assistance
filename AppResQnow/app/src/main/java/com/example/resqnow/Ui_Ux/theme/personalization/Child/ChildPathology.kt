@@ -11,9 +11,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -36,8 +38,9 @@ import androidx.navigation.NavController
 import com.example.resqnow.Data.Api_and_Firebase.DataStore.readUserData
 import com.example.resqnow.R
 
+
 @Composable
-fun ChildScreen(navController: NavController) {
+fun ChildPathologyScreen(navController: NavController) {
     val context = LocalContext.current
     val ageState = remember { mutableStateOf("") }
 
@@ -45,7 +48,6 @@ fun ChildScreen(navController: NavController) {
         val userData = readUserData(context)
         ageState.value = userData.age
     }
-
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -96,7 +98,6 @@ fun ChildScreen(navController: NavController) {
             )
         }
     }
-
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -109,42 +110,204 @@ fun ChildScreen(navController: NavController) {
                 .size(width = 200.dp, height = 150.dp)
                 .align(Alignment.CenterHorizontally)
         )
-        Text(
-            text = "Các bệnh lý hay mắc phải",
-            fontSize = 19.sp,
-            fontWeight = FontWeight.Black,
-            modifier = Modifier
-                .padding(start = 16.dp)
-        )
-        Spacer(modifier = Modifier.height(5.dp))
         Image(
-            painter = painterResource(id = R.drawable.benhhaymacphai),
+            painter = painterResource(id = R.drawable.thieunien1),
             contentDescription = "",
             modifier = Modifier
                 .size(width = 370.dp, height = 170.dp)
+                .offset(y = -100.dp)
                 .align(Alignment.CenterHorizontally)
-                .clickable(onClick = {navController.navigate("ChildPathologyScreen")})
-
         )
-
-        Spacer(modifier = Modifier.height(20.dp))
-
-        Text(
-            text = "Phương pháp phòng bệnh",
-            fontSize = 19.sp,
-            fontWeight = FontWeight.Black,
-            modifier = Modifier
-                .padding(start = 16.dp)
-        )
-        Spacer(modifier = Modifier.height(5.dp))
         Image(
-            painter = painterResource(id = R.drawable.phuongphapphongbenh),
+            painter = painterResource(id = R.drawable.line),
             contentDescription = "",
             modifier = Modifier
-                .size(width = 370.dp, height = 170.dp)
                 .align(Alignment.CenterHorizontally)
+                .size(width = 250.dp, height = 25.dp)
+                .offset(y = - 150.dp)
         )
+        Text(
+            text = "Một số bệnh ở tuổi dậy thì",
+            fontSize = 19.sp,
+            fontWeight = FontWeight.Black,
+            color = Color.Red,
+            modifier = Modifier
+                .padding(start = 16.dp)
+                .align(Alignment.CenterHorizontally)
+                .offset(y = - 140.dp)
+        )
+
+
+
     }
+    LazyColumn(modifier = Modifier
+        .fillMaxWidth()
+        .padding(top = 400.dp, bottom = 80.dp)) {
+        item {
+            Spacer(modifier = Modifier.height(25.dp))
+            Row() {
+                Image(
+                    painter = painterResource(id = R.drawable.tamthan),
+                    contentDescription = "",
+                    modifier = Modifier
+                        .size(50.dp)
+                        .offset(y = -25.dp)
+                )
+                Text(
+                    text = "1. Các vấn đề về tâm thần - Thần kinh",
+                    fontSize = 15.sp,
+                    fontWeight = FontWeight.Black,
+                    modifier = Modifier
+                        .padding(start = 16.dp)
+                )
+            }
+            Box(modifier = Modifier.fillMaxWidth()) {
+                Image(
+                    painter = painterResource(id = R.drawable.tamthan1),
+                    contentDescription = "",
+                    modifier = Modifier
+                        .size(width = 410.dp, height = 260.dp)
+                        .align(Alignment.Center)
+                        .offset(y = -90.dp)
+                )
+            }
+            Box(modifier = Modifier.fillMaxWidth()) {
+                Image(
+                    painter = painterResource(id = R.drawable.line),
+                    contentDescription = "",
+                    modifier = Modifier
+                        .size(width = 250.dp, height = 25.dp)
+                        .offset(y = -160.dp)
+                        .align(Alignment.Center)
+                )
+            }
+
+
+            Row(modifier = Modifier.offset(y = -150.dp)) {
+                Image(
+                    painter = painterResource(id = R.drawable.benhngoaida),
+                    contentDescription = "",
+                    modifier = Modifier
+                        .size(50.dp)
+                        .offset(y = -25.dp)
+                )
+                Text(
+                    text = "2. Bệnh ngoài da",
+                    fontSize = 15.sp,
+                    fontWeight = FontWeight.Black,
+                    modifier = Modifier
+                        .padding(start = 16.dp)
+                )
+            }
+            Box(modifier = Modifier.fillMaxWidth()) {
+                Image(
+                    painter = painterResource(id = R.drawable.benhngoaida1),
+                    contentDescription = "",
+                    modifier = Modifier
+                        .size(width = 410.dp, height = 260.dp)
+                        .align(Alignment.Center)
+                        .offset(y = -250.dp)
+                )
+            }
+            Box(modifier = Modifier.fillMaxWidth()) {
+                Image(
+                    painter = painterResource(id = R.drawable.line),
+                    contentDescription = "",
+                    modifier = Modifier
+                        .size(width = 250.dp, height = 25.dp)
+                        .offset(y = -330.dp)
+                        .align(Alignment.Center)
+                )
+            }
+
+            Row(modifier = Modifier.offset(y = -320.dp)) {
+                Image(
+                    painter = painterResource(id = R.drawable.kinhnguyet),
+                    contentDescription = "",
+                    modifier = Modifier
+                        .size(50.dp)
+                        .offset(y = -25.dp)
+                )
+                Text(
+                    text = "3. Vấn đề kinh nguyệt (nữ)",
+                    fontSize = 15.sp,
+                    fontWeight = FontWeight.Black,
+                    modifier = Modifier
+                        .padding(start = 16.dp)
+                )
+            }
+            Box(modifier = Modifier.fillMaxWidth()) {
+                Image(
+                    painter = painterResource(id = R.drawable.kinhnguyet1),
+                    contentDescription = "",
+                    modifier = Modifier
+                        .size(width = 410.dp, height = 260.dp)
+                        .align(Alignment.Center)
+                        .offset(y = -410.dp)
+                )
+            }
+            Box(modifier = Modifier.fillMaxWidth()) {
+                Image(
+                    painter = painterResource(id = R.drawable.line),
+                    contentDescription = "",
+                    modifier = Modifier
+                        .size(width = 250.dp, height = 25.dp)
+                        .offset(y = -480.dp)
+                        .align(Alignment.Center)
+                )
+            }
+
+            Row(modifier = Modifier.offset(y = -470.dp)) {
+                Image(
+                    painter = painterResource(id = R.drawable.benhkhac),
+                    contentDescription = "",
+                    modifier = Modifier
+                        .size(50.dp)
+                        .offset(y = -25.dp)
+                )
+                Text(
+                    text = "4. Một số bệnh khác",
+                    fontSize = 15.sp,
+                    fontWeight = FontWeight.Black,
+                    modifier = Modifier
+                        .padding(start = 16.dp)
+                )
+            }
+            Box(modifier = Modifier.fillMaxWidth()) {
+                Image(
+                    painter = painterResource(id = R.drawable.benhkhac1),
+                    contentDescription = "",
+                    modifier = Modifier
+                        .size(width = 410.dp, height = 260.dp)
+                        .align(Alignment.Center)
+                        .offset(y = -570.dp)
+                )
+            }
+            Box(modifier = Modifier.fillMaxWidth().padding(bottom = 250.dp)) {
+                Image(
+                    painter = painterResource(id = R.drawable.line),
+                    contentDescription = "",
+                    modifier = Modifier
+                        .size(width = 250.dp, height = 25.dp)
+                        .align(Alignment.Center)
+                        .offset(y = 20.dp)
+                )
+                Text(
+                    text = "Tham khảo thêm tại: google.com",
+                    fontSize = 15.sp,
+                    fontWeight = FontWeight.Black,
+                    modifier = Modifier
+                        .align(Alignment.Center)
+                )
+            }
+        }
+    }
+
+
+
+
+
+
 
 
     Column(
@@ -222,8 +385,4 @@ fun ChildScreen(navController: NavController) {
         }
     }
 }
-
-
-
-
 

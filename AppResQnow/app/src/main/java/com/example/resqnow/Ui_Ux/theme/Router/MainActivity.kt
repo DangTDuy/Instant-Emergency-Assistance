@@ -47,6 +47,7 @@ import com.example.resqnow.Ui_Ux.theme.Maps.Maps
 
 import com.example.resqnow.Ui_Ux.theme.contact.CardScreen
 import com.example.resqnow.Ui_Ux.theme.contact.ContactScreen
+import com.example.resqnow.Ui_Ux.theme.personalization.Child.ChildPathologyScreen
 import com.example.resqnow.Ui_Ux.theme.personalization.Child.ChildScreen
 import com.example.resqnow.Ui_Ux.theme.personalization.MiddleAge.MiddleAgeScreen
 import com.example.resqnow.Ui_Ux.theme.personalization.Senior.SeniorScreen
@@ -258,6 +259,7 @@ class MainActivity : ComponentActivity() {
             composable("Personalization") {
                 Personalization(navController)
             }
+            composable("ChildPathologyScreen")  { ChildPathologyScreen(navController) }
             composable("ChildScreen") { ChildScreen(navController) }
             composable("YoungAdultScreen") { YoungAdultScreen(navController) }
             composable("MiddleAgeScreen") { MiddleAgeScreen(navController) }
