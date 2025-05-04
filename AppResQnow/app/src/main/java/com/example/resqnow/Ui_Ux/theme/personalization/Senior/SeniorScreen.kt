@@ -1,4 +1,4 @@
-package com.example.resqnow.Ui_Ux.theme.personalization
+package com.example.resqnow.Ui_Ux.theme.personalization.Senior
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -14,9 +14,7 @@ import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -33,9 +31,9 @@ import androidx.navigation.NavController
 import com.example.resqnow.R
 
 @Composable
-fun MiddleAgeScreen(navController: NavController) {
+fun SeniorScreen(navController: NavController) {
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Text("Màn hình cho tuổi 36-50", fontSize = 24.sp, fontWeight = FontWeight.Bold)
+        Text("Màn hình cho tuổi trên 60", fontSize = 24.sp, fontWeight = FontWeight.Bold)
     }
     Column(
         modifier = Modifier

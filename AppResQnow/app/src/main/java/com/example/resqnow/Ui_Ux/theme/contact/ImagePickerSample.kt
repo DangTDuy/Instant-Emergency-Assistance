@@ -83,7 +83,7 @@ fun ImagePickerSample(onImagePicked: (String) -> Unit) {
     }
 }
 
-// 🛠 Hàm hỗ trợ: sao chép ảnh về thư mục nội bộ app
+//  Hàm hỗ trợ: sao chép ảnh về thư mục nội bộ app
 fun copyImageToInternalStorage(context: Context, imageUri: Uri): String {
     val inputStream = context.contentResolver.openInputStream(imageUri)
     val fileName = "img_${System.currentTimeMillis()}.jpg"

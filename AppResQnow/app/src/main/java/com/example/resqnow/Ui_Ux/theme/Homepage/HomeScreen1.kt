@@ -20,6 +20,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Text
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -29,6 +30,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -40,10 +42,37 @@ import androidx.navigation.NavController
 import com.example.resqnow.Data.Api_and_Firebase.FireBaseGoogle.GoogleAuthUiClient
 import com.example.resqnow.R
 import com.example.resqnow.Ui_Ux.theme.Router.Screen
+import kotlinx.coroutines.delay
+import java.util.Calendar
+import androidx.compose.animation.Crossfade
+import androidx.compose.animation.*
+import androidx.compose.animation.core.tween
 
+val gradientBrush = Brush.linearGradient(
+    colors = listOf(Color(0xFFFA382D), Color(0xFF94211A))
+)
+
+
+@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun HomePage1(navController: NavController, googleAuthUiClient: GoogleAuthUiClient) {
     val user = googleAuthUiClient.getSignedInUser()
+    //real time
+    var currentTime by remember { mutableStateOf(Calendar.getInstance()) }
+    // Cập nhật mỗi giây
+    LaunchedEffect(Unit) {
+        while (true) {
+            currentTime = Calendar.getInstance()
+            delay(1000)
+        }
+    }
+
+    val hour = currentTime.get(Calendar.HOUR_OF_DAY)
+    val minute = currentTime.get(Calendar.MINUTE)
+    val second = currentTime.get(Calendar.SECOND)
+    var day = currentTime.get(Calendar.DAY_OF_MONTH)
+    var month = currentTime.get(Calendar.MONTH) + 1
+    var year = currentTime.get(Calendar.YEAR)
 
     Column(
         modifier = Modifier
@@ -60,7 +89,7 @@ fun HomePage1(navController: NavController, googleAuthUiClient: GoogleAuthUiClie
                 fontWeight = FontWeight.Bold
             )
 
-            Spacer(modifier = Modifier.width(80.dp))
+            Spacer(modifier = Modifier.width(40.dp))
 
             Image(
                 painter = painterResource(R.drawable.kinhlup),
@@ -71,17 +100,17 @@ fun HomePage1(navController: NavController, googleAuthUiClient: GoogleAuthUiClie
                     .padding(start = 5.dp)
             )
 
-            Spacer(modifier = Modifier.width(5.dp))
+            Spacer(modifier = Modifier.width(2.dp))
 
-            val gradientBrush = Brush.linearGradient(
-                colors = listOf(Color(0xFFFA382D), Color(0xFF94211A))
-            )
+
 
             Box(
                 modifier = Modifier
-                    .padding(start = 5.dp)
-                    .size(width = 150.dp, height = 45.dp)
-                    .background(brush = gradientBrush, shape = RoundedCornerShape(50.dp))
+                    .padding(horizontal = 5.dp)
+                    .weight(1f)
+                    . height (50.dp  )
+                    .background(brush = gradientBrush, shape = RoundedCornerShape(15.dp))
+                ,contentAlignment = Alignment.Center
             ) {
                 if (user != null) {
                     Text(
@@ -93,8 +122,8 @@ fun HomePage1(navController: NavController, googleAuthUiClient: GoogleAuthUiClie
                     )
                 } else {
                     Text(
-                        text = "Đăng Ký",
-                        fontSize = 15.sp,
+                        text = "Đăng ký",
+                        fontSize = 18.sp,
                         color = Color.White,
                         fontWeight = FontWeight.ExtraBold,
                         modifier = Modifier
@@ -104,6 +133,7 @@ fun HomePage1(navController: NavController, googleAuthUiClient: GoogleAuthUiClie
                                     navController.navigate("SignInScreen")
                                 }
                             }
+
                     )
                 }
             }
@@ -127,20 +157,29 @@ fun HomePage1(navController: NavController, googleAuthUiClient: GoogleAuthUiClie
                     .padding(top = 20.dp)
                     .fillMaxWidth()
             ) {
-                Text(
-                    text = "14:00, Ngày 24 tháng 08",
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier.padding(start = 16.dp)
-                )
-
+                Column() {
+                    Text(
+                        text = "Ngày $day/$month/$year",
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier.padding(start = 16.dp)
+                    )
+                    Spacer(modifier = Modifier.height(2.dp))
+                    Text(
+                        text = "$hour:$minute:$second",
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier.padding(start = 16.dp)
+                    )
+                }
                 Spacer(modifier = Modifier.width(50.dp))
 
                 Text(
-                    text = "LH: 0808.555.555",
+                    text = "LH:0808.555.555",
                     fontSize = 14.sp,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier.offset(x = 35.dp)
+                    fontWeight = FontWeight.Medium,
+                    modifier = Modifier
+                        .weight(1f)
                 )
             }
 
@@ -151,6 +190,7 @@ fun HomePage1(navController: NavController, googleAuthUiClient: GoogleAuthUiClie
                     modifier = Modifier
                         .clickable {}
                         .size(30.dp)
+
                 )
                 Image(
                     painter = painterResource(R.drawable.tiktok),
@@ -170,6 +210,14 @@ fun HomePage1(navController: NavController, googleAuthUiClient: GoogleAuthUiClie
 
             val images = listOf(R.drawable.hinh1, R.drawable.hinh2)
             var currentImageIndex by remember { mutableStateOf(0) }
+            LaunchedEffect(Unit) {
+                while (true) {
+                    delay(2000)
+                    currentImageIndex = 1
+                    delay(2000)
+                    currentImageIndex = 0
+                }
+            }
 
             Row(
                 modifier = Modifier
@@ -182,14 +230,29 @@ fun HomePage1(navController: NavController, googleAuthUiClient: GoogleAuthUiClie
                     modifier = Modifier
                         .height(200.dp)
                 ) {
-                    Image(
-                        painter = painterResource(images[currentImageIndex]),
-                        contentDescription = "Carousel Image ${currentImageIndex + 1}",
-                        modifier = Modifier
-                            .width(360.dp)
-                            .height(250.dp),
-                        contentScale = ContentScale.Fit
-                    )
+                    AnimatedContent(
+                        targetState = currentImageIndex,
+                        transitionSpec = {
+                            // Điều chỉnh slide trái/phải nếu muốn
+                            slideInHorizontally(
+                                animationSpec = tween(durationMillis = 2000),
+                                initialOffsetX = { fullWidth -> fullWidth } // Slide từ phải vào
+                            ) with slideOutHorizontally(
+                                animationSpec = tween(durationMillis = 2000),
+                                targetOffsetX = { fullWidth -> -fullWidth } // Slide ra trái
+                            )
+                        },
+                        label = "SlideImageAnimation"
+                    ) { index ->
+                        Image(
+                            painter = painterResource(images[index]),
+                            contentDescription = "Carousel Image ${index + 1}",
+                            modifier = Modifier
+                                .width(360.dp)
+                                .height(250.dp),
+                            contentScale = ContentScale.Fit
+                        )
+                    }
 
                     Row(
                         modifier = Modifier

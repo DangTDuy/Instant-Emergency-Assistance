@@ -36,25 +36,29 @@ fun bottomBar(navController: NavController){
         )
         Row (
             modifier = Modifier
-                .align(Alignment.BottomCenter)
+                .fillMaxWidth()
                 .padding(horizontal = 16.dp)
-                .fillMaxSize(),
+,
+            horizontalArrangement = Arrangement.SpaceEvenly,
+            verticalAlignment = Alignment.CenterVertically
 
-            horizontalArrangement = Arrangement.SpaceEvenly
         ) {
-            IconButton(onClick = {navController.navigate(Screen.HomePage1.route)}
-                ,modifier = Modifier
-                    .padding(top =  20.dp)
+            IconButton(
+                onClick = { navController.navigate(Screen.HomePage1.route) },
+                modifier = Modifier
+                    .padding(bottom = 4.dp)
                     .size(60.dp)
             ) {
-                Image(
-                    alignment = Alignment.Center,
-                    painter = painterResource(id = R.drawable.home),
-                    contentDescription = "Logo",
-                    modifier = Modifier
-                        .size(width = 41.dp, height = 39.dp)
-
-                )
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.home),
+                        contentDescription = "Logo",
+                        modifier = Modifier.size(41.dp, 39.dp)
+                    )
+                }
             }
             IconButton(onClick = {navController.navigate(Screen.ContactScreen.route)}
                 ,modifier = Modifier

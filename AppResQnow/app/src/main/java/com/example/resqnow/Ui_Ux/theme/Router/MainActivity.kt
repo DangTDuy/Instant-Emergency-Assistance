@@ -6,10 +6,8 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.resqnow.Data.Api_and_Firebase.FireBase.FirebaseFacebook.FacebookAuthUiClient
@@ -32,7 +30,7 @@ import com.facebook.FacebookSdk
 import com.facebook.appevents.AppEventsLogger
 import com.google.android.gms.auth.api.identity.Identity
 import androidx.navigation.compose.*
-import com.example.resqnow.Components.swallow_Poison
+
 import com.example.resqnow.Repository.Repository
 import com.example.resqnow.Room.DB_Contact.ResqNowDatabase
 import com.example.resqnow.Ui_Ux.theme.FirstAidGuide.Food_poisoning.poisoning
@@ -46,33 +44,37 @@ import com.example.resqnow.Ui_Ux.theme.FirstAidGuide.thermal_burn.burn
 import com.example.resqnow.Ui_Ux.theme.FirstAidGuide.venomous_snake.venomus_Snake
 import com.example.resqnow.Ui_Ux.theme.Maps.Maps
 
-import com.example.resqnow.Ui_Ux.theme.Router.Screen.venomous_Snake
-
 
 import com.example.resqnow.Ui_Ux.theme.contact.CardScreen
 import com.example.resqnow.Ui_Ux.theme.contact.ContactScreen
-import com.example.resqnow.Ui_Ux.theme.personalization.ChildScreen
-import com.example.resqnow.Ui_Ux.theme.personalization.MiddleAgeScreen
-import com.example.resqnow.Ui_Ux.theme.personalization.SeniorScreen
-import com.example.resqnow.Ui_Ux.theme.personalization.YoungAdultScreen
+import com.example.resqnow.Ui_Ux.theme.personalization.Child.ChildScreen
+import com.example.resqnow.Ui_Ux.theme.personalization.MiddleAge.MiddleAgeScreen
+import com.example.resqnow.Ui_Ux.theme.personalization.Senior.SeniorScreen
+import com.example.resqnow.Ui_Ux.theme.personalization.YoungAdult.YoungAdultScreen
 
 import com.example.resqnow.viewModel.ContactViewModel
-import com.example.resqnow.Data.Api_and_Firebase.DataStore.readUserData
-import kotlinx.coroutines.launch
 
 sealed class Screen(val route: String) {
+    //Intro
     object ScreenIntro1 : Screen("IntroAppScreen1")
     object ScreenIntro2 : Screen("IntroAppScreen2")
     object ScreenIntro3 : Screen("IntroAppScreen3")
     object ScreenIntro4 : Screen("IntroAppScreen4")
+    //Outro
     object ScreenOutro1 : Screen("OutroAppScreen1")
     object ScreenOutro2 : Screen("OutroAppScreen2")
     object ScreenOutro3 : Screen("OutroAppScreen3")
+    //HomePage
     object HomePage1 : Screen("HomeScreen1")
+    //Login
     object LoginScreen : Screen("LoginScreen")
     object LoginSuccess : Screen("LoginSuccess")
+    //SignIn
     object SignInScreen : Screen("SignInScreen")
     object SignInSuccess : Screen("SignInSuccess")
+    //ForgotPassword
+    object ForgotPassword : Screen("ForgotPassword")
+    //Profile
     object ProfileScreen : Screen("ProfileScreen")
     object ProfileScreenWithoutAccount : Screen("ProfileScreenWithoutAccount")
     //FirstAidGuide
@@ -183,7 +185,7 @@ class MainActivity : ComponentActivity() {
             }
 
             composable("Maps") { Maps(navController) }
-
+            //login
             composable(Screen.LoginSuccess.route) {
                 LoginScreenSuccess(navController)
             }
@@ -198,7 +200,8 @@ class MainActivity : ComponentActivity() {
                             navController.navigate(Screen.SignInScreen.route) {
                                 popUpTo(Screen.ProfileScreen.route) { inclusive = true }
                             }
-                        }
+                        },
+                        navController
                     )
                 } else {
                     ProfileScreenWithoutAccount(navController)

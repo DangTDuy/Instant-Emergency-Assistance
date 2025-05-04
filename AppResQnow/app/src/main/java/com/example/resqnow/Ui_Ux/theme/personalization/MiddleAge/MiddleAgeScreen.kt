@@ -1,4 +1,4 @@
-package com.example.resqnow.Ui_Ux.theme.personalization
+package com.example.resqnow.Ui_Ux.theme.personalization.MiddleAge
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -31,9 +31,9 @@ import androidx.navigation.NavController
 import com.example.resqnow.R
 
 @Composable
-fun YoungAdultScreen(navController: NavController) {
+fun MiddleAgeScreen(navController: NavController) {
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Text("Màn hình cho tuổi 18-35", fontSize = 24.sp, fontWeight = FontWeight.Bold)
+        Text("Màn hình cho tuổi 36-50", fontSize = 24.sp, fontWeight = FontWeight.Bold)
     }
     Column(
         modifier = Modifier

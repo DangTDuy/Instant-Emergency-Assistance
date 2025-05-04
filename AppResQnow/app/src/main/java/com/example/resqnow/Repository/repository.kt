@@ -26,6 +26,10 @@ class Repository(private val db: ResqNowDatabase) {
         db.contactDao().deleteContact(contact)
     }
 
+    suspend fun updateContact(contact: ContactEntity) {
+        db.contactDao().updateContact(contact)
+    }
+
     fun getContactsByUserId(userId: String): Flow<List<ContactEntity>> {
         return db.contactDao().getContactsByUser(userId)
     }

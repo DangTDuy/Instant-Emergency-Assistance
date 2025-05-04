@@ -1,6 +1,5 @@
 package com.example.resqnow.Ui_Ux.theme.Login
 
-import android.R.attr.text
 import android.app.Activity
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -25,24 +24,21 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.resqnow.Data.Api_and_Firebase.FireBaseGoogle.GoogleAuthUiClient
-import com.example.resqnow.Data.Api_and_Firebase.FireBaseGoogle.SignInResult
 import com.example.resqnow.R
 import com.example.resqnow.Components.background
 import com.example.resqnow.Data.Api_and_Firebase.FireBase.FirebaseEmail.AuthRepository
 import com.example.resqnow.Data.Api_and_Firebase.FireBase.FirebaseEmail.AuthViewModel
 import com.example.resqnow.Data.Api_and_Firebase.FireBase.FirebaseEmail.AuthViewModelFactory
+import com.example.resqnow.Data.Api_and_Firebase.FireBase.FirebaseEmail.ForgetPassWord.ForgotPasswordDialog
 import com.example.resqnow.Data.Api_and_Firebase.FireBase.FirebaseFacebook.FacebookAuthUiClient
 import com.example.resqnow.Data.Api_and_Firebase.FireBaseGoogle.UserViewModel
 import com.example.resqnow.Ui_Ux.theme.Router.Screen
@@ -71,9 +67,13 @@ fun LoginScreen(
 
     // Trạng thái hiển thị lỗi
     var showError by remember { mutableStateOf(false) }
+    //Forget password
+    var showForgotPasswordDialog by remember { mutableStateOf(false) }
+
+    if (showForgotPasswordDialog) {
+        ForgotPasswordDialog(onDismiss = { showForgotPasswordDialog = false })
+    }
     //Logic hiện thị lỗi
-
-
     val launcher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.StartIntentSenderForResult()
     ) { result ->
@@ -335,6 +335,10 @@ fun LoginScreen(
                 text = "Quên mật khẩu?",
                 fontWeight = FontWeight.SemiBold,
                 modifier = Modifier.padding(top = 750.dp)
+                    .clickable {
+                        showForgotPasswordDialog = true
+                    }
+
             )
         }
     }
