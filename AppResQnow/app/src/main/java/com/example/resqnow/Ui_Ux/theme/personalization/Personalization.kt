@@ -28,8 +28,8 @@ fun Personalization(navController: NavController) {
 
     LaunchedEffect(userAge) {
         when {
-            userAge in 0..17 -> navController.navigate("ChildScreen")
-            userAge in 18..35 -> navController.navigate("YoungAdultScreen")
+            userAge in 1..16 -> navController.navigate("ChildScreen")
+            userAge in 17..35 -> navController.navigate("YoungAdultScreen")
             userAge in 36..50 -> navController.navigate("MiddleAgeScreen")
             userAge > 60 -> navController.navigate("SeniorScreen")
             else -> navController.navigate("ProfileScreen")

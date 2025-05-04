@@ -99,16 +99,17 @@ fun ChildScreen(navController: NavController) {
                     .padding(start  = 120.dp)
             )
         }
-        Text(
-            text = "Thay đổi",
-            fontSize = 24.sp,
-            fontWeight = FontWeight.Bold,
-            modifier = Modifier.padding(16.dp)
-        )
     }
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Text("Màn hình cho tuổi 0-17", fontSize = 24.sp, fontWeight = FontWeight.Bold)
+        Image(
+            painter = painterResource(id = R.drawable.thieunien),
+            contentDescription = "thieunien",
+            modifier = Modifier
+                .size(width = 200.dp, height = 150.dp)
+            
+        )
     }
+
     Column(
         modifier = Modifier
             .fillMaxSize(),
