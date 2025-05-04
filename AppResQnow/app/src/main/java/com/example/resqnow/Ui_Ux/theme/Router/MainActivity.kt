@@ -30,6 +30,7 @@ import com.facebook.FacebookSdk
 import com.facebook.appevents.AppEventsLogger
 import com.google.android.gms.auth.api.identity.Identity
 import androidx.navigation.compose.*
+
 import com.example.resqnow.Repository.Repository
 import com.example.resqnow.Room.DB_Contact.ResqNowDatabase
 import com.example.resqnow.Ui_Ux.theme.FirstAidGuide.Food_poisoning.poisoning
@@ -54,18 +55,26 @@ import com.example.resqnow.Ui_Ux.theme.personalization.YoungAdult.YoungAdultScre
 import com.example.resqnow.viewModel.ContactViewModel
 
 sealed class Screen(val route: String) {
+    //Intro
     object ScreenIntro1 : Screen("IntroAppScreen1")
     object ScreenIntro2 : Screen("IntroAppScreen2")
     object ScreenIntro3 : Screen("IntroAppScreen3")
     object ScreenIntro4 : Screen("IntroAppScreen4")
+    //Outro
     object ScreenOutro1 : Screen("OutroAppScreen1")
     object ScreenOutro2 : Screen("OutroAppScreen2")
     object ScreenOutro3 : Screen("OutroAppScreen3")
+    //HomePage
     object HomePage1 : Screen("HomeScreen1")
+    //Login
     object LoginScreen : Screen("LoginScreen")
     object LoginSuccess : Screen("LoginSuccess")
+    //SignIn
     object SignInScreen : Screen("SignInScreen")
     object SignInSuccess : Screen("SignInSuccess")
+    //ForgotPassword
+    object ForgotPassword : Screen("ForgotPassword")
+    //Profile
     object ProfileScreen : Screen("ProfileScreen")
     object ProfileScreenWithoutAccount : Screen("ProfileScreenWithoutAccount")
     //FirstAidGuide
@@ -176,7 +185,7 @@ class MainActivity : ComponentActivity() {
             }
 
             composable("Maps") { Maps(navController) }
-
+            //login
             composable(Screen.LoginSuccess.route) {
                 LoginScreenSuccess(navController)
             }

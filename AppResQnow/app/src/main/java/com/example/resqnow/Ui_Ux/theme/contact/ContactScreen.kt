@@ -78,26 +78,30 @@ fun ContactScreen(
     val userId = FirebaseAuth.getInstance().currentUser?.uid ?: ""
     val context = LocalContext.current
     val contacts by viewModel.getContactsByUserId(userId).collectAsState(initial = emptyList())
+    val showDeleteDialog = remember { mutableStateOf(false) }
+    val contactToDelete = remember { mutableStateOf<ContactEntity?>(null) }
 
 
     Scaffold(
-
         containerColor = Color.White,
         floatingActionButton = {
             Box(
                 modifier = Modifier
-                    .size(width = 134.dp, height = 40.dp)
+                    .height  (45.dp)
                     .clip(RoundedCornerShape(12.dp))
                     .background(Color.White)
                     .border(width = 1.dp, color = Color.Red, shape = RoundedCornerShape(12.dp))
-                    .clickable { showDialog.value = true },
+                    .clickable { showDialog.value = true }
+                    .padding(horizontal = 15.dp, vertical = 2.dp)
+                ,
                 contentAlignment = Alignment.Center
             ) {
                 Text(
                     "+ Thêm liên hệ",
                     fontSize = 15.sp,
                     fontWeight = FontWeight.Medium,
-                    color = Color.Red
+                    color = Color.Red,
+
 
                 )
 
@@ -155,7 +159,7 @@ fun ContactScreen(
                             .padding(end  = 30.dp)
                             .size(width = 35.dp, height = 35.dp)
                             .clickable{
-                                ///
+                                navController.navigate("Maps")
                             }
                     )
                     Image(
@@ -265,11 +269,12 @@ fun ContactScreen(
 
                                 ) {
                                     Image(
-                                        painter = painterResource(id = R.drawable.trash),
+                                        painter = painterResource(id = R.drawable.settings),
                                         contentDescription = "trash",
                                         modifier = Modifier.size(25.dp)
                                             .clickable {
                                                 navController.navigate("CardScreen/${contact.id}")
+
                                             }
                                     )
                                 }

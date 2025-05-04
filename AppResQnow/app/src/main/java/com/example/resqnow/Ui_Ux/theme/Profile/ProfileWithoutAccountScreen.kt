@@ -101,7 +101,7 @@ fun ProfileScreenWithoutAccount(navController: NavController) {
                                 .size(width = 37.dp, height = 32.dp)
                         )
                     }
-                    IconButton(onClick = {}, modifier = Modifier
+                    IconButton(onClick = {navController.navigate("Maps")}, modifier = Modifier
                         .padding(top = 40.dp)
                         .size(60.dp)
                     ) {

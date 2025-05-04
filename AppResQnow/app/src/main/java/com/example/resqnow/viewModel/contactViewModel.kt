@@ -55,6 +55,13 @@ class ContactViewModel(private val repository: Repository) : ViewModel() {
             loadContacts() // Tải lại danh bạ sau khi xóa liên hệ
         }
     }
+
+    fun updateContact(contact: ContactEntity) {
+        viewModelScope.launch {
+            repository.updateContact(contact)
+            loadContacts() // Tải lại danh bạ sau khi cập nhật liên hệ
+        }
+    }
     // Factory class để cung cấp các dependencies cho ContactViewModel
     class ContactViewModelFactory(private val repository: Repository) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {

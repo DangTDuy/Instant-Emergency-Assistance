@@ -5,6 +5,7 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Update
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -23,6 +24,11 @@ interface ContactDao {
 
     @Query("SELECT * FROM emergency_Contact WHERE userId = :userId")
     fun getContactsByUser(userId: String): Flow<List<ContactEntity>>
+
+    @Update
+    suspend fun updateContact(contactEntity: ContactEntity)
+
+
 
 
 }

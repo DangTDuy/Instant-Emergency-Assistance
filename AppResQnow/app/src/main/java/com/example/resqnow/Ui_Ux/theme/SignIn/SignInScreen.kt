@@ -1,6 +1,5 @@
 package com.example.resqnow.Ui_Ux.theme.SignIn
 
-import android.R.attr.text
 import android.app.Activity
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -25,24 +24,22 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.resqnow.Data.Api_and_Firebase.FireBaseGoogle.GoogleAuthUiClient
-import com.example.resqnow.Data.Api_and_Firebase.FireBaseGoogle.SignInResult
 import com.example.resqnow.R
 import com.example.resqnow.Components.background
 import com.example.resqnow.Data.Api_and_Firebase.FireBase.FirebaseEmail.AuthRepository
 import com.example.resqnow.Data.Api_and_Firebase.FireBase.FirebaseEmail.AuthViewModel
 import com.example.resqnow.Data.Api_and_Firebase.FireBase.FirebaseEmail.AuthViewModelFactory
+import com.example.resqnow.Data.Api_and_Firebase.FireBase.FirebaseEmail.ForgetPassWord.ForgotPasswordDialog
+import com.example.resqnow.Data.Api_and_Firebase.FireBase.FirebaseEmail.ForgetPassWord.sendPasswordResetEmail
 import com.example.resqnow.Data.Api_and_Firebase.FireBase.FirebaseFacebook.FacebookAuthUiClient
 import com.example.resqnow.Data.Api_and_Firebase.FireBaseGoogle.UserViewModel
 import com.example.resqnow.Ui_Ux.theme.Router.Screen
@@ -64,6 +61,7 @@ fun SignInScreen(
     var email by rememberSaveable { mutableStateOf("") }
     var password by rememberSaveable { mutableStateOf("") }
     val scope = rememberCoroutineScope()
+
     val context = LocalContext.current
     val launcher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.StartIntentSenderForResult()
@@ -87,7 +85,41 @@ fun SignInScreen(
             }
         }
     }
+    var openDialog by remember { mutableStateOf(false) }
+    var emailInput by remember { mutableStateOf("") }
+    var showForgotPasswordDialog by remember { mutableStateOf(false) }
 
+    if (showForgotPasswordDialog) {
+        ForgotPasswordDialog(onDismiss = { showForgotPasswordDialog = false })
+    }
+    if (openDialog) {
+        AlertDialog(
+            onDismissRequest = { openDialog = false },
+            title = { Text("Đặt lại mật khẩu") },
+            text = {
+                Column {
+                    Text("Nhập email để nhận liên kết đặt lại mật khẩu.")
+                    OutlinedTextField(
+                        value = emailInput,
+                        onValueChange = { emailInput = it },
+                        label = { Text("Email") }
+                    )
+                }
+            },
+            confirmButton = {
+                Button(onClick = {
+                    sendPasswordResetEmail(context, emailInput, onSuccess = {})
+                }) {
+                    Text("Gửi")
+                }
+            },
+            dismissButton = {
+                OutlinedButton(onClick = { openDialog = false }) {
+                    Text("Hủy")
+                }
+            }
+        )
+    }
 
     Box(
         modifier = Modifier
@@ -134,10 +166,11 @@ fun SignInScreen(
             value = email,
             onValueChange = { email = it },
             modifier = Modifier
+                .padding(horizontal = 20.dp)
                 .width(365.dp)
                 .height(65.dp)
-                .offset(x = 23.dp, y = 400.dp)
-                .padding(end = 5.dp),
+                .offset(y = 400.dp)
+                ,
             leadingIcon = {
                 Image(
                     painter = painterResource(R.drawable.email),
@@ -156,10 +189,12 @@ fun SignInScreen(
             value = password,
             onValueChange = { password = it },
             modifier = Modifier
+                .padding(horizontal = 20.dp)
+
                 .width(365.dp)
                 .height(65.dp)
-                .offset(x = 23.dp, y = 470.dp)
-                .padding(end = 5.dp),
+                .offset(y = 470.dp)
+                ,
             leadingIcon = {
                 Image(
                     painter = painterResource(R.drawable.solar_lock_password_broken),
@@ -228,7 +263,9 @@ fun SignInScreen(
                 .clip(RoundedCornerShape(15.dp)),
             colors = ButtonDefaults.buttonColors(Color(0xFFEF291E))
         ) {
-            Text(text = "Tiếp tục", fontSize = 17.sp, fontWeight = FontWeight.ExtraBold, color = Color.White)
+            Text(text = "Tiếp tục", fontSize = 17.sp, fontWeight = FontWeight.ExtraBold, color = Color.White
+
+            )
         }
 
         Row(
@@ -325,6 +362,9 @@ fun SignInScreen(
                 text = "Quên mật khẩu?",
                 fontWeight = FontWeight.SemiBold,
                 modifier = Modifier.padding(top = 750.dp)
+                    .clickable {
+                        showForgotPasswordDialog = true
+                    }
             )
         }
     }
