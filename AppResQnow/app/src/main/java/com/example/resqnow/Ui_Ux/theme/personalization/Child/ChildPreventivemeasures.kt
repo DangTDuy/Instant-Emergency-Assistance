@@ -1,5 +1,6 @@
 package com.example.resqnow.Ui_Ux.theme.personalization.Child
 
+
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -11,9 +12,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -36,8 +39,9 @@ import androidx.navigation.NavController
 import com.example.resqnow.Data.Api_and_Firebase.DataStore.readUserData
 import com.example.resqnow.R
 
+
 @Composable
-fun ChildScreen(navController: NavController) {
+fun ChildPreventivemeasures(navController: NavController){
     val context = LocalContext.current
     val ageState = remember { mutableStateOf("") }
 
@@ -45,7 +49,6 @@ fun ChildScreen(navController: NavController) {
         val userData = readUserData(context)
         ageState.value = userData.age
     }
-
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -109,45 +112,173 @@ fun ChildScreen(navController: NavController) {
                 .size(width = 200.dp, height = 150.dp)
                 .align(Alignment.CenterHorizontally)
         )
-        Text(
-            text = "Các bệnh lý hay mắc phải",
-            fontSize = 19.sp,
-            fontWeight = FontWeight.Black,
-            modifier = Modifier
-                .padding(start = 16.dp)
-        )
-        Spacer(modifier = Modifier.height(5.dp))
         Image(
-            painter = painterResource(id = R.drawable.benhhaymacphai),
+            painter = painterResource(id = R.drawable.thieunien1),
             contentDescription = "",
             modifier = Modifier
                 .size(width = 370.dp, height = 170.dp)
+                .offset(y = -100.dp)
                 .align(Alignment.CenterHorizontally)
-                .clickable(onClick = {navController.navigate("ChildPathologyScreen")})
-
         )
-
-        Spacer(modifier = Modifier.height(20.dp))
-
-        Text(
-            text = "Phương pháp phòng bệnh",
-            fontSize = 19.sp,
-            fontWeight = FontWeight.Black,
-            modifier = Modifier
-                .padding(start = 16.dp)
-        )
-        Spacer(modifier = Modifier.height(5.dp))
         Image(
-            painter = painterResource(id = R.drawable.phuongphapphongbenh),
+            painter = painterResource(id = R.drawable.line),
             contentDescription = "",
             modifier = Modifier
-                .size(width = 370.dp, height = 170.dp)
                 .align(Alignment.CenterHorizontally)
-                .clickable(onClick = {navController.navigate("ChildPreventivemeasures")})
+                .size(width = 250.dp, height = 25.dp)
+                .offset(y = - 150.dp)
         )
+        Text(
+            text = "    Một số phương pháp\nphòng bệnh ở tuổi dậy thì",
+            fontSize = 19.sp,
+            fontWeight = FontWeight.Black,
+            color = Color.Red,
+            modifier = Modifier
+                .padding(start = 16.dp)
+                .align(Alignment.CenterHorizontally)
+                .offset(y = - 140.dp)
+        )
+
+        LazyColumn(modifier = Modifier
+            .fillMaxWidth()
+            .offset(y = -120.dp)
+            .padding(top = 10.dp, bottom = 10.dp)) {
+            item {
+                Box(modifier = Modifier.fillMaxWidth()) {
+                    Box(
+                        modifier = Modifier
+                            .align(Alignment.CenterStart)
+                            .offset(y = -50.dp)
+                            .padding(start = 16.dp)
+                    ) {
+                        Image(
+                            painter = painterResource(id = R.drawable.giutamlythoaimai),
+                            contentDescription = "",
+                            modifier = Modifier.size(250.dp)
+                        )
+                        Image(
+                            painter = painterResource(id = R.drawable.xemthem),
+                            contentDescription = "",
+                            modifier = Modifier
+                                .size(50.dp)
+                                .offset(x = 140.dp, y = 120.dp)
+                        )
+                    }
+                }
+
+                Box(modifier = Modifier.fillMaxWidth()) {
+                    Box(
+                        modifier = Modifier
+                            .align(Alignment.CenterEnd)
+                            .offset(y = -190.dp)
+                            .padding(end = 16.dp)
+                    ) {
+                        Image(
+                            painter = painterResource(id = R.drawable.chedosinhhoatkhoahoc),
+                            contentDescription = "",
+                            modifier = Modifier.size(250.dp)
+                        )
+                        Image(
+                            painter = painterResource(id = R.drawable.xemthem),
+                            contentDescription = "",
+                            modifier = Modifier
+                                .size(50.dp)
+                                .offset(x = 140.dp, y = 120.dp)
+                        )
+                    }
+                }
+
+
+
+
+                Box(modifier = Modifier.fillMaxWidth().offset(y = -280.dp)) {
+                    Box(
+                        modifier = Modifier
+                            .align(Alignment.CenterStart)
+                            .offset(y = -50.dp)
+                            .padding(start = 16.dp)
+                    ) {
+                        Image(
+                            painter = painterResource(id = R.drawable.giuvesinhcanhan),
+                            contentDescription = "",
+                            modifier = Modifier.size(250.dp)
+                        )
+                        Image(
+                            painter = painterResource(id = R.drawable.xemthem),
+                            contentDescription = "",
+                            modifier = Modifier
+                                .size(50.dp)
+                                .offset(x = 140.dp, y = 120.dp)
+                        )
+                    }
+                }
+
+                Box(modifier = Modifier.fillMaxWidth().offset(y = -280.dp)) {
+                    Box(
+                        modifier = Modifier
+                            .align(Alignment.CenterEnd)
+                            .offset(y = -190.dp)
+                            .padding(end = 16.dp)
+                    ) {
+                        Image(
+                            painter = painterResource(id = R.drawable.tangcuongvandong),
+                            contentDescription = "",
+                            modifier = Modifier.size(250.dp)
+                        )
+                        Image(
+                            painter = painterResource(id = R.drawable.xemthem),
+                            contentDescription = "",
+                            modifier = Modifier
+                                .size(50.dp)
+                                .offset(x = 140.dp, y = 120.dp)
+                        )
+                    }
+                }
+
+                Box(modifier = Modifier.fillMaxWidth().offset(y = -560.dp)) {
+                    Box(
+                        modifier = Modifier
+                            .align(Alignment.CenterStart)
+                            .offset(y = -50.dp)
+                            .padding(start = 16.dp)
+                    ) {
+                        Image(
+                            painter = painterResource(id = R.drawable.tranhxachatkichthich),
+                            contentDescription = "",
+                            modifier = Modifier.size(250.dp)
+                        )
+                        Image(
+                            painter = painterResource(id = R.drawable.xemthem),
+                            contentDescription = "",
+                            modifier = Modifier
+                                .size(50.dp)
+                                .offset(x = 140.dp, y = 120.dp)
+                        )
+                    }
+                }
+
+                Box(modifier = Modifier.fillMaxWidth().padding(bottom = 100.dp).offset(y = -200.dp)) {
+                    Image(
+                        painter = painterResource(id = R.drawable.line),
+                        contentDescription = "",
+                        modifier = Modifier
+                            .size(width = 250.dp, height = 25.dp)
+                            .align(Alignment.Center)
+                            .offset(y = 20.dp)
+                    )
+                    Text(
+                        text = "Tham khảo thêm tại: google.com",
+                        fontSize = 15.sp,
+                        fontWeight = FontWeight.Black,
+                        modifier = Modifier
+                            .align(Alignment.Center)
+                    )
+                }
+
+
+            }
+        }
     }
-
-
     Column(
         modifier = Modifier
             .fillMaxSize(),
@@ -223,8 +354,3 @@ fun ChildScreen(navController: NavController) {
         }
     }
 }
-
-
-
-
-

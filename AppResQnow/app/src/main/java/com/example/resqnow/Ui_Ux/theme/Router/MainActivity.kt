@@ -48,10 +48,17 @@ import com.example.resqnow.Ui_Ux.theme.Maps.Maps
 import com.example.resqnow.Ui_Ux.theme.contact.CardScreen
 import com.example.resqnow.Ui_Ux.theme.contact.ContactScreen
 import com.example.resqnow.Ui_Ux.theme.personalization.Child.ChildPathologyScreen
+import com.example.resqnow.Ui_Ux.theme.personalization.Child.ChildPreventivemeasures
 import com.example.resqnow.Ui_Ux.theme.personalization.Child.ChildScreen
 import com.example.resqnow.Ui_Ux.theme.personalization.MiddleAge.MiddleAgeScreen
+import com.example.resqnow.Ui_Ux.theme.personalization.MiddleAge.MiddlePathology
+import com.example.resqnow.Ui_Ux.theme.personalization.MiddleAge.MiddlePreventivemeasures
+import com.example.resqnow.Ui_Ux.theme.personalization.Senior.SeniorPathology
+import com.example.resqnow.Ui_Ux.theme.personalization.Senior.SeniorPreventivemeasures
 import com.example.resqnow.Ui_Ux.theme.personalization.Senior.SeniorScreen
 import com.example.resqnow.Ui_Ux.theme.personalization.YoungAdult.YoungAdultScreen
+import com.example.resqnow.Ui_Ux.theme.personalization.YoungAdult.YoungPathology
+import com.example.resqnow.Ui_Ux.theme.personalization.YoungAdult.YoungPreventivemeasures
 
 import com.example.resqnow.viewModel.ContactViewModel
 
@@ -260,9 +267,16 @@ class MainActivity : ComponentActivity() {
                 Personalization(navController)
             }
             composable("ChildPathologyScreen")  { ChildPathologyScreen(navController) }
+            composable("ChildPreventivemeasures") { ChildPreventivemeasures(navController) }
             composable("ChildScreen") { ChildScreen(navController) }
+            composable("YoungPathology") { YoungPathology(navController) }
+            composable("YoungPreventivemeasures") { YoungPreventivemeasures(navController) }
             composable("YoungAdultScreen") { YoungAdultScreen(navController) }
+            composable("MiddlePathology") { MiddlePathology(navController) }
             composable("MiddleAgeScreen") { MiddleAgeScreen(navController) }
+            composable("MiddlePreventivemeasures") { MiddlePreventivemeasures(navController) }
+            composable("SeniorPathology") { SeniorPathology(navController) }
+            composable("SeniorPreventivemeasures") { SeniorPreventivemeasures(navController) }
             composable("SeniorScreen") { SeniorScreen(navController) }
 
         }

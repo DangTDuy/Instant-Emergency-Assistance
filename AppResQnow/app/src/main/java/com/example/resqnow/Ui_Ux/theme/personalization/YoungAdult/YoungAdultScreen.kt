@@ -123,6 +123,7 @@ fun YoungAdultScreen(navController: NavController) {
             modifier = Modifier
                 .size(width = 370.dp, height = 170.dp)
                 .align(Alignment.CenterHorizontally)
+                .clickable(onClick = {navController.navigate("YoungPathology")})
 
         )
 
@@ -142,6 +143,7 @@ fun YoungAdultScreen(navController: NavController) {
             modifier = Modifier
                 .size(width = 370.dp, height = 170.dp)
                 .align(Alignment.CenterHorizontally)
+                .clickable(onClick = {navController.navigate("YoungPreventivemeasures")})
         )
     }
     Column(

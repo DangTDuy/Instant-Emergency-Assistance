@@ -123,6 +123,7 @@ fun SeniorScreen(navController: NavController) {
             modifier = Modifier
                 .size(width = 370.dp, height = 170.dp)
                 .align(Alignment.CenterHorizontally)
+                .clickable(onClick = {navController.navigate("SeniorPathology")})
 
         )
 
@@ -142,6 +143,7 @@ fun SeniorScreen(navController: NavController) {
             modifier = Modifier
                 .size(width = 370.dp, height = 170.dp)
                 .align(Alignment.CenterHorizontally)
+                .clickable(onClick = {navController.navigate("SeniorPreventivemeasures")})
         )
     }
     Column(
