@@ -27,7 +27,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
+
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
@@ -47,7 +47,18 @@ import java.util.Calendar
 import androidx.compose.animation.Crossfade
 import androidx.compose.animation.*
 import androidx.compose.animation.core.tween
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Scaffold
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.LayoutDirection
+import androidx.compose.foundation.layout.calculateEndPadding
+import androidx.compose.foundation.layout.calculateStartPadding
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.modifier.modifierLocalConsumer
+import com.example.resqnow.Components.borderBackground
+import com.example.resqnow.Components.boxInScafold
 
 val gradientBrush = Brush.linearGradient(
     colors = listOf(Color(0xFFFA382D), Color(0xFF94211A))
@@ -57,6 +68,10 @@ val gradientBrush = Brush.linearGradient(
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun HomePage1(navController: NavController, googleAuthUiClient: GoogleAuthUiClient) {
+    //personalization
+    var showDialog by remember { mutableStateOf(false) }
+
+
     val user = googleAuthUiClient.getSignedInUser()
     //real time
     var currentTime by remember { mutableStateOf(Calendar.getInstance()) }
@@ -75,9 +90,12 @@ fun HomePage1(navController: NavController, googleAuthUiClient: GoogleAuthUiClie
     var month = currentTime.get(Calendar.MONTH) + 1
     var year = currentTime.get(Calendar.YEAR)
 
+
+
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .background(Color.White)
             .padding(top = 60.dp)
     ) {
         Row(
@@ -93,10 +111,10 @@ fun HomePage1(navController: NavController, googleAuthUiClient: GoogleAuthUiClie
             Spacer(modifier = Modifier.width(40.dp))
 
             Image(
-                painter = painterResource(R.drawable.kinhlup),
-                contentDescription = "Search Icon",
+                painter = painterResource(R.drawable.chatbotaipng),
+                contentDescription = "chatBotAI",
                 modifier = Modifier
-                    .size(40.dp)
+                    .size(41.dp)
                     .clickable {}
                     .padding(start = 5.dp)
             )
@@ -109,9 +127,9 @@ fun HomePage1(navController: NavController, googleAuthUiClient: GoogleAuthUiClie
                 modifier = Modifier
                     .padding(horizontal = 5.dp)
                     .weight(1f)
-                    . height (50.dp  )
-                    .background(brush = gradientBrush, shape = RoundedCornerShape(15.dp))
-                ,contentAlignment = Alignment.Center
+                    .height(50.dp)
+                    .background(brush = gradientBrush, shape = RoundedCornerShape(15.dp)),
+                contentAlignment = Alignment.Center
             ) {
                 if (user != null) {
                     Text(
@@ -226,9 +244,9 @@ fun HomePage1(navController: NavController, googleAuthUiClient: GoogleAuthUiClie
             var currentImageIndex by remember { mutableStateOf(0) }
             LaunchedEffect(Unit) {
                 while (true) {
-                    delay(2000)
+                    delay(3000)
                     currentImageIndex = 1
-                    delay(2000)
+                    delay(3000)
                     currentImageIndex = 0
                 }
             }
@@ -249,10 +267,10 @@ fun HomePage1(navController: NavController, googleAuthUiClient: GoogleAuthUiClie
                         transitionSpec = {
                             // Điều chỉnh slide trái/phải nếu muốn
                             slideInHorizontally(
-                                animationSpec = tween(durationMillis = 2000),
+                                animationSpec = tween(durationMillis = 3000),
                                 initialOffsetX = { fullWidth -> fullWidth } // Slide từ phải vào
                             ) with slideOutHorizontally(
-                                animationSpec = tween(durationMillis = 2000),
+                                animationSpec = tween(durationMillis = 3000),
                                 targetOffsetX = { fullWidth -> -fullWidth } // Slide ra trái
                             )
                         },
@@ -306,7 +324,8 @@ fun HomePage1(navController: NavController, googleAuthUiClient: GoogleAuthUiClie
                             .size(40.dp)
                             .align(Alignment.CenterStart)
                             .clickable {
-                                currentImageIndex = if (currentImageIndex > 0) currentImageIndex - 1 else images.size - 1
+                                currentImageIndex =
+                                    if (currentImageIndex > 0) currentImageIndex - 1 else images.size - 1
                             }
                     )
 
@@ -317,101 +336,248 @@ fun HomePage1(navController: NavController, googleAuthUiClient: GoogleAuthUiClie
                             .size(40.dp)
                             .align(Alignment.CenterEnd)
                             .clickable {
-                                currentImageIndex = if (currentImageIndex < images.size - 1) currentImageIndex + 1 else 0
+                                currentImageIndex =
+                                    if (currentImageIndex < images.size - 1) currentImageIndex + 1 else 0
                             }
                     )
                 }
             }
         }
-
-        Box(
-            modifier = Modifier
-                .offset(y = -60.dp)
-                .fillMaxWidth()
-        ) {
-            Image(
-                painter = painterResource(R.drawable.bg1),
-                contentDescription = "Background",
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .offset(y = 34.dp)
-                    .size(470.dp),
-                contentScale = ContentScale.FillBounds
+        var showHomePage by remember { mutableStateOf(false) }
+        if (showHomePage) {
+            AlertDialog(
+                onDismissRequest = { showHomePage = false },
+                title = { Text("Xin chào bạn tôi !!!") },
+                text = { Text("Bạn đang ở trang chủ mà người anh em.") },
+                confirmButton = {
+                    TextButton(onClick = { showHomePage = false }) {
+                        Text("Đóng")
+                    }
+                }
             )
-
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .offset(y = 20.dp)
-                    .padding(horizontal = 16.dp),
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Image(
-                    painter = painterResource(R.drawable.group_26),
-                    contentDescription = "Emergency Instructions",
+        }
+        Scaffold(
+            containerColor = Color.White,
+            bottomBar = {
+                // BottomBar bạn đã cung cấp
+                Box(
+                    contentAlignment = Alignment.Center,
                     modifier = Modifier
-                        .size(200.dp)
-                        .clickable {
-//                            if (navController.graph.findNode(Screen.FirstAidGuideScreen.route) != null) {
-//                                navController.navigate(Screen.FirstAidGuideScreen.route)
-//                            }
-                            navController.navigate(Screen.FirstAidGuideScreen.route)
-                        }
-                )
-
-                Spacer(modifier = Modifier.width(10.dp))
-
-                Image(
-                    painter = painterResource(R.drawable.hocsocuu),
-                    contentDescription = "Learn First Aid",
-                    modifier = Modifier
-                        .offset(y = -10.dp)
-                        .size(300.dp)
-                        .clickable {
-                            if (navController.graph.findNode("LearnFirstAid") != null) {
-                                navController.navigate("LearnFirstAid")
+                        .navigationBarsPadding()
+                        .fillMaxWidth()
+                        .height(105.dp)
+                ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.firstaid_navbar),
+                        contentDescription = "Logo",
+                        modifier = Modifier.fillMaxSize()
+                    )
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp),
+                        horizontalArrangement = Arrangement.SpaceEvenly,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        IconButton(
+                            onClick = { navController.navigate(Screen.HomePage1.route) },
+                            modifier = Modifier
+                                .padding(bottom = 4.dp)
+                                .size(60.dp)
+                        ) {
+                            Box(
+                                modifier = Modifier.fillMaxSize(),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                Image(
+                                    painter = painterResource(id = R.drawable.home),
+                                    contentDescription = "Logo",
+                                    modifier = Modifier.size(41.dp, 39.dp)
+                                        .clickable { showHomePage = true }
+                                )
                             }
                         }
-                )
+                        IconButton(
+                            onClick = { navController.navigate(Screen.ContactScreen.route) },
+                            modifier = Modifier
+                                .padding(top = 40.dp)
+                                .size(60.dp)
+                        ) {
+                            Image(
+                                painter = painterResource(id = R.drawable.a),
+                                contentDescription = "Logo",
+                                alignment = Alignment.Center,
+                                modifier = Modifier.size(37.dp, 32.dp)
+                            )
+                        }
+                        IconButton(
+                            onClick = {
+                                if (navController.graph.findNode("Maps") != null) {
+                                    navController.navigate("Maps")
+                                }
+                            },
+                            modifier = Modifier
+                                .padding(top = 40.dp)
+                                .size(60.dp)
+                        ) {
+                            Image(
+                                painter = painterResource(id = R.drawable.hospital),
+                                contentDescription = "Logo",
+                                alignment = Alignment.Center,
+                                modifier = Modifier.size(35.dp)
+                            )
+                        }
+                        IconButton(
+                            onClick = { navController.navigate(Screen.ProfileScreen.route) },
+                            modifier = Modifier
+                                .padding(top = 40.dp)
+                                .size(60.dp)
+                        ) {
+                            Image(
+                                painter = painterResource(id = R.drawable.c),
+                                contentDescription = "Logo",
+                                alignment = Alignment.Center,
+                                modifier = Modifier.size(35.dp)
+                            )
+                        }
+                    }
+                }
             }
-
-            Row(
+        ) {paddingValues ->
+            Box(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .offset(y = 230.dp)
-                    .padding(horizontal = 16.dp)
-            ) {
-                Image(
-                    painter = painterResource(R.drawable.gioithieu),
-                    contentDescription = "Introduction Guide",
-                    modifier = Modifier
-                        .size(190.dp)
-                        .clickable {
-                            if (navController.graph.findNode("IntroductionGuide") != null) {
-                                navController.navigate("IntroductionGuide")
-                            }
-                        }
-                )
-                Spacer(modifier = Modifier.width(20.dp))
-                var showDialog by remember { mutableStateOf(false) }
+                    .fillMaxSize()
+                    .padding(
+                        top = 4.dp, // Hoặc 0.dp nếu muốn sát lề trên
+                        start = paddingValues.calculateStartPadding(LayoutDirection.Ltr),
+                        end = paddingValues.calculateEndPadding(LayoutDirection.Ltr),
+                        bottom = paddingValues.calculateBottomPadding()
+                    )
+                    .clip(RoundedCornerShape(15.dp))
+                    .background(boxInScafold)
+                ,contentAlignment = Alignment.Center
 
-                Image(
-                    painter = painterResource(R.drawable.canhanhoa),
-                    contentDescription = "Personalization",
+            ) {
+                Image(painter = painterResource(id = R.drawable.image_home), contentDescription = "Logo"
+                , modifier = Modifier
+                        .size(width = 320.dp, height = 290.dp)
+                )
+                //introduceApp
+                Box(
+                    contentAlignment = Alignment.Center,
                     modifier = Modifier
-                        .offset(y = 20.dp)
-                        .size(200.dp)
-                        .clickable {
-                            if (user == null) {
-                                showDialog = true
-                            } else {
-                                if (navController.graph.findNode("Personalization") != null) {
-                                    navController.navigate("Personalization")
+                        .align(Alignment.TopStart)
+                ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.introduction_image),
+                        contentDescription = null
+                        ,modifier = Modifier
+                            .size(width = 130.dp,height = 130.dp)
+                            .clickable {
+                                if (navController.graph.findNode("IntroductionGuide") != null) {
+                                    navController.navigate("IntroductionGuide")
                                 }
                             }
-                        }
-                )
+                    )
+                    Text(text = "Giới Thiệu", fontWeight = FontWeight.Black
+                        ,textAlign = TextAlign.Center
+                        ,color = Color.White
+                        , fontSize = 15.sp
+                    )
+                }
+                //FirstAidGuide
+                Box(
+                    modifier = Modifier
+                        .align(Alignment.TopEnd)
+                        .size(width = 130.dp, height = 130.dp)
 
+                ) {
+
+                        Image(
+                            painter = painterResource(id = R.drawable.firs_aid_guide),
+                            contentDescription = null, modifier = Modifier
+                                .size(width = 130.dp, height = 130.dp)
+                                .clickable {
+//                                    if (navController.graph.findNode(Screen.FirstAidGuideScreen.route) != null) {
+//                                navController.navigate(Screen.FirstAidGuideScreen.route)
+//                            }
+                                        navController.navigate(Screen.FirstAidGuideScreen.route)
+
+                                }
+                        )
+                        Text(
+                            text = "Mở sổ tay\nsơ cứu ",
+                            fontWeight = FontWeight.Black,
+                            textAlign = TextAlign.Center,
+                            color = Color.White,
+                            fontSize = 15.sp,
+                            modifier = Modifier
+                                .padding(end=20.dp)
+                                .align(Alignment.Center)
+                        )
+
+                }
+                //LearnFirstAid
+                Box(
+                    modifier = Modifier
+                        .align(Alignment.BottomEnd)
+                        .size(width = 130.dp, height = 130.dp)
+
+                ) {
+
+                    Image(
+                        painter = painterResource(id = R.drawable.learnfirstaid),
+                        contentDescription = null, modifier = Modifier
+                            .size(width = 130.dp, height = 130.dp)
+                            .clickable{
+                                if (navController.graph.findNode("LearnFirstAid") != null) {
+                                    navController.navigate("LearnFirstAid")
+                                }
+                            }
+                    )
+                    Text(
+                        text = "Học sơ cứu\nnào",
+                        fontWeight = FontWeight.Black,
+                        textAlign = TextAlign.Center,
+                        color = Color.White,
+                        fontSize = 15.sp,
+                        modifier = Modifier
+                            .padding(end=20.dp)
+                            .align(Alignment.Center)
+                    )
+
+                }
+
+                //Personalization
+                Box(
+                    contentAlignment = Alignment.Center,
+                    modifier = Modifier
+                        .align(Alignment.BottomStart)
+                ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.personal),
+                        contentDescription = null
+                        ,modifier = Modifier
+                            .size(width = 130.dp,height = 130.dp)
+                            .clickable {
+                                if (user == null) {
+                                    showDialog = true
+                                } else {
+                                    if (navController.graph.findNode("Personalization") != null) {
+                                        navController.navigate("Personalization")
+                                    }
+                                }
+                            }
+                    )
+                    Text(text = "Cá nhân\n hóa", fontWeight = FontWeight.Black
+                        ,textAlign = TextAlign.Center
+                        ,color = Color.White
+                        , fontSize = 15.sp,
+                        modifier = Modifier
+                                .padding(top=5.dp)
+
+                    )
+                }
                 if (showDialog) {
                     AlertDialog(
                         onDismissRequest = { showDialog = false },
@@ -424,96 +590,6 @@ fun HomePage1(navController: NavController, googleAuthUiClient: GoogleAuthUiClie
                         }
                     )
                 }
-
-            }
-        }
-    }
-
-
-    Column(
-        modifier = Modifier
-            .fillMaxSize(),
-        verticalArrangement = Arrangement.Bottom
-    ) {
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .navigationBarsPadding()
-                .height(80.dp),
-            contentAlignment = Alignment.Center
-        ) {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 8.dp),
-                horizontalArrangement = Arrangement.SpaceEvenly,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                var showDialog by remember { mutableStateOf(false) }
-
-                Image(
-                    painter = painterResource(R.drawable.trangchu),
-                    contentDescription = "Home Page",
-                    contentScale = ContentScale.Fit,
-                    modifier = Modifier
-                        .size(140.dp)
-                        .clickable { showDialog = true }
-                )
-
-                if (showDialog) {
-                    AlertDialog(
-                        onDismissRequest = { showDialog = false },
-                        title = { Text("Xin chào!") },
-                        text = { Text("Bạn đang ở trang chủ.") },
-                        confirmButton = {
-                            TextButton(onClick = { showDialog = false }) {
-                                Text("Đóng")
-                            }
-                        }
-                    )
-                }
-
-                Spacer(modifier = Modifier.width(10.dp))
-                Image(
-                    painter = painterResource(R.drawable.a),
-                    contentDescription = "Contact",
-                    contentScale = ContentScale.Fit,
-                    modifier = Modifier
-                        .size(50.dp)
-                        .clickable {
-                            if (navController.graph.findNode("ContactScreen") != null) {
-                                navController.navigate("ContactScreen")
-                            }
-                        }
-                )
-
-                Spacer(modifier = Modifier.width(10.dp))
-                Image(
-                    painter = painterResource(R.drawable.hospital),
-                    contentDescription = "Maps",
-                    contentScale = ContentScale.Fit,
-                    modifier = Modifier
-                        .size(40.dp)
-                        .clickable {
-                            if (navController.graph.findNode("Maps") != null) {
-                                navController.navigate("Maps")
-                            }
-                        }
-                )
-
-                Spacer(modifier = Modifier.width(10.dp))
-                Image(
-                    painter = painterResource(R.drawable.c),
-                    contentDescription = "Profile",
-                    contentScale = ContentScale.Fit,
-                    modifier = Modifier
-                        .size(40.dp)
-                        .clickable {
-                            if (navController.graph.findNode("ProfileScreen") != null) {
-                                navController.navigate("ProfileScreen")
-                            }
-                        }
-                )
             }
         }
     }
