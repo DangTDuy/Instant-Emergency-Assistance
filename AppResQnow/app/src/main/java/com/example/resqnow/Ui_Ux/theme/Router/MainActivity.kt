@@ -21,7 +21,7 @@ import com.example.resqnow.Ui_Ux.theme.Login.*
 import com.example.resqnow.Ui_Ux.theme.Profile.*
 import com.example.resqnow.Ui_Ux.theme.Homepage.HomePage1
 import com.example.resqnow.Ui_Ux.theme.IntroductionGuide.IntroductionGuide
-import com.example.resqnow.Ui_Ux.theme.learnfirstaid.LearnFirstAid
+
 import com.example.resqnow.Ui_Ux.theme.personalization.Personalization
 import com.example.resqnow.Ui_Ux.theme.SignIn.*
 
@@ -47,6 +47,7 @@ import com.example.resqnow.Ui_Ux.theme.Maps.Maps
 
 import com.example.resqnow.Ui_Ux.theme.contact.CardScreen
 import com.example.resqnow.Ui_Ux.theme.contact.ContactScreen
+import com.example.resqnow.Ui_Ux.theme.learnfirstaid.FilterInstructor
 import com.example.resqnow.Ui_Ux.theme.personalization.Child.ChildPathologyScreen
 import com.example.resqnow.Ui_Ux.theme.personalization.Child.ChildPreventivemeasures
 import com.example.resqnow.Ui_Ux.theme.personalization.Child.ChildScreen
@@ -98,6 +99,9 @@ sealed class Screen(val route: String) {
     object burn : Screen("burn")
     object poisoning : Screen("poisoning")
     object nonVenomus_Snake : Screen("nonVenomus_Snake")
+    //LearnFirstAid
+    object LearnFirstAidScreen : Screen("LearnFirstAidScreen")
+
 
 }
 class MainActivity : ComponentActivity() {
@@ -257,12 +261,16 @@ class MainActivity : ComponentActivity() {
                     CardScreen(navController = navController, viewModel = contactViewModel, contactId = it)
                 }
             }
+            //LearnFirstAid
+            composable(Screen.LearnFirstAidScreen.route) {
+                FilterInstructor(navController,context)
+            }
 
 
 
             // Các màn hình khác
             composable("IntroductionGuide") { IntroductionGuide(navController) }
-            composable("LearnFirstAid") { LearnFirstAid(navController) }
+
             composable("Personalization") {
                 Personalization(navController)
             }

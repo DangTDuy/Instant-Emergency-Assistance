@@ -76,25 +76,7 @@ fun IntroductionGuide(navController: NavController) {
                 colors = listOf(Color(0xFFFA382D), Color(0xFF94211A))
             )
 
-            Box(
-                modifier = Modifier
-                    .offset(x = 10.dp, y = -5.dp)
-                    .background(brush = gradientBrush, shape = RoundedCornerShape(50.dp))
-            ) {
-                Button(
-                    onClick = { navController.navigate("SignupScreen") },
-                    colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
-                    modifier = Modifier
-                        .size(width = 127.dp, height = 45.dp)
-                        .clip(RoundedCornerShape(15.dp))
-                ) {
-                    Text(
-                        text = "Đăng Nhập",
-                        fontSize = 14.sp,
-                        color = Color.White
-                    )
-                }
-            }
+            
         }
 
         Spacer(modifier = Modifier.height(20.dp))

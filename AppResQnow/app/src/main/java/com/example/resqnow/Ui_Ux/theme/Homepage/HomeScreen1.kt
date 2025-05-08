@@ -46,6 +46,11 @@ import kotlinx.coroutines.delay
 import java.util.Calendar
 import androidx.compose.animation.Crossfade
 import androidx.compose.animation.*
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
@@ -56,9 +61,12 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.modifier.modifierLocalConsumer
 import com.example.resqnow.Components.borderBackground
 import com.example.resqnow.Components.boxInScafold
+import kotlin.math.cos
+import kotlin.math.sin
 
 val gradientBrush = Brush.linearGradient(
     colors = listOf(Color(0xFFFA382D), Color(0xFF94211A))
@@ -110,14 +118,7 @@ fun HomePage1(navController: NavController, googleAuthUiClient: GoogleAuthUiClie
 
             Spacer(modifier = Modifier.width(40.dp))
 
-            Image(
-                painter = painterResource(R.drawable.chatbotaipng),
-                contentDescription = "chatBotAI",
-                modifier = Modifier
-                    .size(41.dp)
-                    .clickable {}
-                    .padding(start = 5.dp)
-            )
+            MovingChatbotImage()
 
             Spacer(modifier = Modifier.width(2.dp))
 
@@ -359,7 +360,6 @@ fun HomePage1(navController: NavController, googleAuthUiClient: GoogleAuthUiClie
         Scaffold(
             containerColor = Color.White,
             bottomBar = {
-                // BottomBar bạn đã cung cấp
                 Box(
                     contentAlignment = Alignment.Center,
                     modifier = Modifier
@@ -458,10 +458,7 @@ fun HomePage1(navController: NavController, googleAuthUiClient: GoogleAuthUiClie
                 ,contentAlignment = Alignment.Center
 
             ) {
-                Image(painter = painterResource(id = R.drawable.image_home), contentDescription = "Logo"
-                , modifier = Modifier
-                        .size(width = 320.dp, height = 290.dp)
-                )
+                MovingBackGroundHome()
                 //introduceApp
                 Box(
                     contentAlignment = Alignment.Center,
@@ -498,11 +495,7 @@ fun HomePage1(navController: NavController, googleAuthUiClient: GoogleAuthUiClie
                             contentDescription = null, modifier = Modifier
                                 .size(width = 130.dp, height = 130.dp)
                                 .clickable {
-//                                    if (navController.graph.findNode(Screen.FirstAidGuideScreen.route) != null) {
-//                                navController.navigate(Screen.FirstAidGuideScreen.route)
-//                            }
                                         navController.navigate(Screen.FirstAidGuideScreen.route)
-
                                 }
                         )
                         Text(
@@ -530,8 +523,8 @@ fun HomePage1(navController: NavController, googleAuthUiClient: GoogleAuthUiClie
                         contentDescription = null, modifier = Modifier
                             .size(width = 130.dp, height = 130.dp)
                             .clickable{
-                                if (navController.graph.findNode("LearnFirstAid") != null) {
-                                    navController.navigate("LearnFirstAid")
+                                if (navController.graph.findNode(Screen.LearnFirstAidScreen.route) != null) {
+                                    navController.navigate(Screen.LearnFirstAidScreen.route)
                                 }
                             }
                     )
@@ -594,3 +587,46 @@ fun HomePage1(navController: NavController, googleAuthUiClient: GoogleAuthUiClie
         }
     }
 }
+@Composable
+fun MovingChatbotImage() {
+    val infiniteTransition = rememberInfiniteTransition()
+    val offsetY by infiniteTransition.animateFloat(
+        initialValue = 0f,
+        targetValue = 8f, // Độ cao di chuyển lên xuống
+        animationSpec = infiniteRepeatable(
+            animation = tween(durationMillis = 1000, easing = LinearEasing),
+            repeatMode = RepeatMode.Reverse
+        )
+    )
+
+    Image(
+        painter = painterResource(R.drawable.chatbotaipng),
+        contentDescription = "chatBotAI",
+        modifier = Modifier
+            .offset(y = offsetY.dp) // <- Đây là hiệu ứng chính
+            .size(41.dp)
+            .clickable {}
+            .padding(start = 5.dp)
+    )
+}
+@Composable
+fun MovingBackGroundHome() {
+    //hệu ứng lỗi
+//    // Tạo hiệu ứng xoay mỗi lần 90 độ trong thời gian ngắn
+//    val rotationAngle by rememberInfiniteTransition().animateFloat(
+//        initialValue = 0f,
+//        targetValue = 90f, // Xoay 90 độ
+//        animationSpec = infiniteRepeatable(
+//            animation = tween(durationMillis = 200, easing = LinearEasing)
+//        )
+//    )
+
+    Image(
+        painter = painterResource(id = R.drawable.image_home),
+        contentDescription = "Logo",
+        modifier = Modifier
+            .size(width = 320.dp, height = 290.dp)
+
+    )
+}
+

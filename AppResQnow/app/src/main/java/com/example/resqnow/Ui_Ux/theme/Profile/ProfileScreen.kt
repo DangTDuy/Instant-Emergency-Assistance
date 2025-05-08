@@ -95,6 +95,8 @@
         var number_phone by remember { mutableStateOf("") }
         var sex by remember { mutableStateOf("") }
         var age by remember { mutableStateOf("") }
+        //Kiểm tra tuổi lỗi
+        var ageError by remember { mutableStateOf("") }
         //Google
         val context = LocalContext.current
         val scope = rememberCoroutineScope()
@@ -404,7 +406,21 @@
                                 "Nhập số điện thoại"
                             )
                             InputField("Giới tính", sex, { sex = it }, "Nam / Nữ")
-                            InputField("Tuổi", age, { age = it }, "Nhập tuổi")
+                            InputField(
+                                label = "Tuổi",
+                                value = age,
+                                onChange = {
+                                    age = it
+                                    // Kiểm tra nếu là số hợp lệ
+                                    val parsed = it.toIntOrNull()
+                                    ageError = when {
+                                        parsed == null -> "Vui lòng nhập số"
+                                        parsed < 0 -> "Tuổi không được âm"
+                                        else -> ""
+                                    }
+                                },
+                                hint = "Nhập tuổi của bạn"
+                            )
                         }
                     }
                 }
@@ -451,9 +467,28 @@
                             )
                         }
                     }
+
+
                     TextButton(
                         onClick = {
                             CoroutineScope(Dispatchers.IO).launch {
+                                val parsedAge = age.toIntOrNull()
+                                if (parsedAge == null) {
+                                    withContext(Dispatchers.Main) {
+                                        ageError = "Vui lòng nhập số"
+                                        Toast.makeText(context, "Vui lòng nhập đủ thông tin", Toast.LENGTH_SHORT).show()
+                                    }
+                                    return@launch
+                                }
+                                if (parsedAge < 0) {
+                                    withContext(Dispatchers.Main) {
+                                        ageError = "Tuổi không được âm"
+                                        Toast.makeText(context, "Tuổi của bạn không chính xác", Toast.LENGTH_SHORT).show()
+                                    }
+                                    return@launch
+                                }
+
+                                ageError = ""
                                 saveUserData(context, name, number_phone, sex, age)
                                 withContext(Dispatchers.Main) {
                                     Toast.makeText(context, "Lưu thành công", Toast.LENGTH_SHORT).show()
@@ -470,43 +505,6 @@
                     }
                 }
 
-
-    //            Row(
-    //                modifier = Modifier
-    //                    .fillMaxWidth(),
-    //                horizontalArrangement = Arrangement.SpaceEvenly,
-    //                verticalAlignment = Alignment.CenterVertically
-    //            ) {
-    //                Column() {
-    //                    Text(
-    //                        text = "Cá Nhân Hóa", fontSize = 18.sp, fontWeight = FontWeight.Black,
-    //                        modifier = Modifier
-    //                            .padding(start = 29.dp, top = 20.dp)
-    //                    )
-    //
-    //                }
-    ////                Spacer(modifier = Modifier.width(20.dp))
-    ////                Column(
-    ////
-    ////                ) {
-    ////                    Image(
-    ////                        painter = painterResource(id = R.drawable.icon_personal),
-    ////                        contentDescription = "Cá nhân hóa", modifier = Modifier
-    ////                            .padding(horizontal = 5.dp)
-    ////                            .size(44.dp)
-    ////                            .border(
-    ////                                width = 2.dp,
-    ////                                color = Color.Red,
-    ////                                shape = RoundedCornerShape(5.dp)
-    ////                            )
-    ////                            .align(Alignment.CenterHorizontally)
-    ////
-    ////                    )
-    ////                }
-    //
-    //
-    //            }
-    //        }
             }
         }
     }
