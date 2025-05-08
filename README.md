@@ -67,4 +67,4 @@ Kotlin – ngôn ngữ lập trình chính
 ##📩 Liên Hệ
 Nhóm phát triển: Huỳnh Nguyễn Đăng & Đặng Thanh Duy
 
-Email: huynhdang1875@gmail.com or DangThanhDuy@gmail.com
+Email: huynhdang1875@gmail.com or dangthanhduyofficial@gmail.com
