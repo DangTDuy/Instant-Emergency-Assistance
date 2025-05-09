@@ -1,7 +1,7 @@
 package com.example.resqnow.Ui_Ux.theme.Maps
 
-import androidx.lifecycle.ViewModel
 import android.content.Context
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
@@ -22,7 +22,9 @@ data class Hospital(
     val position: LatLng,
     val name: String,
     val placeId: String,
-    val vicinity: String = ""
+    val vicinity: String = "",
+    val phoneNumber: String? = null,
+    val specialties: String? = null
 )
 
 // Enum class cho trạng thái tải
@@ -58,6 +60,42 @@ class MapsViewModel(private val context: Context) : ViewModel() {
     private val _searchQuery = MutableStateFlow("")
     val searchQuery: StateFlow<String> = _searchQuery.asStateFlow()
 
+    // Danh sách bệnh viện cố định tại TP.HCM
+    private val fixedHospitals = listOf(
+        Hospital(
+            position = LatLng(10.7325, 106.7014),
+            name = "Bệnh viện FV",
+            placeId = "fv_hospital",
+            vicinity = "6 Nguyễn Lương Bằng, Quận 7, TP.HCM",
+            phoneNumber = "+842854113333",
+            specialties = "Ung bướu, Sản - Phụ khoa, Nhi khoa, Nhãn khoa"
+        ),
+        Hospital(
+            position = LatLng(10.7947, 106.7217),
+            name = "Bệnh viện Quốc tế Vinmec Central Park",
+            placeId = "vinmec_central_park",
+            vicinity = "208 Nguyễn Hữu Cảnh, Bình Thạnh, TP.HCM",
+            phoneNumber = "+842836221166",
+            specialties = "Tim mạch, Thần kinh, Ung bướu, Nội khoa"
+        ),
+        Hospital(
+            position = LatLng(10.7569, 106.6602),
+            name = "Bệnh viện Chợ Rẫy",
+            placeId = "cho_ray_hospital",
+            vicinity = "201B Nguyễn Chí Thanh, Quận 5, TP.HCM",
+            phoneNumber = "+842838554137",
+            specialties = "Phẫu thuật, Ung bướu, Tim mạch, Thần kinh"
+        ),
+        Hospital(
+            position = LatLng(10.7731, 106.6894),
+            name = "Bệnh viện Từ Dũ",
+            placeId = "tu_du_hospital",
+            vicinity = "284 Cống Quỳnh, Quận 1, TP.HCM",
+            phoneNumber = "+842838395111",
+            specialties = "Sản - Phụ khoa, Điều trị vô sinh"
+        )
+    )
+
     fun setSearchQuery(query: String) {
         _searchQuery.value = query
         filterHospitals(query)
@@ -83,12 +121,23 @@ class MapsViewModel(private val context: Context) : ViewModel() {
                     fetchNearbyHospitals(currentLatLng)
                 } else {
                     _loadingState.value = LoadingState.LOCATION_ERROR
-                    _errorMessage.value = "Không thể lấy vị trí của bạn. Vui lòng kiểm tra GPS đã bật."
+                    _errorMessage.value = "Không thể lấy vị trí của bạn. Hiển thị danh sách bệnh viện cố định."
+                    loadHospitalsFromFixedList()
                 }
             } catch (e: Exception) {
                 _loadingState.value = LoadingState.LOCATION_ERROR
-                _errorMessage.value = "Không thể truy cập vị trí: ${e.localizedMessage}"
+                _errorMessage.value = "Không thể truy cập vị trí: ${e.localizedMessage}. Hiển thị danh sách bệnh viện cố định."
+                loadHospitalsFromFixedList()
             }
+        }
+    }
+
+    internal fun loadHospitalsFromFixedList() {
+        _hospitals.value = fixedHospitals
+        _filteredHospitals.value = fixedHospitals
+        _loadingState.value = LoadingState.SUCCESS
+        if (fixedHospitals.isEmpty()) {
+            _showNoHospitalsDialog.value = true
         }
     }
 
@@ -98,13 +147,14 @@ class MapsViewModel(private val context: Context) : ViewModel() {
         } else {
             _filteredHospitals.value = _hospitals.value.filter {
                 it.name.contains(query, ignoreCase = true) ||
-                        it.vicinity.contains(query, ignoreCase = true)
+                        it.vicinity.contains(query, ignoreCase = true) ||
+                        it.specialties?.contains(query, ignoreCase = true) == true
             }
         }
     }
 
     private fun fetchNearbyHospitals(location: LatLng) {
-        val apiKey = "AIzaSyAsL_GBsnfBifXu9CKSVGMxPKHq8sbiJek"
+        val apiKey = "YOUR_API_KEY" // TODO: Thay bằng khóa API từ local.properties
         val url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json" +
                 "?location=${location.latitude},${location.longitude}" +
                 "&radius=3000" +
@@ -128,20 +178,23 @@ class MapsViewModel(private val context: Context) : ViewModel() {
                         val vicinity = if (place.has("vicinity")) place.getString("vicinity") else ""
                         hospitalsList.add(Hospital(LatLng(lat, lng), name, placeId, vicinity))
                     }
-                    _hospitals.value = hospitalsList
-                    _filteredHospitals.value = hospitalsList
+                    // Kết hợp danh sách từ API và danh sách cố định
+                    _hospitals.value = (hospitalsList + fixedHospitals).distinctBy { it.placeId }
+                    _filteredHospitals.value = _hospitals.value
                     _loadingState.value = LoadingState.SUCCESS
-                    if (hospitalsList.isEmpty()) {
+                    if (_hospitals.value.isEmpty()) {
                         _showNoHospitalsDialog.value = true
                     }
                 } catch (e: Exception) {
                     _loadingState.value = LoadingState.ERROR
-                    _errorMessage.value = "Không thể xử lý dữ liệu: ${e.localizedMessage}"
+                    _errorMessage.value = "Không thể xử lý dữ liệu: ${e.localizedMessage}. Hiển thị danh sách bệnh viện cố định."
+                    loadHospitalsFromFixedList()
                 }
             },
             Response.ErrorListener { error ->
                 _loadingState.value = LoadingState.ERROR
-                _errorMessage.value = "Lỗi kết nối: ${error.message ?: "Không thể kết nối đến máy chủ"}"
+                _errorMessage.value = "Lỗi kết nối: ${error.message ?: "Không thể kết nối đến máy chủ"}. Hiển thị danh sách bệnh viện cố định."
+                loadHospitalsFromFixedList()
             }
         ) {
             override fun getHeaders(): MutableMap<String, String> {
@@ -157,7 +210,7 @@ class MapsViewModel(private val context: Context) : ViewModel() {
     fun searchHospitalsByQuery(query: String) {
         val currentLocation = _currentLocation.value
         _searchingPlaces.value = true
-        val apiKey = "AIzaSyAsL_GBsnfBifXu9CKSVGMxPKHq8sbiJek"
+        val apiKey = "YOUR_API_KEY" // TODO: Thay bằng khóa API từ local.properties
         val locationParam = if (currentLocation != null)
             "&location=${currentLocation.latitude},${currentLocation.longitude}&radius=10000"
         else
@@ -189,19 +242,29 @@ class MapsViewModel(private val context: Context) : ViewModel() {
                         else ""
                         hospitalsList.add(Hospital(LatLng(lat, lng), name, placeId, vicinity))
                     }
-                    _filteredHospitals.value = hospitalsList
+                    _filteredHospitals.value = (hospitalsList + fixedHospitals).distinctBy { it.placeId }
                     _searchingPlaces.value = false
-                    if (hospitalsList.isEmpty()) {
+                    if (_filteredHospitals.value.isEmpty()) {
                         _showNoHospitalsDialog.value = true
                     }
                 } catch (e: Exception) {
                     _searchingPlaces.value = false
                     _errorMessage.value = "Không thể xử lý dữ liệu tìm kiếm: ${e.localizedMessage}"
+                    _filteredHospitals.value = fixedHospitals.filter {
+                        it.name.contains(query, ignoreCase = true) ||
+                                it.vicinity.contains(query, ignoreCase = true) ||
+                                it.specialties?.contains(query, ignoreCase = true) == true
+                    }
                 }
             },
             Response.ErrorListener { error ->
                 _searchingPlaces.value = false
                 _errorMessage.value = "Lỗi kết nối tìm kiếm: ${error.message ?: "Không thể kết nối đến máy chủ"}"
+                _filteredHospitals.value = fixedHospitals.filter {
+                    it.name.contains(query, ignoreCase = true) ||
+                            it.vicinity.contains(query, ignoreCase = true) ||
+                            it.specialties?.contains(query, ignoreCase = true) == true
+                }
             }
         ) {
             override fun getHeaders(): MutableMap<String, String> {

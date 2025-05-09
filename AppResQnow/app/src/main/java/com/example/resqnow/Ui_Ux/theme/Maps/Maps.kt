@@ -72,6 +72,8 @@ fun Maps(navController: NavHostController) {
             throw IllegalArgumentException("Unknown ViewModel class")
         }
     })
+    // Thêm trạng thái để kiểm soát dialog thông báo Google Maps
+    var showMapsDialog by remember { mutableStateOf(true) }
 
     LaunchedEffect(Unit) {
         if (!locationPermissionState.status.isGranted && !permissionRequested) {
@@ -79,6 +81,8 @@ fun Maps(navController: NavHostController) {
             permissionRequested = true
         } else if (locationPermissionState.status.isGranted) {
             viewModel.fetchLocationAndHospitals()
+        } else {
+            viewModel.loadHospitalsFromFixedList() // Tải danh sách cố định nếu không có quyền
         }
     }
 
@@ -92,7 +96,7 @@ fun Maps(navController: NavHostController) {
                 verticalArrangement = Arrangement.Center
             ) {
                 Text(
-                    text = "Ứng dụng cần quyền truy cập vị trí để hiển thị bệnh viện gần bạn",
+                    text = "Ứng dụng cần quyền truy cập vị trí để hiển thị bệnh viện gần bạn. Hiện đang hiển thị danh sách bệnh viện cố định.",
                     modifier = Modifier.padding(16.dp),
                     textAlign = TextAlign.Center,
                     fontWeight = FontWeight.Medium
@@ -105,6 +109,20 @@ fun Maps(navController: NavHostController) {
                     Text("Cấp quyền vị trí")
                 }
             }
+        }
+
+        // Thêm AlertDialog để thông báo về ứng dụng Google Maps
+        if (showMapsDialog) {
+            AlertDialog(
+                onDismissRequest = { showMapsDialog = false },
+                title = { Text("Thông báo") },
+                text = { Text("Bạn cần tải ứng dụng Maps để sử dụng trọn vẹn tính năng!") },
+                confirmButton = {
+                    TextButton(onClick = { showMapsDialog = false }) {
+                        Text("Đóng")
+                    }
+                }
+            )
         }
     }
 }
@@ -130,6 +148,9 @@ fun MapsContent(navController: NavHostController, viewModel: MapsViewModel) {
     LaunchedEffect(currentLocation) {
         currentLocation?.let {
             cameraPositionState.position = CameraPosition.fromLatLngZoom(it, 14f)
+        } ?: run {
+            // Nếu không có vị trí, đặt camera mặc định tại trung tâm TP.HCM
+            cameraPositionState.position = CameraPosition.fromLatLngZoom(LatLng(10.7769, 106.7009), 12f)
         }
     }
 
@@ -346,7 +367,7 @@ fun MapsContent(navController: NavHostController, viewModel: MapsViewModel) {
                             showDialog = true
                         }
                 )
-                
+
                 if (showDialog) {
                     AlertDialog(
                         onDismissRequest = { showDialog = false },
@@ -387,6 +408,10 @@ fun MapsContent(navController: NavHostController, viewModel: MapsViewModel) {
                         Text("Địa chỉ: ${hospital.vicinity}")
                         Spacer(modifier = Modifier.height(8.dp))
                     }
+                    hospital.phoneNumber?.let { Text("Số điện thoại: $it") }
+                    Spacer(modifier = Modifier.height(8.dp))
+                    hospital.specialties?.let { Text("Chuyên khoa: $it") }
+                    Spacer(modifier = Modifier.height(8.dp))
                     Text("Bạn muốn tìm đường đến bệnh viện này?")
                 }
             },
