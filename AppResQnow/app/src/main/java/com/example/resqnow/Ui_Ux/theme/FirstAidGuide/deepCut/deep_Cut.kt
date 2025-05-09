@@ -1,4 +1,4 @@
-package com.example.resqnow.Ui_Ux.theme.FirstAidGuide.thermal_burn
+package com.example.resqnow.Ui_Ux.theme.FirstAidGuide.deepCut
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
@@ -47,35 +47,40 @@ import com.example.resqnow.Ui_Ux.theme.contact.makePhoneCall
 
 
 @Composable
-fun burn(navController: NavController) {
+fun deepCut(navController: NavController) {
     val context = LocalContext.current
     var step by remember { mutableStateOf(1) }
 
 
     val videoRes = when (step) {
-        1 -> R.drawable.lie
-        2 -> R.raw.venomous_snake1
-        3 -> R.raw.venomous_snake2
-        4 -> R.raw.venomous_snake3
-        else -> R.raw.venomous_snake1
+        1 -> R.raw.deepcut_1mp4
+        2 -> R.raw.deepcut_2
+        3 -> R.raw.deepcut_3
+        4 -> R.drawable.socsign
+        5 -> R.drawable.socsign
+        else -> R.drawable.time
     }
 
     val stepTitle = "Bước $step"
     val stepText = when (step) {
-        1 -> ".Không chọc thủng các vết rộp\n" +
-                ".Không dùng các loại dầu,kem bôi\n" +
-                ".Không dùng nước mắm,kem đánh răng\n" +
-                ".Không phủ lên vết bỏng cho đến khi làn da trở lại nhiệt độ bình thường "
+        1 -> "Dùng tay bóp chặt lên vết thương để tạo áp lực trực tiếp ngăn chảy máu"
 
-        2 -> "Làm mát vùng da bỏng từ 15-20 phút dưới vòi nước mát hoặc dùng khăn cuộn đá lạnh và để cách vết bỏng vài cm\n" +
+        2 -> "Dùng gạc thấm nước hoặc gạc không dính hoặc vải sạch để che vết thương"
 
-                "Lưu ý : không để đá lạnh trực tiếp lên vết bỏng "
+        3 -> "Sau đó dùng băng thun quấn chặt vết" +
+                " thương để tạo áp lực cầm máu,nếu máu đỏ " +
+                "tươi qua lớp khăn dùng thêm băng gạt quấn" +
+                "    chồng lên phía trên"
 
-        3 ->"Che chắn vết bỏn bằng nilon để hạn chế bụi,côn " +
-                "trùng bám vào vết bỏng gây nhiễm trùng.Tuyệt đối" +
-                " không dùng chất liệu vải để che vết bỏng "
+        4 -> "Dấu hiệu sốc : \n" +
+                ".Làn da xanh xao ,nhờn lạnh\n" +
+                ".Thở nhanh , hơi thở cạn \n" +
+                ".Mạch đập nhanh , yếu \n" +
+                ".Quỵ dần và bất tỉnh"
 
-        4->"Nếu nạn nhân quá đau đớn , có thể dùng đá chườm nhẹ lên bên ngoài để giảm đau \n"
+        5 -> "Gọi xe cứu thương\n" +
+                "Nếu nạn nhân còn tỉnh táo đặt nằm ngửa hai chân nâng cao\n" +
+                "Nếu bất tỉnh đặt nằm nghiêng một bên cho hai chân nâng cao"
 
         else -> ""
     }
@@ -95,7 +100,7 @@ fun burn(navController: NavController) {
                     .padding(horizontal = 4.dp)
             ) {
                 Text(
-                    text = "Gãy tay (không hở)",
+                    text = "Vết cắt sâu ở chi",
                     fontSize = 25.sp,
                     fontWeight = FontWeight.ExtraBold,
                     modifier = Modifier
@@ -127,32 +132,32 @@ fun burn(navController: NavController) {
                 colors = CardDefaults.cardColors(containerColor = Color.White)
             ) {
                 Column(modifier = Modifier.padding(16.dp)) {
-                    if (step == 1) {
-                        Image(
-                            painter = painterResource(id = R.drawable.lie), // hình ảnh riêng cho bước 1
-                            contentDescription = "Ảnh minh họa bước 1",
-                            modifier = Modifier
-                                .padding(horizontal = 20.dp)
-                                .fillMaxWidth()
-                                .height(265.dp)
-                                .clip(RoundedCornerShape(10.dp))
-                        )
-                    } else {
-                        VideoPlayerFromRaw(
-                            context = context,
-                            rawResId = videoRes,
-                            modifier = Modifier
-                                .padding(horizontal = 20.dp)
-                                .fillMaxWidth()
-                                .height(255.dp)
-                                .clip(RoundedCornerShape(10.dp))
-                        )
-                    }
-                    Spacer(modifier = Modifier.height(5.dp))
+if(step == 4 || step == 5){
+    Image(
+        painter = painterResource(videoRes), // hình ảnh riêng cho bước 1
+        contentDescription = "Ảnh minh họa bước 1",
+        modifier = Modifier
+            .padding(horizontal = 20.dp)
+            .fillMaxWidth()
+            .height(265.dp)
+            .clip(RoundedCornerShape(10.dp))
+    )
+}else {
+    VideoPlayerFromRaw(
+        context = context,
+        rawResId = videoRes,
+        modifier = Modifier
+            .padding(horizontal = 20.dp)
+            .fillMaxWidth()
+            .height(265.dp)
+            .clip(RoundedCornerShape(10.dp))
+    )
+}
+                    Spacer(modifier = Modifier.height(10.dp))
                     Box(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(5.dp),
+                            .padding(8.dp),
                         contentAlignment = Alignment.Center
                     ) {
                         Text(
@@ -162,11 +167,11 @@ fun burn(navController: NavController) {
                             fontWeight = FontWeight.Bold
                         )
                     }
-                    Spacer(modifier = Modifier.height(2.dp))
+                    Spacer(modifier = Modifier.height(5.dp))
                     Box(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(5.dp),
+                            .padding(8.dp),
                         contentAlignment = Alignment.Center
                     ) {
                         Text(
@@ -176,7 +181,7 @@ fun burn(navController: NavController) {
 
                         )
                     }
-                    Spacer(modifier = Modifier.height(1.dp))
+                    Spacer(modifier = Modifier.height(10.dp))
 //Vị trí của 1 trường hợp sơ cứu
                     Row(
                         modifier = Modifier.fillMaxWidth(),
@@ -230,6 +235,19 @@ fun burn(navController: NavController) {
                                 )
 
                         ) {}
+                        Spacer(modifier = Modifier.width(8.dp))
+
+                        Box(
+
+                            modifier = Modifier
+                                .size(width = 38.dp, height = 8.dp)
+                                .background(
+                                    color = if (step == 5) Color(0xFF007AFF) else Color.Gray,
+
+                                    shape = RoundedCornerShape(56.dp)
+                                )
+
+                        ) {}
                     }
 
 
@@ -243,7 +261,8 @@ fun burn(navController: NavController) {
                     .fillMaxWidth()
                     .padding(horizontal = 10.dp),
             ) {
-                Button(onClick = {makePhoneCall(context,"115")},
+                Button(
+                    onClick = { makePhoneCall(context, "115") },
                     colors = ButtonDefaults.buttonColors(Color.Red),
                     shape = RoundedCornerShape(5.dp),
                     modifier = Modifier
@@ -266,7 +285,7 @@ fun burn(navController: NavController) {
                 }
                 Spacer(modifier = Modifier.weight(1f))
                 AnimatedVisibility(
-                    visible = (step == 2 || step == 3 || step == 4),
+                    visible = (step == 2 || step == 3 || step == 4 || step == 5),
                     enter = fadeIn(),
                     exit = fadeOut(),
                     modifier = Modifier.align(Alignment.CenterVertically)
@@ -290,7 +309,7 @@ fun burn(navController: NavController) {
                     modifier = Modifier
                         .size(80.dp)
                         .clickable {
-                            if (step < 4) step++
+                            if (step < 5) step++
                         }
                 )
             }

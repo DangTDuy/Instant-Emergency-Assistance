@@ -1,6 +1,5 @@
-package com.example.resqnow.Ui_Ux.theme.FirstAidGuide.brokenArm
+package com.example.resqnow.Ui_Ux.theme.FirstAidGuide.Severed_finger
 
-import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -26,7 +25,6 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -42,7 +40,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-
 import com.example.resqnow.Components.VideoPlayerFromRaw
 import com.example.resqnow.R
 import com.example.resqnow.Ui_Ux.theme.FirstAidGuide.ViewMenu.MenuFirstAidGuide.bottomBar
@@ -50,26 +47,29 @@ import com.example.resqnow.Ui_Ux.theme.contact.makePhoneCall
 
 
 @Composable
-fun brokenArm1(navController: NavController){
+fun severed_finger(navController: NavController){
     val context = LocalContext.current
     var step by remember { mutableStateOf(1) }
 
 
     val videoRes = when(step) {
-        1 -> R.raw.broken_arm
-        2 -> R.raw.broken_arm2
-        else -> R.raw.broken_arm
+        1 -> R.raw.finger_cut1
+        2 -> R.raw.finger_cut2
+        3 -> R.raw.finger_cut3
+        else -> R.raw.finger_cut1
     }
 
     val stepTitle = "Bước $step"
     val stepText = when(step) {
-        1 -> "Dùng thanh gỗ , bìa cứng hoặc các-tông " +
-                "đặt cố định vết thương , có thể dùng vãi mềm" +
-                " hoặc che chắn phần tiếp giáp giữa hai đầu vật cố định " +
-                "cho êm"
-        2 -> "Dùng băng thun quấn cố định nẹp để cố" +
-                " định phần xương bị gãy,rạn nứt và nhanh" +
-                " chóng đưa nạn nhân vào bệnh viện"
+        1 -> "Dùng tay bóp chặt vào miệng vết thương để " +
+                "tạo áp lực cầm máu . Dùng gạt không dính" +
+                " hoặc gạt thấm nước hoặc vải sạch thấm" +
+                " nước che lên miệng vết thương"
+        2 -> "Dùng băng thun quấn chặt để cầm máu"
+        3 -> "Nhặt ngón tay hoặc phần đứt để vào túi ni-lông" +
+                " sạch ,bảo quản trong nước mát trên 0 độ C " +
+                "và nhanh chóng đưa nạn nhân và phần " +
+                "cơ thể bị đứt lìa vào bệnh viện"
         else -> ""
     }
     Scaffold (
@@ -87,7 +87,7 @@ fun brokenArm1(navController: NavController){
                 modifier = Modifier
                     .padding(horizontal = 4.dp)
             ){
-                Text(text = "Gãy tay (không hở)", fontSize = 25.sp, fontWeight = FontWeight.ExtraBold
+                Text(text = "Đứt lìa ngón", fontSize = 25.sp, fontWeight = FontWeight.ExtraBold
                     ,modifier = Modifier
                         .align(Alignment.CenterVertically)
                 )
@@ -96,7 +96,7 @@ fun brokenArm1(navController: NavController){
 
 
                 Image(painter = painterResource(id = R.drawable.exit), contentDescription = "Logo"
-                        ,modifier = Modifier
+                    ,modifier = Modifier
                         .size(35.dp)
                         .clickable {
                             navController.popBackStack()
@@ -116,15 +116,16 @@ fun brokenArm1(navController: NavController){
                 colors = CardDefaults.cardColors(containerColor = Color.White)
             ){
                 Column(modifier = Modifier.padding(16.dp)) {
-                    VideoPlayerFromRaw(
-                        context = context,
-                        rawResId = videoRes,
-                        modifier = Modifier
-                            .padding(horizontal = 20.dp)
-                            .fillMaxWidth()
-                            .height(265.dp)
-                            .clip(RoundedCornerShape(10.dp))
-                    )
+                        VideoPlayerFromRaw(
+                            context = context,
+                            rawResId = videoRes,
+                            modifier = Modifier
+                                .padding(horizontal = 20.dp)
+                                .fillMaxWidth()
+                                .height(265.dp)
+                                .clip(RoundedCornerShape(10.dp))
+                        )
+
                     Spacer(modifier = Modifier.height(10.dp))
                     Box(
                         modifier = Modifier
@@ -142,7 +143,7 @@ fun brokenArm1(navController: NavController){
                     Spacer(modifier = Modifier.height(5.dp))
 
                     Text(text = stepText
-                       , fontSize = 17.sp,
+                        , fontSize = 17.sp,
                         fontWeight = FontWeight.SemiBold,
                         textAlign = TextAlign.Center
 
@@ -159,7 +160,7 @@ fun brokenArm1(navController: NavController){
                             modifier = Modifier
                                 .size(width = 38.dp, height = 8.dp)
                                 .background(
-                                  color = if (step == 1) Color(0xFF007AFF) else Color.Gray,
+                                    color = if (step == 1) Color(0xFF007AFF) else Color.Gray,
 
                                     shape = RoundedCornerShape(56.dp)
                                 )
@@ -172,6 +173,18 @@ fun brokenArm1(navController: NavController){
                                 .size(width = 38.dp, height = 8.dp)
                                 .background(
                                     color = if (step == 2) Color(0xFF007AFF)  else Color.Gray
+
+                                    ,shape = RoundedCornerShape(56.dp)
+                                )
+
+                        ){}
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Box(
+
+                            modifier = Modifier
+                                .size(width = 38.dp, height = 8.dp)
+                                .background(
+                                    color = if (step == 3) Color(0xFF007AFF)  else Color.Gray
 
                                     ,shape = RoundedCornerShape(56.dp)
                                 )
@@ -199,7 +212,7 @@ fun brokenArm1(navController: NavController){
 
                         .size(width = 140.dp, height = 40.dp)
                 ){
-                   Image(painter = painterResource(id = R.drawable.baseline_local_phone_24), contentDescription = "Logo")
+                    Image(painter = painterResource(id = R.drawable.baseline_local_phone_24), contentDescription = "Logo")
 
                     Spacer(modifier = Modifier.weight(1f))
 
@@ -225,21 +238,17 @@ fun brokenArm1(navController: NavController){
 
                     )
                 }
-                    Image(painter = painterResource(R.drawable.next_step),contentDescription = "stepNext"
-                        ,modifier = Modifier
-                            .size(80.dp)
-                            .clickable{
-                                if (step < 2) step++
-                            }
-                    )
+                Image(painter = painterResource(R.drawable.next_step),contentDescription = "stepNext"
+                    ,modifier = Modifier
+                        .size(80.dp)
+                        .clickable{
+                            if (step < 3) step++
+                        }
+                )
             }
 
 
         }
     }
-    LaunchedEffect(step) {
-        Log.d("BrokenArm", "Step is now: $step")
-    }
+
 }
-
-

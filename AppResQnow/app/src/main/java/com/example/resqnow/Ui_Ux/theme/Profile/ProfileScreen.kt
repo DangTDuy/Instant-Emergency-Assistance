@@ -123,8 +123,9 @@
                         painter = painterResource(id = R.drawable.new_nav_bar),
                         contentDescription = "Logo",
                         modifier = Modifier
-                            .fillMaxSize()
                             .align(Alignment.BottomCenter)
+                            .fillMaxSize()
+
                     )
                     Row(
                         modifier = Modifier
