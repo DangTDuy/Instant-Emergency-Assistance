@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -35,6 +36,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.resqnow.Data.Api_and_Firebase.DataStore.readUserData
 import com.example.resqnow.R
+import com.example.resqnow.Ui_Ux.theme.Router.Screen
 
 @Composable
 fun YoungAdultScreen(navController: NavController) {
@@ -82,7 +84,7 @@ fun YoungAdultScreen(navController: NavController) {
             Image(painter = painterResource(id = R.drawable.canhanhoaicon), contentDescription = "Logo"
                 ,alignment = Alignment.Center
                 ,modifier = Modifier
-                    .padding(start = 57.dp)
+                    .padding(start = 50.dp)
                     .size(width = 93.dp, height = 80.dp)
             )
             Text(text = "Độ tuổi hiện tại của bạn ${ageState.value}",
@@ -152,71 +154,85 @@ fun YoungAdultScreen(navController: NavController) {
         verticalArrangement = Arrangement.Bottom
     ) {
         Box(
+            contentAlignment = Alignment.Center,
             modifier = Modifier
-                .fillMaxWidth()
                 .navigationBarsPadding()
-                .height(80.dp),
-            contentAlignment = Alignment.Center
+                .fillMaxWidth()
+                .height(105.dp)
         ) {
+            Image(
+                painter = painterResource(id = R.drawable.firstaid_navbar),
+                contentDescription = "Logo",
+                modifier = Modifier.fillMaxSize()
+            )
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(vertical = 8.dp),
+                    .padding(horizontal = 16.dp),
                 horizontalArrangement = Arrangement.SpaceEvenly,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                var showDialog by remember { mutableStateOf(false) }
-
-                Image(
-                    painter = painterResource(R.drawable.trangchu),
-                    contentDescription = "Trang chủ",
-                    contentScale = ContentScale.Fit,
+                IconButton(
+                    onClick = { navController.navigate(Screen.HomePage1.route) },
                     modifier = Modifier
-                        .size(140.dp)
-                        .clickable (onClick = {navController.navigate("HomeScreen1")})
-                )
-
-                Spacer(modifier = Modifier.width(10.dp))
-                Image(
-                    painter = painterResource(R.drawable.a),
-                    contentDescription = "Contact",
-                    contentScale = ContentScale.Fit,
+                        .padding(bottom = 4.dp)
+                        .size(60.dp)
+                ) {
+                    Box(
+                        modifier = Modifier.fillMaxSize(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Image(
+                            painter = painterResource(id = R.drawable.home),
+                            contentDescription = "Logo",
+                            modifier = Modifier.size(41.dp, 39.dp)
+                                .clickable {navController.navigate(Screen.HomePage1.route) }
+                        )
+                    }
+                }
+                IconButton(
+                    onClick = { navController.navigate(Screen.ContactScreen.route) },
                     modifier = Modifier
-                        .size(50.dp)
-                        .clickable {
-                            if (navController.graph.findNode("ContactScreen") != null) {
-                                navController.navigate("ContactScreen")
-                            }
+                        .padding(top = 40.dp)
+                        .size(60.dp)
+                ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.a),
+                        contentDescription = "Logo",
+                        alignment = Alignment.Center,
+                        modifier = Modifier.size(37.dp, 32.dp)
+                    )
+                }
+                IconButton(
+                    onClick = {
+                        if (navController.graph.findNode("Maps") != null) {
+                            navController.navigate("Maps")
                         }
-                )
-
-                Spacer(modifier = Modifier.width(10.dp))
-                Image(
-                    painter = painterResource(R.drawable.hospital),
-                    contentDescription = "Maps",
-                    contentScale = ContentScale.Fit,
+                    },
                     modifier = Modifier
-                        .size(40.dp)
-                        .clickable {
-                            if (navController.graph.findNode("Maps") != null) {
-                                navController.navigate("Maps")
-                            }
-                        }
-                )
-
-                Spacer(modifier = Modifier.width(10.dp))
-                Image(
-                    painter = painterResource(R.drawable.c),
-                    contentDescription = "Profile",
-                    contentScale = ContentScale.Fit,
+                        .padding(top = 40.dp)
+                        .size(60.dp)
+                ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.hospital),
+                        contentDescription = "Logo",
+                        alignment = Alignment.Center,
+                        modifier = Modifier.size(35.dp)
+                    )
+                }
+                IconButton(
+                    onClick = { navController.navigate(Screen.ProfileScreen.route) },
                     modifier = Modifier
-                        .size(40.dp)
-                        .clickable {
-                            if (navController.graph.findNode("ProfileScreen") != null) {
-                                navController.navigate("ProfileScreen")
-                            }
-                        }
-                )
+                        .padding(top = 40.dp)
+                        .size(60.dp)
+                ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.c),
+                        contentDescription = "Logo",
+                        alignment = Alignment.Center,
+                        modifier = Modifier.size(35.dp)
+                    )
+                }
             }
         }
     }

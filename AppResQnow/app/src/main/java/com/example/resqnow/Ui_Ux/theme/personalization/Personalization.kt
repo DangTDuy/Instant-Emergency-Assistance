@@ -10,7 +10,6 @@ import androidx.navigation.NavController
 import com.example.resqnow.Data.Api_and_Firebase.DataStore.readUserData
 import kotlinx.coroutines.launch
 
-// màn hình chức năng cá nhân hóa
 @Composable
 fun Personalization(navController: NavController) {
     val context = LocalContext.current
