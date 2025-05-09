@@ -123,5 +123,30 @@ val fixedHospitals = listOf(
         vicinity = "1 Lý Thường Kiệt, Quận Tân Bình, TP.HCM",
         phoneNumber = "+842838645111",
         specialties = "Nội khoa, Lão khoa"
+    ),
+    Hospital(
+        position = LatLng(10.8621, 106.6663),
+        name = "Bệnh viện Quận 12",
+        placeId = "quan_12_hospital",
+        vicinity = "111 Dương Thị Mười, Tân Chánh Hiệp, Quận 12, TP.HCM",
+        phoneNumber = "+842837161387",
+        specialties = "Đa khoa, Cấp cứu, Nội, Ngoại, Sản"
+    ),
+    Hospital(
+        position = LatLng(10.8784, 106.6605),
+        name = "Bệnh viện Đa khoa Tâm Trí Sài Gòn",
+        placeId = "tam_tri_sai_gon_hospital",
+        vicinity = "171/3 Quốc Lộ 1A, Tân Thới Hiệp, Quận 12, TP.HCM",
+        phoneNumber = "+842837130268",
+        specialties = "Đa khoa, Nội tổng quát, Chẩn đoán hình ảnh, Xét nghiệm"
+    ),
+    Hospital(
+        position = LatLng(10.8751, 106.6554),
+        name = "Bệnh viện Gò Vấp cơ sở 2 (Trạm y tế Tân Thới Hiệp cũ)",
+        placeId = "go_vap_hospital_branch2",
+        vicinity = "Số 53, đường Nguyễn Thị Búp, Tân Chánh Hiệp, Quận 12, TP.HCM",
+        phoneNumber = "+842837161555",
+        specialties = "Khám chữa bệnh ban đầu, Y học gia đình"
     )
+
 )
