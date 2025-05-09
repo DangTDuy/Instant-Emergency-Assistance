@@ -34,12 +34,18 @@ import androidx.navigation.compose.*
 import com.example.resqnow.Repository.Repository
 import com.example.resqnow.Room.DB_Contact.ResqNowDatabase
 import com.example.resqnow.Ui_Ux.theme.FirstAidGuide.Food_poisoning.poisoning
-import com.example.resqnow.Ui_Ux.theme.FirstAidGuide.MenuFirstAidGuide.FirstAidGuideScreen
-import com.example.resqnow.Ui_Ux.theme.FirstAidGuide.MenuFirstAidGuide.LC_FirstAids
+import com.example.resqnow.Ui_Ux.theme.FirstAidGuide.Nosebleed.noseBleed
+import com.example.resqnow.Ui_Ux.theme.FirstAidGuide.ViewMenu.MenuFirstAidGuide.FirstAidGuideScreen
+import com.example.resqnow.Ui_Ux.theme.FirstAidGuide.ViewMenu.MenuFirstAidGuide.LC_FirstAids
+import com.example.resqnow.Ui_Ux.theme.FirstAidGuide.Severed_finger.severed_finger
 import com.example.resqnow.Ui_Ux.theme.FirstAidGuide.brokenArm.brokenArm1
+import com.example.resqnow.Ui_Ux.theme.FirstAidGuide.deepCut.deepCut
 import com.example.resqnow.Ui_Ux.theme.FirstAidGuide.nonVenomous_snake.nonVenomus_Snake
+import com.example.resqnow.Ui_Ux.theme.FirstAidGuide.open_fracture.open_fracture
+import com.example.resqnow.Ui_Ux.theme.FirstAidGuide.puncture_wound.puncture
 import com.example.resqnow.Ui_Ux.theme.FirstAidGuide.stroke.Stroke
 import com.example.resqnow.Ui_Ux.theme.FirstAidGuide.stroke.signsOfStroke
+import com.example.resqnow.Ui_Ux.theme.FirstAidGuide.tendon_muscle_bruise.bruise
 import com.example.resqnow.Ui_Ux.theme.FirstAidGuide.thermal_burn.burn
 import com.example.resqnow.Ui_Ux.theme.FirstAidGuide.venomous_snake.venomus_Snake
 import com.example.resqnow.Ui_Ux.theme.Maps.Maps
@@ -99,6 +105,12 @@ sealed class Screen(val route: String) {
     object burn : Screen("burn")
     object poisoning : Screen("poisoning")
     object nonVenomus_Snake : Screen("nonVenomus_Snake")
+    object bruise : Screen("bruise")
+    object open_fracture : Screen("open_fracture")
+    object deepCut : Screen("deepCut")
+    object puncture : Screen("punction_wound")
+    object severed_finger : Screen("severed_finger")
+    object noseBleed : Screen("noseBleed")
     //LearnFirstAid
     object LearnFirstAidScreen : Screen("LearnFirstAidScreen")
 
@@ -247,6 +259,19 @@ class MainActivity : ComponentActivity() {
             composable(Screen.nonVenomus_Snake.route) { nonVenomus_Snake(navController) }
             //bủn
             composable(Screen.burn.route) { burn(navController) }
+            //bruise
+            composable(Screen.bruise.route) { bruise(navController) }
+            //open_fracture
+            composable(Screen.open_fracture.route) { open_fracture(navController) }
+            //deep_cut
+            composable(Screen.deepCut.route) { deepCut(navController) }
+            //punction_wound
+            composable(Screen.puncture.route) { puncture(navController) }
+            //severed_finger
+            composable(Screen.severed_finger.route) { severed_finger(navController) }
+            //noseBleed
+            composable(Screen.noseBleed.route) { noseBleed(navController) }
+
 
 
             // ContactScreen

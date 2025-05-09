@@ -1,8 +1,5 @@
 package com.example.resqnow.Ui_Ux.theme.FirstAidGuide.Food_poisoning
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -16,7 +13,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -42,7 +38,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.resqnow.Components.VideoPlayerFromRaw
 import com.example.resqnow.R
-import com.example.resqnow.Ui_Ux.theme.FirstAidGuide.MenuFirstAidGuide.bottomBar
+import com.example.resqnow.Ui_Ux.theme.FirstAidGuide.ViewMenu.MenuFirstAidGuide.bottomBar
 import com.example.resqnow.Ui_Ux.theme.contact.makePhoneCall
 
 @Composable

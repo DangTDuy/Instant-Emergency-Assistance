@@ -1,7 +1,5 @@
-package com.example.resqnow.Ui_Ux.theme.FirstAidGuide.MenuFirstAidGuide
+package com.example.resqnow.Ui_Ux.theme.FirstAidGuide.ViewMenu.MenuFirstAidGuide
 
-import android.R.attr.onClick
-import android.R.attr.title
 import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -18,14 +16,12 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -38,9 +34,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.example.resqnow.Components.Snake_NonVenoument
 import com.example.resqnow.Components.Snake_venoument
 import com.example.resqnow.Components.background_firstaid
@@ -80,9 +74,12 @@ fun LC_FirstAids(viewModel: FirstAidGuideViewModel,searchText: String,navControl
                     "Rắn cắn (có độc)" -> Pair(Snake_venoument, R.drawable.snake_venoument)
                     "Rắn cắn (không độc)" -> Pair(Snake_NonVenoument, R.drawable.nonvenoument)
                     "Bỏng nhiệt" -> Pair(burn, R.drawable.burnpng)
-                    "Đuối nước" -> Pair(Color(0xFFF1D278), R.drawable.browning)
-                    "Gãy chân" -> Pair(Color(0xFFE2F5FF), R.drawable.brokenleg)
-                    "Chảy máu" -> Pair(Color(0xFFFCD8E1), R.drawable.bleeding)
+                    "Gân,Cơ,Bầm" -> Pair(Color(0xFFF1D278), R.drawable.gan_co_bam)
+                    "Gãy xương (hở)" -> Pair(Color(0xFFE2F5FF), R.drawable.brokenleg)
+                    "Vết cắt sâu ở chi" -> Pair(Color(0xFFFCD8E1), R.drawable.bleeding)
+                    "Vết đâm xuyên" -> Pair(Color(0xFFFCD8E1), R.drawable.vetdamxuyenpng)
+                    "Đứt lìa ngón" -> Pair(Color(0xFFFCD8E1), R.drawable.dutliangontaypng)
+                    "Chảy máu mũi" -> Pair(Color(0xFFFCD8E1), R.drawable.chaymaumuipng)
                     else -> Pair(Color(0xFFDCE4F5), R.drawable.swallow) // fallback
                 }
 
@@ -177,21 +174,49 @@ fun LC_FirstAids(viewModel: FirstAidGuideViewModel,searchText: String,navControl
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
                         GuideCard(
-                            title = "Đuối nước",
+                            title = "Gân,Cơ,Bầm",
                             color = Color(0xFFF1D278),
-                            imageRes = R.drawable.browning
+                            imageRes = R.drawable.gan_co_bam
                             ,navController =navController
                         )
                         GuideCard(
-                            title = "Gãy chân",
+                            title = "Gãy xương (hở)",
                             color = Color(0xFFE2F5FF),
                             imageRes = R.drawable.brokenleg
                             ,navController =navController
                         )
                         GuideCard(
-                            title = "Chảy máu",
+                            title = "Vết cắt sâu ở chi",
                             color = Color(0xFFFCD8E1),
                             imageRes = R.drawable.bleeding
+                            ,navController =navController
+                        )
+                    }
+                }
+                item {
+                    // Four row
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 30.dp),
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        GuideCard(
+                            title = "Vết đâm xuyên",
+                            color = Color(0xFFFCD8E1),
+                            imageRes = R.drawable.vetdamxuyenpng
+                            ,navController =navController
+                        )
+                        GuideCard(
+                            title = "Đứt lìa ngón",
+                            color = Color(0xFFFCD8E1),
+                            imageRes = R.drawable.dutliangontaypng
+                            ,navController =navController
+                        )
+                        GuideCard(
+                            title = "Chảy máu mũi",
+                            color = Color(0xFFFCD8E1),
+                            imageRes = R.drawable.chaymaumuipng
                             ,navController =navController
                         )
                     }
@@ -217,6 +242,12 @@ fun GuideCard(title: String, color: Color, imageRes: Int,navController : NavCont
                     "Rắn cắn (có độc)" -> navController.navigate(Screen.venomous_Snake.route)
                     "Rắn cắn (không độc)" -> navController.navigate(Screen.nonVenomus_Snake.route)
                     "Bỏng nhiệt" -> navController.navigate(Screen.burn.route)
+                    "Gân,Cơ,Bầm" -> navController.navigate(Screen.bruise.route)
+                    "Gãy xương (hở)" -> navController.navigate(Screen.open_fracture.route)
+                    "Vết cắt sâu ở chi" -> navController.navigate(Screen.deepCut.route)
+                    "Vết đâm xuyên" ->navController.navigate(Screen.puncture.route)
+                    "Đứt lìa ngón" -> navController.navigate(Screen.severed_finger.route)
+                    "Chảy máu mũi" -> navController.navigate(Screen.noseBleed.route)
 
                     else -> {
                         navController.navigate(Screen.poisoning.route)

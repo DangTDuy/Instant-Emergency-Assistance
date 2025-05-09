@@ -1,4 +1,4 @@
-package com.example.resqnow.Ui_Ux.theme.FirstAidGuide.MenuFirstAidGuide
+package com.example.resqnow.Ui_Ux.theme.FirstAidGuide.ViewMenu.MenuFirstAidGuide
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -25,6 +25,7 @@ import com.example.resqnow.Ui_Ux.theme.Router.Screen
 fun bottomBar(navController: NavController){
     Box(
         contentAlignment = Alignment.Center,
+
         modifier = Modifier
             .navigationBarsPadding()
             .fillMaxWidth()
@@ -33,6 +34,7 @@ fun bottomBar(navController: NavController){
         Image(painter = painterResource(id = R.drawable.firstaid_navbar), contentDescription = "Logo"
             , modifier = Modifier
                 .fillMaxSize()
+
         )
         Row (
             modifier = Modifier

@@ -23,20 +23,26 @@
                     FirstAidGuide(title = "Rắn cắn (có độc)"),
                     FirstAidGuide(title = "Rắn cắn (không độc)"),
                     FirstAidGuide(title = "Bỏng nhiệt"),
-                    FirstAidGuide(title = "Đuối nước"),
-                    FirstAidGuide(title = "Gãy chân"),
-                    FirstAidGuide(title = "Chảy máu"),
+                    FirstAidGuide(title = "Gân,Cơ,Bầm"),
+                    FirstAidGuide(title = "Gãy xương (hở)"),
+                    FirstAidGuide(title = "Vết cắt sâu ở chi"),
+                    FirstAidGuide(title = "Vết đâm xuyên"),
+                    FirstAidGuide(title = "Đứt lìa ngón"),
+                    FirstAidGuide(title = "Chảy máu mũi"),
+
+
         )
 
         // Lưu danh sách hướng dẫn trong _guides
         private val _guides = MutableStateFlow(staticGuides)
+        //Cập nhật laại danh sách
         val guides: StateFlow<List<FirstAidGuide>> = _guides
 
         // Hàm tìm kiếm theo query
         fun searchGuides(query: String) {
-            _guides.value = staticGuides.filter {
-                it.title.contains(query, ignoreCase = true)
-            }
+                _guides.value = staticGuides.filter {
+                    it.title.contains(query, ignoreCase = true)
+                }
         }
     }
 

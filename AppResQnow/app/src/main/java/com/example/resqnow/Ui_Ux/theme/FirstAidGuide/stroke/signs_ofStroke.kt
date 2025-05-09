@@ -36,8 +36,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.resqnow.R
-import com.example.resqnow.Ui_Ux.theme.FirstAidGuide.MenuFirstAidGuide.FirstAidGuideScreen
-import com.example.resqnow.Ui_Ux.theme.FirstAidGuide.MenuFirstAidGuide.bottomBar
+import com.example.resqnow.Ui_Ux.theme.FirstAidGuide.ViewMenu.MenuFirstAidGuide.bottomBar
 import com.example.resqnow.Ui_Ux.theme.Router.Screen
 
 @Composable
