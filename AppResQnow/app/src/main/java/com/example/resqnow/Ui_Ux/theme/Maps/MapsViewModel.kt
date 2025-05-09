@@ -60,42 +60,6 @@ class MapsViewModel(private val context: Context) : ViewModel() {
     private val _searchQuery = MutableStateFlow("")
     val searchQuery: StateFlow<String> = _searchQuery.asStateFlow()
 
-    // Danh sách bệnh viện cố định tại TP.HCM
-    private val fixedHospitals = listOf(
-        Hospital(
-            position = LatLng(10.7325, 106.7014),
-            name = "Bệnh viện FV",
-            placeId = "fv_hospital",
-            vicinity = "6 Nguyễn Lương Bằng, Quận 7, TP.HCM",
-            phoneNumber = "+842854113333",
-            specialties = "Ung bướu, Sản - Phụ khoa, Nhi khoa, Nhãn khoa"
-        ),
-        Hospital(
-            position = LatLng(10.7947, 106.7217),
-            name = "Bệnh viện Quốc tế Vinmec Central Park",
-            placeId = "vinmec_central_park",
-            vicinity = "208 Nguyễn Hữu Cảnh, Bình Thạnh, TP.HCM",
-            phoneNumber = "+842836221166",
-            specialties = "Tim mạch, Thần kinh, Ung bướu, Nội khoa"
-        ),
-        Hospital(
-            position = LatLng(10.7569, 106.6602),
-            name = "Bệnh viện Chợ Rẫy",
-            placeId = "cho_ray_hospital",
-            vicinity = "201B Nguyễn Chí Thanh, Quận 5, TP.HCM",
-            phoneNumber = "+842838554137",
-            specialties = "Phẫu thuật, Ung bướu, Tim mạch, Thần kinh"
-        ),
-        Hospital(
-            position = LatLng(10.7731, 106.6894),
-            name = "Bệnh viện Từ Dũ",
-            placeId = "tu_du_hospital",
-            vicinity = "284 Cống Quỳnh, Quận 1, TP.HCM",
-            phoneNumber = "+842838395111",
-            specialties = "Sản - Phụ khoa, Điều trị vô sinh"
-        )
-    )
-
     fun setSearchQuery(query: String) {
         _searchQuery.value = query
         filterHospitals(query)
@@ -155,6 +119,12 @@ class MapsViewModel(private val context: Context) : ViewModel() {
 
     private fun fetchNearbyHospitals(location: LatLng) {
         val apiKey = "YOUR_API_KEY" // TODO: Thay bằng khóa API từ local.properties
+        if (apiKey == "YOUR_API_KEY") {
+            _loadingState.value = LoadingState.ERROR
+            _errorMessage.value = "Khóa API Google Maps chưa được cấu hình. Hiển thị danh sách bệnh viện cố định."
+            loadHospitalsFromFixedList()
+            return
+        }
         val url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json" +
                 "?location=${location.latitude},${location.longitude}" +
                 "&radius=3000" +
@@ -211,6 +181,16 @@ class MapsViewModel(private val context: Context) : ViewModel() {
         val currentLocation = _currentLocation.value
         _searchingPlaces.value = true
         val apiKey = "YOUR_API_KEY" // TODO: Thay bằng khóa API từ local.properties
+        if (apiKey == "YOUR_API_KEY") {
+            _searchingPlaces.value = false
+            _errorMessage.value = "Khóa API Google Maps chưa được cấu hình. Tìm kiếm trong danh sách bệnh viện cố định."
+            _filteredHospitals.value = fixedHospitals.filter {
+                it.name.contains(query, ignoreCase = true) ||
+                        it.vicinity.contains(query, ignoreCase = true) ||
+                        it.specialties?.contains(query, ignoreCase = true) == true
+            }
+            return
+        }
         val locationParam = if (currentLocation != null)
             "&location=${currentLocation.latitude},${currentLocation.longitude}&radius=10000"
         else
@@ -249,7 +229,7 @@ class MapsViewModel(private val context: Context) : ViewModel() {
                     }
                 } catch (e: Exception) {
                     _searchingPlaces.value = false
-                    _errorMessage.value = "Không thể xử lý dữ liệu tìm kiếm: ${e.localizedMessage}"
+                    _errorMessage.value = "Không thể xử lý dữ liệu tìm kiếm: ${e.localizedMessage}. Tìm kiếm trong danh sách bệnh viện cố định."
                     _filteredHospitals.value = fixedHospitals.filter {
                         it.name.contains(query, ignoreCase = true) ||
                                 it.vicinity.contains(query, ignoreCase = true) ||
@@ -259,7 +239,7 @@ class MapsViewModel(private val context: Context) : ViewModel() {
             },
             Response.ErrorListener { error ->
                 _searchingPlaces.value = false
-                _errorMessage.value = "Lỗi kết nối tìm kiếm: ${error.message ?: "Không thể kết nối đến máy chủ"}"
+                _errorMessage.value = "Lỗi kết nối tìm kiếm: ${error.message ?: "Không thể kết nối đến máy chủ"}. Tìm kiếm trong danh sách bệnh viện cố định."
                 _filteredHospitals.value = fixedHospitals.filter {
                     it.name.contains(query, ignoreCase = true) ||
                             it.vicinity.contains(query, ignoreCase = true) ||
