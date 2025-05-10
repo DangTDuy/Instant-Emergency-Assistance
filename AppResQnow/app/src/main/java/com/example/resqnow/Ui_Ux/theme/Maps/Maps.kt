@@ -355,7 +355,7 @@ fun MapsContent(navController: NavHostController, viewModel: MapsViewModel) {
                     contentDescription = "Liên hệ",
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
-                        .offset(y = 10.dp)
+                        .offset(y = 18.dp)
                         .padding(end =25.dp, bottom = 30.dp)
                         .size(width = 39.dp, height = 35.dp)
 
@@ -365,7 +365,7 @@ fun MapsContent(navController: NavHostController, viewModel: MapsViewModel) {
                     contentDescription = "Bệnh viện",
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
-                        .offset(y = -15.dp, x = 8.dp)
+                        .offset(y = -15.dp, x = 7.dp)
                         .size(width = 35.dp, height = 35.dp)
                         .clickable{
                             navController.navigate("Maps")
