@@ -1,3 +1,6 @@
+import io.grpc.internal.SharedResourceHolder.release
+import org.gradle.kotlin.dsl.release
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -19,10 +22,18 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
-
+    signingConfigs {
+        create("release") {
+            storeFile = file("my-release-key.keystore") // Đảm bảo tên file đúng
+            storePassword = "dangvatran187"
+            keyAlias = "release_key_alias" // Đảm bảo Alias đúng
+            keyPassword = "dangvatran187"
+        }
+    }
     buildTypes {
-        release {
-            isMinifyEnabled = false
+        getByName("release") {
+            isMinifyEnabled = false // Bạn có thể để true nếu muốn sử dụng ProGuard
+            signingConfig = signingConfigs.getByName("release")
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
