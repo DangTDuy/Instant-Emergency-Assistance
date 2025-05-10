@@ -256,9 +256,9 @@ fun MapsContent(navController: NavHostController, viewModel: MapsViewModel) {
                                 keyboardActions = KeyboardActions(
                                     onSearch = {
                                         keyboardController?.hide()
-                                        if (searchQuery.isNotEmpty()) {
-                                            viewModel.searchHospitalsByQuery(searchQuery)
-                                        }
+                                        //if (searchQuery.isNotEmpty()) {
+                                          //  viewModel.searchHospitalsByQuery(searchQuery)
+                                        //}
                                     }
                                 )
                             )
