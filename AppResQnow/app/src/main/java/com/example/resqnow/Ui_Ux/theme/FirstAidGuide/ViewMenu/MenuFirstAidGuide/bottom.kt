@@ -74,7 +74,11 @@ fun bottomBar(navController: NavController){
                         .size(width = 37.dp, height = 32.dp)
                 )
             }
-            IconButton(onClick = {}
+            IconButton(onClick = {
+                if (navController.graph.findNode("Maps") != null) {
+                    navController.navigate("Maps")
+                }
+            }
                 ,modifier = Modifier
                     .padding(top = 40.dp)
                     .size(60.dp)

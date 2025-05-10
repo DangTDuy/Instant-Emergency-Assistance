@@ -86,8 +86,6 @@
         ,navController: NavController
 
     ) {
-
-
         //keyboard
         val keyboardController = LocalSoftwareKeyboardController.current
         //Textfield

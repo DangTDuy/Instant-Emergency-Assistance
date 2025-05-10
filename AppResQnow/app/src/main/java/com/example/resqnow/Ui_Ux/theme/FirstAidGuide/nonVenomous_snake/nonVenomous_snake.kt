@@ -55,7 +55,7 @@ fun nonVenomus_Snake(navController: NavController) {
     val videoRes = when (step) {
         1 -> R.drawable.clean
         2 -> R.drawable.bangbo
-        3 -> R.drawable.go_hospital
+        3 -> R.drawable.hospital
 
         else -> R.raw.venomous_snake1
     }

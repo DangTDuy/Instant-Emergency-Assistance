@@ -109,7 +109,7 @@ fun poisoning(navController: NavController) {
                 Column(modifier = Modifier.padding(16.dp)) {
                     if (step == 1) {
                         Image(
-                            painter = painterResource(id = R.drawable.go_hospital), // hình ảnh riêng cho bước 1
+                            painter = painterResource(id = R.drawable.hospital), // hình ảnh riêng cho bước 1
                             contentDescription = "Ảnh minh họa bước 1",
                             modifier = Modifier
                                 .padding(horizontal = 20.dp)
