@@ -365,6 +365,7 @@ fun ChildPathologyScreen(navController: NavController) {
                         contentDescription = "Logo",
                         alignment = Alignment.Center,
                         modifier = Modifier.size(37.dp, 32.dp)
+                            .clickable(onClick = { navController.navigate(Screen.ContactScreen.route) })
                     )
                 }
                 IconButton(

@@ -359,6 +359,7 @@ fun MapsContent(navController: NavHostController, viewModel: MapsViewModel) {
                         .padding(end =25.dp, bottom = 30.dp)
                         .size(width = 39.dp, height = 35.dp)
 
+
                 )
                 Image(
                     painter = painterResource(id = R.drawable.hospital),
@@ -378,9 +379,7 @@ fun MapsContent(navController: NavHostController, viewModel: MapsViewModel) {
                     modifier = Modifier
                         .offset(x = 5.dp)
                         .size(width = 35.dp, height = 35.dp)
-                        .clickable{
-                            navController.navigate(Screen.ProfileScreen.route)
-                        }
+                        .clickable{navController.navigate(Screen.ProfileScreen.route)}
                 )
             }
         }

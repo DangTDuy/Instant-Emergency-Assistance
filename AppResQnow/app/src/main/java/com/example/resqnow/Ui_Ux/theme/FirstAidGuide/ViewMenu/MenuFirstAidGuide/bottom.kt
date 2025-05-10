@@ -1,6 +1,7 @@
 package com.example.resqnow.Ui_Ux.theme.FirstAidGuide.ViewMenu.MenuFirstAidGuide
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -88,6 +89,7 @@ fun bottomBar(navController: NavController){
                     ,modifier = Modifier
                         .size(width = 35.dp, height = 35.dp)
                 )
+
             }
             IconButton(onClick = {Screen.ProfileScreen.route}
                 ,modifier = Modifier
@@ -98,6 +100,7 @@ fun bottomBar(navController: NavController){
                     ,alignment = Alignment.Center
                     ,modifier = Modifier
                         .size(width = 35.dp, height = 35.dp)
+                        .clickable{navController.navigate(Screen.ProfileScreen.route)}
                 )
             }
         }
