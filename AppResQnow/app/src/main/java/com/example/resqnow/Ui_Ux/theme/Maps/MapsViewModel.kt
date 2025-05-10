@@ -118,8 +118,8 @@ class MapsViewModel(private val context: Context) : ViewModel() {
     }
 
     private fun fetchNearbyHospitals(location: LatLng) {
-        val apiKey = "YOUR_API_KEY" // TODO: Thay bằng khóa API từ local.properties
-        if (apiKey == "YOUR_API_KEY") {
+        val apiKey = "AIzaSyAsL_GBsnfBifXu9CKSVGMxPKHq8sbiJek"
+        if (apiKey == "AIzaSyAsL_GBsnfBifXu9CKSVGMxPKHq8sbiJek") {
             _loadingState.value = LoadingState.ERROR
             _errorMessage.value = "Khóa API Google Maps chưa được cấu hình. Hiển thị danh sách bệnh viện cố định."
             loadHospitalsFromFixedList()
@@ -180,8 +180,8 @@ class MapsViewModel(private val context: Context) : ViewModel() {
     fun searchHospitalsByQuery(query: String) {
         val currentLocation = _currentLocation.value
         _searchingPlaces.value = true
-        val apiKey = "YOUR_API_KEY" // TODO: Thay bằng khóa API từ local.properties
-        if (apiKey == "YOUR_API_KEY") {
+        val apiKey = "AIzaSyAsL_GBsnfBifXu9CKSVGMxPKHq8sbiJek"
+        if (apiKey == "AIzaSyAsL_GBsnfBifXu9CKSVGMxPKHq8sbiJek") {
             _searchingPlaces.value = false
             _errorMessage.value = "Khóa API Google Maps chưa được cấu hình. Tìm kiếm trong danh sách bệnh viện cố định."
             _filteredHospitals.value = fixedHospitals.filter {
