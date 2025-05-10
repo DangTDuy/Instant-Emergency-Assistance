@@ -178,6 +178,8 @@ class MapsViewModel(private val context: Context) : ViewModel() {
     }
 
     fun searchHospitalsByQuery(query: String) {
+        // Comment phần tìm kiếm bằng API
+        /*
         val currentLocation = _currentLocation.value
         _searchingPlaces.value = true
         val apiKey = "AIzaSyAsL_GBsnfBifXu9CKSVGMxPKHq8sbiJek"
@@ -229,7 +231,7 @@ class MapsViewModel(private val context: Context) : ViewModel() {
                     }
                 } catch (e: Exception) {
                     _searchingPlaces.value = false
-                    _errorMessage.value = "Không thể xử lý dữ liệu tìm kiếm: ${e.localizedMessage}. Tìm kiếm trong danh sách bệnh viện cố định."
+                    _errorMessage.value = "Không thể xử lý dữ liệu: ${e.localizedMessage}. Tìm kiếm trong danh sách bệnh viện cố định."
                     _filteredHospitals.value = fixedHospitals.filter {
                         it.name.contains(query, ignoreCase = true) ||
                                 it.vicinity.contains(query, ignoreCase = true) ||
@@ -239,7 +241,7 @@ class MapsViewModel(private val context: Context) : ViewModel() {
             },
             Response.ErrorListener { error ->
                 _searchingPlaces.value = false
-                _errorMessage.value = "Lỗi kết nối tìm kiếm: ${error.message ?: "Không thể kết nối đến máy chủ"}. Tìm kiếm trong danh sách bệnh viện cố định."
+                _errorMessage.value = "Lỗi kết nối: ${error.message ?: "Không thể kết nối đến máy chủ"}. Tìm kiếm trong danh sách bệnh viện cố định."
                 _filteredHospitals.value = fixedHospitals.filter {
                     it.name.contains(query, ignoreCase = true) ||
                             it.vicinity.contains(query, ignoreCase = true) ||
@@ -255,5 +257,18 @@ class MapsViewModel(private val context: Context) : ViewModel() {
         }
         request.setShouldCache(false)
         queue.add(request)
+        */
+        
+        // Chỉ sử dụng tìm kiếm từ danh sách cố định
+        _searchingPlaces.value = true
+        _filteredHospitals.value = fixedHospitals.filter {
+            it.name.contains(query, ignoreCase = true) ||
+            it.vicinity.contains(query, ignoreCase = true) ||
+            it.specialties?.contains(query, ignoreCase = true) == true
+        }
+        _searchingPlaces.value = false
+        if (_filteredHospitals.value.isEmpty()) {
+            _showNoHospitalsDialog.value = true
+        }
     }
 }
