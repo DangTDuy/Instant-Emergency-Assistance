@@ -316,7 +316,6 @@ fun MapsContent(navController: NavHostController, viewModel: MapsViewModel) {
                 }
             }
         }
-        // Navigation Bar giữ nguyên
         Box(
             modifier = Modifier
                 .fillMaxWidth()
